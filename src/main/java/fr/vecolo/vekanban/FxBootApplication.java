@@ -1,5 +1,6 @@
 package fr.vecolo.vekanban;
 
+import fr.vecolo.vekanban.config.VekanbanApplication;
 import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

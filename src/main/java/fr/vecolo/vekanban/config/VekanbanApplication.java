@@ -1,12 +1,13 @@
-package fr.vecolo.vekanban;
+package fr.vecolo.vekanban.config;
 
+import fr.vecolo.vekanban.FxBootApplication;
+import fr.vecolo.vekanban.util.StageReadyEvent;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
@@ -44,12 +45,3 @@ public class VekanbanApplication extends Application {
     }
 }
 
-class StageReadyEvent extends ApplicationEvent {
-    public Stage getStage() {
-        return (Stage) getSource();
-    }
-
-    public StageReadyEvent(Stage source) {
-        super(source);
-    }
-}

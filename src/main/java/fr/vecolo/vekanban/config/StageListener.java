@@ -1,5 +1,6 @@
-package fr.vecolo.vekanban;
+package fr.vecolo.vekanban.config;
 
+import fr.vecolo.vekanban.util.StageReadyEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
