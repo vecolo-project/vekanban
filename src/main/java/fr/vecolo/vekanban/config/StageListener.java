@@ -19,6 +19,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
     private final String appTitle;
     private final Resource fxml;
     private final ApplicationContext applicationContext;
+    private Stage primaryStage;
 
     public StageListener(@Value("${spring.application.ui.title}") String appTitle,
                          @Value("classpath:/ui.fxml") Resource resource,
@@ -30,7 +31,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
 
     @Override
     public void onApplicationEvent(StageReadyEvent stageReadyEvent) {
-        Stage stage = stageReadyEvent.getStage();
+        primaryStage = stageReadyEvent.getStage();
 
         try {
             URL url = this.fxml.getURL();
@@ -38,11 +39,16 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             loader.setControllerFactory(applicationContext::getBean);
             Parent root = loader.load();
             Scene scene = new Scene(root, 1280, 720);
-            stage.setScene(scene);
-            stage.setTitle(appTitle);
-            stage.show();
+            primaryStage.setScene(scene);
+            primaryStage.setTitle(appTitle);
+            primaryStage.setResizable(false);
+            primaryStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void ifThisWorks() {
+        System.out.println("--------------OMG -------------");
     }
 }
