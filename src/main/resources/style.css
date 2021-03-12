@@ -1,0 +1,507 @@
+
+* {
+    -darkGray: #303841;
+    -gray: #3a4750;
+    -white: #eeeeee;
+    -blue: #00adb5;
+    -warning: #cb6710;
+    -danger: #A00E22;
+    -success: #36A024;
+}
+
+.root {
+    -fx-background-color: -gray;
+    -fx-fill-width: true;
+    -fx-color: -white;
+    -fx-fill-height: true;
+    -fx-font-family: 'Segoe UI';
+    /* remove the ugly focus shade */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+#flatbee-tiny {
+    -fx-font-size: 8.0;
+}
+
+#flatbee-small {
+    -fx-font-size: 10.0;
+}
+
+#flatbee-medium {
+    -fx-font-size: 12.0;
+}
+
+#flatbee-large {
+    -fx-font-size: 18.0;
+}
+
+#flatbee-xlarge {
+    -fx-font-size: 24.0;
+}
+
+#flatbee-xxlarge {
+    -fx-font-size: 32.0;
+    -fx-font-weight: bold;
+}
+
+#flatbee-xxxlarge {
+    -fx-font-size: 40.0;
+    -fx-font-weight: bold;
+}
+
+#flatbee-jumbo {
+    -fx-font-size: 48.0;
+    -fx-font-weight: bold;
+}
+
+#flatbee-card {
+    -fx-spacing: 12.0;
+    -fx-padding: 10;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-background-color: -gray;
+    -fx-border-color: -darkGray;
+    -fx-effect: dropshadow(two-pass-box, -darkGray, 10, 0, 0, 0);
+}
+
+#flatbee-container {
+    -fx-spacing: 12.0;
+    -fx-padding: 10;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+#flatbee-panel {
+    -fx-padding: 10;
+}
+
+/*
+ * **********
+ * LABELS
+ * **********
+*/
+.label {
+    -fx-text-fill: -white;
+}
+
+/*
+ * **********
+ * BUTTONS
+ * **********
+ * 
+ */
+.button {
+    -fx-text-fill: -white;
+    -fx-background-color: -darkGray, -darkGray, -darkGray, -darkGray;
+}
+
+.button:cancel {
+    -fx-background-color: -abort;
+}
+
+.button:focused {
+    /*-fx-color : -darkGray;*/
+    -fx-background-color: -darkGray;
+    -fx-focus-color: -darkGray;
+}
+
+.button:hover {
+    /*-fx-color: -darkGray;*/
+    -fx-background-color: -blue;
+}
+
+
+.toggle-button {
+    -fx-text-fill: -white;
+    -fx-background-color: -darkGray;
+}
+
+.toggle-button:selected {
+    -fx-background-color: -blue;
+}
+
+.menu-button {
+    -fx-background-color: -gray;
+}
+
+.split-menu-button {
+    -fx-background-color: -gray;
+}
+
+.split-menu-button > *.label {
+    -fx-background-color: -gray;
+}
+
+.split-menu-button > *.arrow-button {
+    -fx-background-color: -gray;
+}
+
+
+/*
+ * **********
+ * PROGRESSBAR
+ * **********
+ * 
+ */
+.progress-indicator {
+    -fx-indeterminate-segment-count: 12;
+    -fx-progress-color: -white;
+    -fx-spin-enabled: true;
+}
+
+.progress-bar > *.bar {
+    -fx-background-color: -success;
+}
+
+.progress-bar > *.track {
+    -fx-background-color: -darkGray;
+}
+
+.progress-bar:determinate > *.determinate-indicator > *.track {
+    -fx-background-color: -gray;
+}
+
+.progress-bar:determinate > *.determinate-indicator > *.indicator {
+    -fx-background-color: -gray;
+}
+
+/*
+* **********
+* DATE PICKER
+* **********
+*
+*/
+.date-picker {
+    -fx-background-color: -darkGray, -darkGray, -darkGray;
+}
+
+.date-picker > *.arrow-button {
+    -fx-background-color: -darkGray, -darkGray, -darkGray;
+}
+
+.date-picker > *.arrow-button > *.arrow {
+    -fx-background-color: -white;
+}
+
+.date-picker > *.date-picker-display-node {
+    -fx-background-color: -darkGray;
+    -fx-text-fill: -white;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: -darkGray;
+    -fx-text-fill: -white;
+}
+
+/*
+ * **********
+ * SLIDER
+ * **********
+ * 
+ */
+.slider > *.track {
+    -fx-background-color: -white;
+}
+
+.slider > *.axis:bottom {
+    -fx-tick-label-font-family: 'Segoe UI';
+    -fx-tick-label-fill: -white;
+}
+
+.slider > *.thumb {
+    -fx-background-color: -blue;
+}
+
+/*
+ * **********
+ * COMBOBOX
+ * **********
+ * 
+ */
+.combo-box {
+    -fx-background-color: -darkGray;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: -white;
+    -fx-background-color: -darkGray;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: -blue;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -darkGray;
+}
+
+
+.combo-box > *.arrow-button > .arrow {
+    -fx-background-color: -white;
+}
+
+
+/*
+ * **********
+ * TABPANE
+ * **********
+ * 
+ */
+.tab-pane > *.tab-header-area {
+    -fx-padding: 0, 0, 0, 0;
+}
+
+.tab-pane > *.tab-header-area > *.tab-header-background {
+    -fx-background-color: -gray;
+}
+
+.tab-pane > *.tab-header-area > *.headers-region > *.tab:selected:top {
+    -fx-padding: 6, 6, 6, 6;
+    -fx-text-fill: -white;
+    -fx-background-color: -blue;
+}
+
+.tab-pane > *.tab-header-area > *.headers-region > *.tab:selected > *.tab-container > *.tab-label {
+    -fx-font-size: 13.0;
+    -fx-font-weight: bold;
+    -fx-text-fill: -white;
+}
+
+.tab-pane > *.tab-header-area > *.headers-region > *.tab > *.tab-container > *.tab-label {
+    -fx-text-fill: -white;
+}
+
+.tab-pane > *.tab-header-area > *.headers-region > *.tab:top {
+    -fx-padding: 4, 4, 4, 4;
+    -fx-text-fill: -white;
+    -fx-background-color: -darkGray;
+}
+
+.tab-pane > *.tab-header-area > *.control-buttons-tab > *.container > *.tab-down-button {
+    -fx-background-color: -gray;
+}
+
+.tab-pane > *.tab-header-area > *.control-buttons-tab > *.container > *.tab-down-button > *.arrow {
+    -fx-background-color: -darkGray;
+}
+
+
+/*
+ * **********
+ * MENU
+ * **********
+ * 
+ */
+.menu-bar {
+    -fx-background-color: -darkGray;
+}
+
+.menu {
+    -fx-background-color: -darkGray;
+    -fx-text-fill: -white;
+}
+
+.menu:hover {
+    -fx-background-color: -blue;
+}
+
+
+/*
+ * **********
+ * Checkbox
+ * **********
+ * 
+ */
+
+.check-box {
+    -fx-text-fill: -white;
+    -fx-background-color: -darkGray;
+    -fx-padding: 5;
+}
+
+.check-box > *.box {
+    -fx-background-color: -darkGray;
+    -fx-border-color: -gray;
+
+}
+
+.check-box:selected > *.box > *.mark {
+    -fx-background-color: -white;
+}
+
+.check-box:indeterminate > *.box > *.mark {
+    -fx-background-color: -white;
+}
+
+
+/*
+* **********
+* RADIO BUTTONS
+* **********
+*
+*/
+.radio-button {
+    -fx-text-fill: -white;
+}
+
+.radio-button > *.radio {
+    -fx-background-color: -darkGray;
+}
+
+.radio-button:selected > *.radio > *.dot {
+    -fx-background-color: -white;
+}
+
+/*
+ * **********
+ * Text fields / inputs
+ * **********
+ * 
+ */
+.text-field {
+    -fx-highlight-fill: -darkGray;
+    -fx-highlight-text-fill: -white;
+    -fx-background-color: -gray;
+    -fx-text-fill: -white;
+}
+
+.text-area {
+    -fx-highlight-fill: -darkGray;
+    -fx-highlight-text-fill: -darkGray;
+    -fx-text-fill: -white;
+}
+
+.text-area .content {
+    -fx-padding: 10;
+    -fx-background-color: -darkGray;
+}
+
+.spinner .text-field {
+    -fx-background-color: -darkGray;
+    -fx-text-fill: -white;
+}
+
+.spinner > *.increment-arrow-button {
+    -fx-background-color: -darkGray;
+}
+
+.spinner > *.decrement-arrow-button {
+    -fx-background-color: -darkGray;
+}
+
+.spinner > *.increment-arrow-button > *.increment-arrow {
+    -fx-background-color: -white;
+}
+
+.spinner > *.decrement-arrow-button > *.decrement-arrow {
+    -fx-background-color: -white;
+}
+
+/*
+ * **********
+ * Titled Pane
+ * **********
+ * 
+ */
+
+/*.first-titled-pane:expanded  {*/
+/*    -fx-background-color: -darkGray;*/
+/*}*/
+/*TODO*/
+.titled-pane:expanded > *.title {
+    -fx-background-color: -blue;
+    -fx-text-fill: -white;
+}
+
+.titled-pane * > *.title {
+    -fx-text-fill: -white;
+}
+
+.titled-pane:collapsed > *.title {
+    -fx-background-color: -gray;
+}
+
+.titled-pane * > *.title > *.arrow-button > *.arrow {
+    -fx-background-color: -white;
+}
+
+/*
+ * **********
+ * Table
+ * **********
+ * 
+ */
+.table-view:row-selection {
+    -fx-background-color: -gray;
+}
+
+.table-view:row-selection > *.column-header-background {
+    -fx-background-color: -white;
+}
+
+.table-view > *.column-resize-line {
+    -fx-background-color: -black;
+}
+
+.table-view > *.column-header-background > *.nested-column-header > *.table-column {
+    -fx-background-color: -darkGray, -white;
+}
+
+.table-view > *.column-header-background > *.filler {
+    -fx-background-color: -darkGray, -gray;
+}
+
+.table-view > *.column-header-background > *.show-hide-columns-button {
+    -fx-background-color: -gray;
+}
+
+
+.tree-table-view:row-selection {
+    -fx-background-color: -gray;
+}
+
+.tree-table-view:row-selection > *.column-header-background {
+    -fx-background-color: -white;
+}
+
+.tree-table-view > *.column-resize-line {
+    -fx-background-color: -black;
+}
+
+.tree-table-view > *.column-header-background > *.nested-column-header > *.table-column {
+    -fx-background-color: -darkGray, -white;
+}
+
+.tree-table-view > *.column-header-background > *.filler {
+    -fx-background-color: -darkGray, -gray;
+}
+
+.tree-table-view > *.column-header-background > *.show-hide-columns-button {
+    -fx-background-color: -gray;
+}
+
+
+/*
+ * **********
+ * Color picker
+ * **********
+ * 
+ */
+.color-picker {
+    -fx-background-color: -gray;
+}
+
+/*
+ * **********
+ * Scroll pane
+ * **********
+ * 
+ */
+.scroll-pane > *.scroll-bar {
+    -fx-background-color: -gray;
+}
+
+.scroll-pane > *.scroll-bar > *.thumb {
+    -fx-background-color: -color;
+}
