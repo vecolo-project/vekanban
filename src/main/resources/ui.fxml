@@ -12,10 +12,13 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
@@ -60,11 +63,17 @@
                          </Menu>
                        </menus>
                      </MenuBar>
-                     <TitledPane animated="false" layoutX="390.0" layoutY="21.0" prefHeight="204.0" prefWidth="368.0" text="untitled">
+                     <TitledPane layoutY="37.0" prefHeight="204.0" prefWidth="368.0" text="untitled">
                        <content>
                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                        </content>
                      </TitledPane>
+                     <TableView layoutX="381.0" layoutY="37.0" prefHeight="200.0" prefWidth="384.0">
+                       <columns>
+                         <TableColumn prefWidth="75.0" text="C1" />
+                         <TableColumn prefWidth="75.0" text="C2" />
+                       </columns>
+                     </TableView>
                   </children>
                </AnchorPane>
          </content>
@@ -85,6 +94,19 @@
                   <children>
                      <TextField layoutX="14.0" layoutY="14.0" prefHeight="219.0" prefWidth="303.0" text="grhrh" />
                      <TextArea layoutX="334.0" layoutY="14.0" prefHeight="220.0" prefWidth="409.0" text="dddd" />
+                  </children>
+               </AnchorPane>
+           </content>
+         </Tab>
+         <Tab text="Untitled Tab 4">
+           <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <children>
+                     <ScrollPane layoutX="64.0" layoutY="23.0" prefHeight="201.0" prefWidth="652.0">
+                       <content>
+                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                       </content>
+                     </ScrollPane>
                   </children>
                </AnchorPane>
            </content>
