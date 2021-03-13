@@ -1,6 +1,6 @@
 package fr.vecolo.vekanban.controller;
 
-import fr.vecolo.vekanban.config.StageListener;
+import fr.vecolo.vekanban.event.SwitchLoginEvent;
 import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.util.StringConverter;
 import org.controlsfx.control.CheckComboBox;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -16,7 +17,6 @@ public class UiController {
 
     private final HostServices hostServices;
 
-    private final StageListener stageListener;
     @FXML
     public Label label;
 
@@ -26,10 +26,12 @@ public class UiController {
     @FXML
     private CheckComboBox<CheckBox> checkComboBox;
 
+    private final ApplicationContext ac;
+
     @Autowired
-    public UiController(HostServices hostServices, StageListener stageListener) {
+    public UiController(HostServices hostServices, ApplicationContext ac) {
         this.hostServices = hostServices;
-        this.stageListener = stageListener;
+        this.ac = ac;
     }
 
     @FXML
@@ -52,7 +54,7 @@ public class UiController {
     private void buttonCLicked() {
         this.label.setText(hostServices.getDocumentBase());
         checkComboBox.getCheckModel().getCheckedItems().forEach(System.out::println);
-        stageListener.ifThisWorks();
+        ac.publishEvent(new SwitchLoginEvent(this));
     }
 
     private void fillCheckComboBox() {

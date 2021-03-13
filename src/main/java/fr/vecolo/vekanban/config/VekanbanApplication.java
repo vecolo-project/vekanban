@@ -1,7 +1,7 @@
 package fr.vecolo.vekanban.config;
 
 import fr.vecolo.vekanban.FxBootApplication;
-import fr.vecolo.vekanban.util.StageReadyEvent;
+import fr.vecolo.vekanban.event.PrimaryStageReadyEvent;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
@@ -35,7 +35,7 @@ public class VekanbanApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.context.publishEvent(new StageReadyEvent(primaryStage));
+        this.context.publishEvent(new PrimaryStageReadyEvent(primaryStage));
     }
 
     @Override

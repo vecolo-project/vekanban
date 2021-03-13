@@ -1,4 +1,4 @@
-package fr.vecolo.vekanban.util;
+package fr.vecolo.vekanban.event;
 
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationEvent;
