@@ -29,7 +29,7 @@
 
 <VBox prefHeight="604.0" prefWidth="799.0" spacing="10.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controller.UiController">
 
-    <Button fx:id="button" text="Button" />
+    <Button fx:id="button" styleClass="h3" text="Logout" />
     <Label fx:id="label" text="Label" />
    <CheckComboBox fx:id="checkComboBox" prefHeight="26.0" prefWidth="150.0" showCheckedCount="true" title="" />
    <ColorPicker editable="true" />
