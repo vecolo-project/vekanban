@@ -408,7 +408,7 @@
 /*.first-titled-pane:expanded  {*/
 /*    -fx-background-color: -darkGray;*/
 /*}*/
-/* TODO */
+/* TODO   */
 .titled-pane:expanded > *.title {
     -fx-background-color: -blue;
     -fx-text-fill: -white;
