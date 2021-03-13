@@ -415,7 +415,7 @@
 }
 
 .titled-pane * > *.title {
-    -fx-text-fill: -white;
+    -fx-text-fill: -;
 }
 
 .titled-pane:collapsed > *.title {
