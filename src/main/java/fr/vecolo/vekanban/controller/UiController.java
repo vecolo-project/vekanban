@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.util.StringConverter;
 import org.controlsfx.control.CheckComboBox;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -23,10 +23,10 @@ public class UiController {
     @FXML
     private CheckComboBox<CheckBox> checkComboBox;
 
-    private final ApplicationContext ac;
+    private final ApplicationEventPublisher ac;
 
     @Autowired
-    public UiController(ApplicationContext ac) {
+    public UiController(ApplicationEventPublisher ac) {
         this.ac = ac;
     }
 

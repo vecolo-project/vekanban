@@ -4,16 +4,16 @@ import fr.vecolo.vekanban.event.LoginEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class LoginController {
 
-    private final ApplicationContext ac;
+    private final ApplicationEventPublisher ac;
 
     @Autowired
-    public LoginController(ApplicationContext ac) {
+    public LoginController(ApplicationEventPublisher ac) {
         this.ac = ac;
     }
 
