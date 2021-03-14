@@ -30,8 +30,8 @@ public class StageManager {
             @Value("${spring.application.ui.height}") int uiHeight,
             @Value("${spring.application.login.width}") int loginWidth,
             @Value("${spring.application.login.height}") int loginHeight,
-            @Value("classpath:/ui.fxml") Resource fxmlUi,
-            @Value("classpath:/login.fxml") Resource fxmlLogin,
+            @Value("classpath:/fxml/ui.fxml") Resource fxmlUi,
+            @Value("classpath:/fxml/login.fxml") Resource fxmlLogin,
             FXMLLoaderHelper fxmlLoader) {
         this.appTitle = appTitle;
         this.loginTitle = loginTitle;
@@ -53,6 +53,7 @@ public class StageManager {
         primaryStage.close();
         primaryStage.setTitle(appTitle);
         primaryStage.setScene(new Scene(fxmlLoader.loadFXML(fxmlUi), uiWidth, uiHeight));
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 
@@ -60,6 +61,7 @@ public class StageManager {
         primaryStage.close();
         primaryStage.setTitle(loginTitle);
         primaryStage.setScene(new Scene(fxmlLoader.loadFXML(fxmlLogin), loginWidth, loginHeight));
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 }

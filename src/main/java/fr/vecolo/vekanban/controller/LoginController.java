@@ -10,11 +10,11 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class LoginController {
 
-    private final ApplicationEventPublisher ac;
+    private final ApplicationEventPublisher ae;
 
     @Autowired
     public LoginController(ApplicationEventPublisher ac) {
-        this.ac = ac;
+        this.ae = ac;
     }
 
     @FXML
@@ -25,7 +25,7 @@ public class LoginController {
     @FXML
     void click(ActionEvent event) {
         System.out.println("Click");
-        this.ac.publishEvent(new LoginEvent(event, "loginEmail", "loginPassword"));
+        this.ae.publishEvent(new LoginEvent(event, "loginEmail", "loginPassword"));
     }
 
 }
