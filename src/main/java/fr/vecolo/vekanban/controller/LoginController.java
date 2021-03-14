@@ -1,6 +1,6 @@
 package fr.vecolo.vekanban.controller;
 
-import fr.vecolo.vekanban.event.SwitchUiEvent;
+import fr.vecolo.vekanban.event.LoginEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class LoginController {
     @FXML
     void click(ActionEvent event) {
         System.out.println("Click");
-        this.ac.publishEvent(new SwitchUiEvent(event));
+        this.ac.publishEvent(new LoginEvent(event, "loginEmail", "loginPassword"));
     }
 
 }

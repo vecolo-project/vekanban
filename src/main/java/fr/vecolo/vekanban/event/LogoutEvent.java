@@ -2,8 +2,8 @@ package fr.vecolo.vekanban.event;
 
 import org.springframework.context.ApplicationEvent;
 
-public class SwitchLoginEvent extends ApplicationEvent {
-    public SwitchLoginEvent(Object source) {
+public class LogoutEvent extends ApplicationEvent {
+    public LogoutEvent(Object source) {
         super(source);
     }
 }
