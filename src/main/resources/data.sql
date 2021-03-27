@@ -12,13 +12,22 @@ VALUES (2, '2021-03-14 16:39:43.000000', null, 'vekanban', 1, 'prefix');
 INSERT INTO board (board_id, created_at, updated_at, project_name, owner_user_id, card_id_prefix)
 VALUES (3, '2021-03-14 16:39:44.000000', null, 'reboot', 2, 'prefix');
 
-INSERT INTO card (card_id, status, title, content, assigned_board_board_id, created_at, updated_at)
-VALUES (1, 'TODO', 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+INSERT INTO card_status(card_status_id, status)
+VALUES (1, 'TODO');
 
-INSERT INTO card (card_id, status, title, content, assigned_board_board_id, created_at, updated_at)
-VALUES (2, 'DOING', 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+INSERT INTO card_status(card_status_id, status)
+VALUES (2, 'IN PROGRESS');
 
-INSERT INTO card (card_id, status, title, content, assigned_board_board_id, created_at, updated_at)
-VALUES (3, 'DONE', 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+INSERT INTO card_status(card_status_id, status)
+VALUES (3, 'DONE');
+
+INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at)
+VALUES (1, 1, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+
+INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at)
+VALUES (2, 2, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+
+INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at)
+VALUES (3, 3, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
 
 COMMIT;

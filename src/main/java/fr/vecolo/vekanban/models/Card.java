@@ -21,12 +21,11 @@ public class Card extends DateAudit implements Serializable {
     @Column(name = "CONTENT", updatable = true, nullable = true)
     private String content;
 
-    @Column(name = "STATUS", updatable = true, nullable = false)
-    @Enumerated(EnumType.STRING)
-    private CardStatus cardStatus;
-
     @Column(name = "DUE_DATE", updatable = true, nullable = true)
     private LocalDateTime dueDate;
+
+    @ManyToOne(optional = false)
+    private CardStatus status;
 
     @ManyToOne(optional = true)
     private User assignedUser;
@@ -36,4 +35,78 @@ public class Card extends DateAudit implements Serializable {
 
     @ManyToMany()
     private List<CardLabel> labels;
+
+    public Card() {
+    }
+
+    public Card(String title, String content, CardStatus status, LocalDateTime dueDate) {
+        this.title = title;
+        this.content = content;
+        this.status = status;
+        this.dueDate = dueDate;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public CardStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CardStatus status) {
+        this.status = status;
+    }
+
+    public User getAssignedUser() {
+        return assignedUser;
+    }
+
+    public void setAssignedUser(User assignedUser) {
+        this.assignedUser = assignedUser;
+    }
+
+    public Board getAssignedBoard() {
+        return assignedBoard;
+    }
+
+    public void setAssignedBoard(Board assignedBoard) {
+        this.assignedBoard = assignedBoard;
+    }
+
+    public List<CardLabel> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<CardLabel> labels) {
+        this.labels = labels;
+    }
 }
