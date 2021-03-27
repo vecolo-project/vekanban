@@ -1,5 +1,6 @@
 package fr.vecolo.vekanban.utils;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -19,4 +20,6 @@ public class PasswordEncoder {
         // Pour vérifier que le mot de passe haché correspond bien au mot de passe initial, il utiliser la méthode bCryptPasswordEncoder.matches(x, y)
         System.out.println("Le mot de passe est bien haché : " + passwordEncoder.matches(password, encodedPassword));
     }
+
+
 }
