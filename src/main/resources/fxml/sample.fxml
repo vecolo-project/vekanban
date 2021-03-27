@@ -27,7 +27,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<VBox prefHeight="604.0" prefWidth="799.0" spacing="10.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controller.UiController">
+<VBox prefHeight="604.0" prefWidth="799.0" spacing="10.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiController">
 
     <Button fx:id="button" text="Button" />
     <Label fx:id="label" text="Label" />

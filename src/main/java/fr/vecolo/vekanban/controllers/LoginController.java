@@ -1,6 +1,6 @@
-package fr.vecolo.vekanban.controller;
+package fr.vecolo.vekanban.controllers;
 
-import fr.vecolo.vekanban.event.LoginEvent;
+import fr.vecolo.vekanban.events.LoginEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;

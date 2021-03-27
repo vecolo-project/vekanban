@@ -1,4 +1,4 @@
-package fr.vecolo.vekanban.util;
+package fr.vecolo.vekanban.utils;
 
 import javafx.scene.Parent;
 import org.springframework.beans.factory.annotation.Autowired;

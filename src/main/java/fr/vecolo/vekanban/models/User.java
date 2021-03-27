@@ -1,9 +1,10 @@
-package fr.vecolo.vekanban.model;
+package fr.vecolo.vekanban.models;
 
-import fr.vecolo.vekanban.util.DateAudit;
+import fr.vecolo.vekanban.utils.DateAudit;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "USER")
@@ -15,16 +16,26 @@ public class User extends DateAudit implements Serializable {
     @Column(name = "USER_ID", updatable = false, nullable = false)
     private long id;
 
-    @Column(name = "USER_EMAIL",unique = true, updatable = true, nullable = false)
+    @Column(name = "USER_EMAIL", unique = true, updatable = true, nullable = false)
     private String email;
 
-    @Column(name = "USER_PSEUDO",unique = true, updatable = true, nullable = false)
+    @Column(name = "USER_PSEUDO", unique = true, updatable = true, nullable = false)
     private String pseudo;
 
-    @Column(name = "USER_PASSWORD",unique = true, updatable = true, nullable = false)
+    @Column(name = "USER_PASSWORD", unique = true, updatable = true, nullable = false)
     private String password;
 
-    public User() {}
+    @OneToMany(mappedBy = "owner")
+    private List<Board> owning;
+
+    @ManyToMany(mappedBy = "members")
+    private List<Board> boardsMember;
+
+    @OneToMany(mappedBy = "assignedUser")
+    private List<Card> Assignedcards;
+
+    public User() {
+    }
 
     public User(long id, String email, String pseudo, String password) {
         this.id = id;
@@ -83,7 +94,7 @@ public class User extends DateAudit implements Serializable {
                 ", email='" + email + '\'' +
                 ", pseudo='" + pseudo + '\'' +
                 ", password='" + "X".repeat(password.length()) + '\'' +
-                '}'+super.toString();
+                '}' + super.toString();
     }
 
     @Override

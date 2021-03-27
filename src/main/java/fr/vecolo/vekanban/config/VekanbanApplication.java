@@ -1,7 +1,7 @@
 package fr.vecolo.vekanban.config;
 
 import fr.vecolo.vekanban.FxBootApplication;
-import fr.vecolo.vekanban.event.PrimaryStageReadyEvent;
+import fr.vecolo.vekanban.events.PrimaryStageReadyEvent;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;

@@ -1,9 +1,10 @@
-package fr.vecolo.vekanban.model;
+package fr.vecolo.vekanban.models;
 
-import fr.vecolo.vekanban.util.DateAudit;
+import fr.vecolo.vekanban.utils.DateAudit;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "BOARD")
@@ -18,8 +19,20 @@ public class Board extends DateAudit implements Serializable {
     @Column(name = "PROJECT_NAME", updatable = true, nullable = false)
     private String name;
 
-    @OneToOne
+    @Column(name = "CARD_ID_PREFIX", updatable = false, nullable = false)
+    private String cardIdPrefix;
+
+    @ManyToOne()
     private User owner;
+
+    @ManyToMany()
+    private List<User> members;
+
+    @OneToMany(mappedBy = "assignedBoard")
+    private List<Card> cards;
+
+    @OneToMany(mappedBy = "board")
+    private List<CardLabel> labels;
 
     public Board() {
     }
@@ -65,6 +78,7 @@ public class Board extends DateAudit implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", owner=" + owner +
+                ", members=" + members +
                 "} " + super.toString();
     }
 

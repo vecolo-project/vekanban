@@ -1,6 +1,6 @@
 package fr.vecolo.vekanban.config;
 
-import fr.vecolo.vekanban.util.FXMLLoaderHelper;
+import fr.vecolo.vekanban.utils.FXMLLoaderHelper;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;

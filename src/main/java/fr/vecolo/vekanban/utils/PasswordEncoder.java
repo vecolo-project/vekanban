@@ -1,4 +1,4 @@
-package fr.vecolo.vekanban.util;
+package fr.vecolo.vekanban.utils;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

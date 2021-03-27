@@ -1,7 +1,7 @@
-package fr.vecolo.vekanban.listener;
+package fr.vecolo.vekanban.listeners;
 
 import fr.vecolo.vekanban.config.StageManager;
-import fr.vecolo.vekanban.event.LoginEvent;
+import fr.vecolo.vekanban.events.LoginEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;

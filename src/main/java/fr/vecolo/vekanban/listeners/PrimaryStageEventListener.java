@@ -1,23 +1,24 @@
-package fr.vecolo.vekanban.listener;
+package fr.vecolo.vekanban.listeners;
 
 import fr.vecolo.vekanban.config.StageManager;
-import fr.vecolo.vekanban.event.LogoutEvent;
+import fr.vecolo.vekanban.events.PrimaryStageReadyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LogoutEventListener implements ApplicationListener<LogoutEvent> {
+public class PrimaryStageEventListener implements ApplicationListener<PrimaryStageReadyEvent> {
 
     private final StageManager stageManager;
 
     @Autowired
-    public LogoutEventListener(StageManager stageManager) {
+    public PrimaryStageEventListener(StageManager stageManager) {
         this.stageManager = stageManager;
     }
 
     @Override
-    public void onApplicationEvent(LogoutEvent switchUiEvent) {
+    public void onApplicationEvent(PrimaryStageReadyEvent stageReadyEvent) {
+        stageManager.setPrimaryStage(stageReadyEvent.getStage());
         stageManager.showLoginStage();
     }
 }

@@ -1,6 +1,6 @@
-package fr.vecolo.vekanban.controller;
+package fr.vecolo.vekanban.controllers;
 
-import fr.vecolo.vekanban.event.LogoutEvent;
+import fr.vecolo.vekanban.events.LogoutEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;

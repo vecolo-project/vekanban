@@ -1,4 +1,4 @@
-package fr.vecolo.vekanban.util;
+package fr.vecolo.vekanban.utils;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
