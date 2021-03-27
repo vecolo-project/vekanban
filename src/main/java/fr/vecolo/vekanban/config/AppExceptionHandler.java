@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class AppExceptionHandler {
-    private final Logger logger = LoggerFactory.getLogger(AppExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
     public void GlobalExceptionHandler(Exception ex) {
