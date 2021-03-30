@@ -20,14 +20,14 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.CheckComboBox?>
 
-<VBox prefHeight="604.0" prefWidth="799.0" spacing="10.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiController">
+<VBox prefHeight="800.0" prefWidth="1600.0" spacing="10.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiController">
 
     <Button fx:id="button" styleClass="h3" text="Logout" />
     <Label fx:id="label" text="Label" />
@@ -92,8 +92,11 @@
            <content>
              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                     <TextField layoutX="14.0" layoutY="14.0" prefHeight="219.0" prefWidth="303.0" text="grhrh" />
-                     <TextArea layoutX="334.0" layoutY="14.0" prefHeight="220.0" prefWidth="409.0" text="dddd" />
+                     <HBox fx:id="mdHbox" alignment="CENTER_LEFT" layoutX="20.0" layoutY="14.0" prefHeight="220.0" prefWidth="928.0">
+                        <children>
+                           <TextArea fx:id="mdtext" prefHeight="220.0" prefWidth="409.0" text="dddd" />
+                        </children>
+                     </HBox>
                   </children>
                </AnchorPane>
            </content>

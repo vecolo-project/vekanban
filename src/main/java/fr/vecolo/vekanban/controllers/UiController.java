@@ -1,10 +1,11 @@
 package fr.vecolo.vekanban.controllers;
 
 import fr.vecolo.vekanban.events.LogoutEvent;
+import fr.vecolo.vekanban.utils.mdfx.MDFXNode;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 import org.controlsfx.control.CheckComboBox;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ public class UiController {
 
     @FXML
     public Button button;
+
+    @FXML
+    public TextArea mdtext;
+
+    @FXML
+    public HBox mdHbox;
 
     @FXML
     private CheckComboBox<CheckBox> checkComboBox;
@@ -45,6 +52,7 @@ public class UiController {
             }
         });
         fillCheckComboBox();
+        fillMdTextArea();
     }
 
     private void buttonCLicked() {
@@ -58,5 +66,35 @@ public class UiController {
             checkComboBox.getItems()
                     .add(new CheckBox("Button " + (i + 1)));
         }
+    }
+
+    private void fillMdTextArea() {
+        String mdtfx = "# CXML\n" +
+                "# Introduction\n" +
+                "\n" +
+                "XML DTD Validation written in C with GTK interface.\n" +
+                "\n" +
+                "## Features\n" +
+                "\n" +
+                "- Parse XML file and check syntax error\n" +
+                "- Parse external DTD file and check some of syntax error (not all)\n" +
+                "- Handle external DTD whit and without `!DOCTYPE`\n" +
+                "- Validate XML file with the given DTD file. Only `element` and `attlist` rules are handled ";
+
+        MDFXNode mdfxNode = new MDFXNode(mdtfx);
+
+        mdtext.setText(mdtfx);
+        mdtext.setMinWidth(750);
+
+        mdfxNode.mdStringProperty.bind(mdtext.textProperty());
+        mdfxNode.getStylesheets().add("mdfx/mdfx.css");
+
+        ScrollPane content = new ScrollPane(mdfxNode);
+        content.setFitToWidth(true);
+        content.setMinWidth(750);
+        mdfxNode.setPadding(new Insets(12, 12, 12, 12));
+
+        mdHbox.getChildren().add(content);
+
     }
 }

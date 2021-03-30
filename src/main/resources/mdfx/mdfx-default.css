@@ -1,0 +1,20 @@
+* {
+    -mdfx-font-color: #eeeeee;
+    -mdfx-border-color-1: #888;
+
+    -mdfx-bg-color-1: #303841;
+    -mdfx-bg-color-2: #3a4750;
+    -mdfx-bg-color-3: #4e4e4e;
+}
+
+.markdown-text {
+    -fx-font-family: 'Segoe UI';
+}
+
+.markdown-italic {
+    -fx-font-style: italic;
+}
+
+.markdown-bold {
+    -fx-font-weight: bold;
+}
