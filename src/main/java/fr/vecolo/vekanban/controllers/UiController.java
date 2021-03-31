@@ -2,6 +2,7 @@ package fr.vecolo.vekanban.controllers;
 
 import fr.vecolo.vekanban.events.LogoutEvent;
 import fr.vecolo.vekanban.utils.mdfx.MDFXNode;
+import fr.vecolo.vekanban.utils.mdfx.MDFXUtil;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -81,20 +82,9 @@ public class UiController {
                 "- Handle external DTD whit and without `!DOCTYPE`\n" +
                 "- Validate XML file with the given DTD file. Only `element` and `attlist` rules are handled ";
 
-        MDFXNode mdfxNode = new MDFXNode(mdtfx);
-
         mdtext.setText(mdtfx);
         mdtext.setMinWidth(750);
-
-        mdfxNode.mdStringProperty.bind(mdtext.textProperty());
-        mdfxNode.getStylesheets().add("mdfx/mdfx.css");
-
-        ScrollPane content = new ScrollPane(mdfxNode);
-        content.setFitToWidth(true);
-        content.setMinWidth(750);
-        mdfxNode.setPadding(new Insets(12, 12, 12, 12));
-
-        mdHbox.getChildren().add(content);
+        mdHbox.getChildren().add(MDFXUtil.connectMDFXToInput(mdtext.textProperty(), 750));
 
     }
 }
