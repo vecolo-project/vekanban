@@ -5,6 +5,7 @@ import com.vladsch.flexmark.ext.attributes.AttributeNode;
 import com.vladsch.flexmark.ext.attributes.AttributesExtension;
 import com.vladsch.flexmark.ext.attributes.AttributesNode;
 import com.vladsch.flexmark.ext.attributes.internal.AttributesNodePostProcessor;
+import com.vladsch.flexmark.ext.gfm.tasklist.TaskListExtension;
 import com.vladsch.flexmark.ext.gfm.tasklist.TaskListItem;
 import com.vladsch.flexmark.util.misc.Extension;
 import javafx.application.Platform;
@@ -74,6 +75,7 @@ class MDFXNodeHelper extends VBox {
         LinkedList<Extension> extensions = new LinkedList();
         extensions.add(TablesExtension.create());
         extensions.add(AttributesExtension.create());
+        extensions.add(TaskListExtension.create());
         Parser parser = Parser.builder().extensions(extensions).build();
 
         Document node = parser.parse(mdstring);
@@ -138,7 +140,6 @@ class MDFXNodeHelper extends VBox {
 
             //visitor.visitChildren(code);
         }
-
 
         public void visit(Document document) {
             visitor.visitChildren(document);
@@ -223,10 +224,11 @@ class MDFXNodeHelper extends VBox {
                 label = new Label(" • ");
             } else if (listItem instanceof OrderedListItem) {
                 OrderedListItem item = (OrderedListItem) listItem;
-                label = new Label(item.getOpeningMarker().toString() + " -- ");
+                label = new Label(item.getOpeningMarker().toString());
             } else if (listItem instanceof TaskListItem) {
                 TaskListItem item = (TaskListItem) listItem;
-                label = new Label("task - ");
+
+                label = new Label(item.isItemDoneMarker() ? "\uD83D\uDDF9":"☐");
             }
 
 
@@ -294,7 +296,7 @@ class MDFXNodeHelper extends VBox {
             //visitor.visitChildren(image);
         }
 
-        public void visit(Link link) {
+            public void visit(Link link) {
 
             LinkedList<Node> nodes = new LinkedList<>();
 
