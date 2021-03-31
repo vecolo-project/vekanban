@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.util.StringConverter;
 import org.controlsfx.control.CheckComboBox;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,12 @@ public class UiController {
 
     @FXML
     public Button button;
+
+    @FXML
+    public TextArea mdtext;
+
+    @FXML
+    public HBox mdHbox;
 
     @FXML
     private CheckComboBox<CheckBox> checkComboBox;

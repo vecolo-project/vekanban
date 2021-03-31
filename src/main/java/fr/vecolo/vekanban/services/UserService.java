@@ -18,5 +18,5 @@ public interface UserService {
 
     void deleteUser(User user) throws UserRessourceException;
 
-    Optional<User> findByLoginAndPassword(String login, String password) throws UserRessourceException;
+    Optional<User> findByPseudoAndPassword(String pseudo, String password) throws UserRessourceException;
 }
