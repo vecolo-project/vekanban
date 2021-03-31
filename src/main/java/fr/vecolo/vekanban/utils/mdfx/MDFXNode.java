@@ -14,10 +14,11 @@ public class MDFXNode extends VBox {
     public MDFXNode(String mdString) {
         mdStringProperty.set(mdString);
 
-        mdStringProperty.addListener((p,o,n) -> updateContent());
+        mdStringProperty.addListener((p, o, n) -> updateContent());
         getStylesheets().add("/com/sandec/mdfx/mdfx.css");
         updateContent();
     }
+
     public MDFXNode() {
         this("");
     }
@@ -29,7 +30,7 @@ public class MDFXNode extends VBox {
     }
 
     public boolean showChapter(int[] currentChapter) {
-            return true;
+        return true;
     }
 
     public void setLink(Node node, String link, String description) {
@@ -38,10 +39,10 @@ public class MDFXNode extends VBox {
     }
 
     public Node generateImage(String url) {
-        if(url.isEmpty()) {
+        if (url.isEmpty()) {
             return new Group();
         } else {
-            return new ImageView(new Image(url,true));
+            return new ImageView(new Image(url, true));
         }
 
     }
