@@ -87,6 +87,18 @@ public class User extends DateAudit implements Serializable {
         this.password = password;
     }
 
+    public List<Board> getOwning() {
+        return owning;
+    }
+
+    public List<Board> getBoardsMember() {
+        return boardsMember;
+    }
+
+    public List<Card> getAssignedcards() {
+        return Assignedcards;
+    }
+
     @Override
     public String toString() {
         return "User{" +
