@@ -1,5 +1,5 @@
 INSERT INTO user (user_id, created_at, updated_at, user_email, user_password, user_pseudo)
-VALUES (1, '2021-03-14 16:33:13.000000', null, 'noe@yahoo.fr', 'noe', 'nospy');
+VALUES (1, '2021-03-14 16:33:13.000000', null, 'noe@yahoo.fr', '$2y$10$QqZ9Y5gwLXDplmvF9/NwFurK6FtPs6HVXZBYs3Sbd8Ex1gb9oGAaW', 'nospy');
 INSERT INTO user (user_id, created_at, updated_at, user_email, user_password, user_pseudo)
 VALUES (2, '2021-03-06 16:33:15.000000', null, 'admin@admin.fr', 'admin', 'admin');
 INSERT INTO user (user_id, created_at, updated_at, user_email, user_password, user_pseudo)
