@@ -50,4 +50,13 @@ public class CardLabel extends DateAudit {
     public void setBoard(Board board) {
         this.board = board;
     }
+
+    @Override
+    public String toString() {
+        return "CardLabel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", board=" + board +
+                "} " + super.toString();
+    }
 }

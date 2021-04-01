@@ -8,9 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USER")
-public class User extends DateAudit implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+public class User extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID", updatable = false, nullable = false)
@@ -107,17 +105,5 @@ public class User extends DateAudit implements Serializable {
                 ", pseudo='" + pseudo + '\'' +
                 ", password='" + "X".repeat(password.length()) + '\'' +
                 '}' + super.toString();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != getClass()) {
-            return false;
-        }
-        User other = (User) obj;
-        return other.id == id &&
-                other.email.equals(email) &&
-                other.pseudo.equals(pseudo) &&
-                other.password.equals(password);
     }
 }

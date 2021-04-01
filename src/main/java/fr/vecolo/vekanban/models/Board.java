@@ -8,8 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "BOARD")
-public class Board extends DateAudit implements Serializable {
-    private static final long serialVersionUID = 2L;
+public class Board extends DateAudi {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

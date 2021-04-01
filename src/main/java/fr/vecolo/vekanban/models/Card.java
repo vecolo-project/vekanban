@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "CARD")
-public class Card extends DateAudit implements Serializable {
+public class Card extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CARD_ID", updatable = false, nullable = false)
@@ -108,5 +108,19 @@ public class Card extends DateAudit implements Serializable {
 
     public void setLabels(List<CardLabel> labels) {
         this.labels = labels;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", dueDate=" + dueDate +
+                ", status=" + status +
+                ", assignedUser=" + assignedUser +
+                ", assignedBoard=" + assignedBoard +
+                ", labels=" + labels +
+                "} " + super.toString();
     }
 }

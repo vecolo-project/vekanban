@@ -62,4 +62,13 @@ public class CardStatus {
         }
         return other.id == this.id && other.status.equals(this.status);
     }
+
+    @Override
+    public String toString() {
+        return "CardStatus{" +
+                "id=" + id +
+                ", status='" + status + '\'' +
+                ", cards=" + cards +
+                '}';
+    }
 }
