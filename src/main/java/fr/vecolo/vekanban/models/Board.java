@@ -72,6 +72,38 @@ public class Board extends DateAudit implements Serializable {
         this.owner = owner;
     }
 
+    public String getCardIdPrefix() {
+        return cardIdPrefix;
+    }
+
+    public void setCardIdPrefix(String cardIdPrefix) {
+        this.cardIdPrefix = cardIdPrefix;
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public List<CardLabel> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<CardLabel> labels) {
+        this.labels = labels;
+    }
+
     @Override
     public String toString() {
         return "Board{" +
