@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Collection<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return IteratorUtils.toList(userRepository.findAll().iterator());
     }
 
@@ -59,6 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User saveOrUpdateUser(User user) throws UserRessourceException {
+        //TODO make validation fields
         try {
             if (user.getId() == 0) { //pas d'Id --> création d'un user
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

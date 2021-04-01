@@ -4,11 +4,12 @@ import fr.vecolo.vekanban.config.exceptions.UserRessourceException;
 import fr.vecolo.vekanban.models.User;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
 
-    Collection<User> getAllUsers();
+    List<User> getAllUsers();
 
     Optional<User> getUserById(Long id) throws UserRessourceException;
 
