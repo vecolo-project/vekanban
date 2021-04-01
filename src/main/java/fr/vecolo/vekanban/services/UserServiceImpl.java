@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -29,11 +29,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Collection<User> getAllUsers() {
         return IteratorUtils.toList(userRepository.findAll().iterator());
     }
 
     @Override
+    @Transactional
     public Optional<User> getUserById(Long id) throws UserRessourceException {
         Optional<User> userFound = userRepository.findById(id);
 
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Optional<User> findByPseudo(String pseudo) throws UserRessourceException {
         Optional<User> userFound = userRepository.findByPseudo(pseudo);
 
@@ -54,6 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User saveOrUpdateUser(User user) throws UserRessourceException {
         try {
             if (user.getId() == 0) { //pas d'Id --> création d'un user
@@ -85,6 +89,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUser(User user) throws UserRessourceException {
 
         //TODO delete also all board owning, all assigned card, all board member
@@ -99,6 +104,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Optional<User> findByPseudoAndPassword(String pseudo, String password) throws UserRessourceException {
         try {
             Optional<User> userFound = this.findByPseudo(pseudo);
