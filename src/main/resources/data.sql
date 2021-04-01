@@ -21,8 +21,8 @@ VALUES (2, 'IN PROGRESS');
 INSERT INTO card_status(card_status_id, status)
 VALUES (3, 'DONE');
 
-INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at)
-VALUES (1, 1, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at,assigned_user_user_id)
+VALUES (1, 1, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null,1);
 
 INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at)
 VALUES (2, 2, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
