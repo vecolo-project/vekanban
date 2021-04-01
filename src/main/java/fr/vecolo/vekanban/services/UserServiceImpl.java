@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> userFound = userRepository.findById(id);
 
         if (userFound.isEmpty()) {
-            throw new UserRessourceException("User Not Found on id : " + id);
+            logger.error("User Not Found on id : " + id);
         }
         return userFound;
     }
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> userFound = userRepository.findByPseudo(pseudo);
 
         if (userFound.isEmpty()) {
-            throw new UserRessourceException("User Not Found on pseudo : " + pseudo);
+            logger.error("User Not Found on pseudo : " + pseudo);
         }
         return userFound;
     }
@@ -66,7 +66,8 @@ public class UserServiceImpl implements UserService {
 
                 Optional<User> userFromDB = getUserById(user.getId());
                 if (userFromDB.isEmpty()) {
-                    throw new UserRessourceException("Modification d'un utilisateur non présent en base !");
+                    logger.error("Modification d'un utilisateur non présent en base !");
+                    return null;
                 }
 
                 if (!bCryptPasswordEncoder.matches(user.getPassword(), userFromDB.get().getPassword())) {
@@ -78,14 +79,15 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
             logger.error("Utilisateur non existant", ex);
-            throw new UserRessourceException("DuplicateValueError. Un utilisateur existe déjà avec le compte : " + user.getPseudo());
-        } catch (UserRessourceException e) {
+//            throw new UserRessourceException("DuplicateValueError. Un utilisateur existe déjà avec le compte : " + user.getPseudo());
+        } /*catch (UserRessourceException e) {
             logger.error("Utilisateur non existant", e);
             throw new UserRessourceException("UserNotFound. Aucun utilisateur avec l'identifiant: " + user.getId());
-        } catch (Exception ex) {
+        }*/ catch (Exception ex) {
             logger.error("Erreur technique de création ou de mise à jour de l'utilisateur");
-            throw new UserRessourceException("SaveOrUpdateUserError. Erreur technique de création ou de mise à jour de l'utilisateur: " + user.getPseudo());
+//            throw new UserRessourceException("SaveOrUpdateUserError. Erreur technique de création ou de mise à jour de l'utilisateur: " + user.getPseudo());
         }
+        return null;
     }
 
     @Override
@@ -97,9 +99,9 @@ public class UserServiceImpl implements UserService {
             userRepository.delete(user);
         } catch (EmptyResultDataAccessException ex) {
             logger.error(String.format("Aucun utilisateur n'existe avec l'identifiant: " + user.getId(), ex));
-            throw new UserRessourceException("DeleteUserError: Erreur de suppression de l'utilisateur avec l'identifiant: " + user.getId());
+//            throw new UserRessourceException("DeleteUserError: Erreur de suppression de l'utilisateur avec l'identifiant: " + user.getId());
         } catch (Exception ex) {
-            throw new UserRessourceException("DeleteUserError: Erreur de suppression de l'utilisateur avec l'identifiant: " + user.getId());
+            logger.error("DeleteUserError: Erreur de suppression de l'utilisateur avec l'identifiant: " + user.getId());
         }
     }
 
@@ -109,19 +111,21 @@ public class UserServiceImpl implements UserService {
         try {
             Optional<User> userFound = this.findByPseudo(pseudo);
             if (userFound.isEmpty()) {
-                throw new UserRessourceException("Utilisateur non présent en base !");
+                logger.error("Utilisateur non présent en base !");
+                return userFound;
             }
             if (bCryptPasswordEncoder.matches(password, userFound.get().getPassword())) {
                 return userFound;
-            } else {
+            }/* else {
                 throw new UserRessourceException("UserNotFound: Mot de passe incorrect");
-            }
+            }*/
         } catch (UserRessourceException ex) {
             logger.error("Login ou mot de passe incorrect");
-            throw new UserRessourceException(ex.getMessage());
+//            throw new UserRessourceException(ex.getMessage());
         } catch (Exception ex) {
             logger.error("Une erreur technique est survenue");
-            throw new UserRessourceException("TechnicalError: Une erreur technique est survenue");
+//            throw new UserRessourceException("TechnicalError: Une erreur technique est survenue");
         }
+        return Optional.empty();
     }
 }
