@@ -3,7 +3,6 @@ package fr.vecolo.vekanban.models;
 import fr.vecolo.vekanban.utils.DateAudit;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity

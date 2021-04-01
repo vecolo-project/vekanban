@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "BOARD")
-public class Board extends DateAudi {
+public class Board extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
