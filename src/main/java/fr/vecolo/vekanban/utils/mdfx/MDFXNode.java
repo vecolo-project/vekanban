@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 public class MDFXNode extends VBox {
 
     public SimpleStringProperty mdStringProperty = new SimpleStringProperty("");
-
+    //TODO make link clickable in browser
     public MDFXNode(String mdString) {
         mdStringProperty.set(mdString);
 
@@ -33,7 +33,6 @@ public class MDFXNode extends VBox {
     }
 
     public void setLink(Node node, String link, String description) {
-        // TODO
         //com.jpro.web.Util.setLink(node, link, scala.Option.apply(description));
     }
 
