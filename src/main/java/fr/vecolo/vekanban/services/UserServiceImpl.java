@@ -37,24 +37,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Optional<User> getUserById(Long id) throws UserRessourceException {
+    public User getUserById(Long id) throws UserRessourceException {
         Optional<User> userFound = userRepository.findById(id);
 
         if (userFound.isEmpty()) {
             logger.error("User Not Found on id : " + id);
+            return null;
         }
-        return userFound;
+        return userFound.get();
     }
 
     @Override
     @Transactional
-    public Optional<User> findByPseudo(String pseudo) throws UserRessourceException {
+    public User findByPseudo(String pseudo) throws UserRessourceException {
         Optional<User> userFound = userRepository.findByPseudo(pseudo);
 
         if (userFound.isEmpty()) {
             logger.error("User Not Found on pseudo : " + pseudo);
+            return null;
         }
-        return userFound;
+        return userFound.get();
     }
 
     @Override
@@ -66,16 +68,16 @@ public class UserServiceImpl implements UserService {
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             } else { //sinon, mise à jour d'un user
 
-                Optional<User> userFromDB = getUserById(user.getId());
-                if (userFromDB.isEmpty()) {
+                User userFromDB = getUserById(user.getId());
+                if (userFromDB == null) {
                     logger.error("Modification d'un utilisateur non présent en base !");
                     return null;
                 }
 
-                if (!bCryptPasswordEncoder.matches(user.getPassword(), userFromDB.get().getPassword())) {
+                if (!bCryptPasswordEncoder.matches(user.getPassword(), userFromDB.getPassword())) {
                     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));//MAJ du mot de passe s'il a été modifié
                 } else {
-                    user.setPassword(userFromDB.get().getPassword());//Sinon, on remet le password déjà haché
+                    user.setPassword(userFromDB.getPassword());//Sinon, on remet le password déjà haché
                 }
             }
             return userRepository.save(user);
@@ -109,14 +111,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Optional<User> findByPseudoAndPassword(String pseudo, String password) throws UserRessourceException {
+    public User findByPseudoAndPassword(String pseudo, String password) throws UserRessourceException {
         try {
-            Optional<User> userFound = this.findByPseudo(pseudo);
-            if (userFound.isEmpty()) {
+            User userFound = this.findByPseudo(pseudo);
+            if (userFound == null) {
                 logger.error("Utilisateur non présent en base !");
-                return userFound;
+                return null;
             }
-            if (bCryptPasswordEncoder.matches(password, userFound.get().getPassword())) {
+            if (bCryptPasswordEncoder.matches(password, userFound.getPassword())) {
                 return userFound;
             }/* else {
                 throw new UserRessourceException("UserNotFound: Mot de passe incorrect");
@@ -128,6 +130,6 @@ public class UserServiceImpl implements UserService {
             logger.error("Une erreur technique est survenue");
 //            throw new UserRessourceException("TechnicalError: Une erreur technique est survenue");
         }
-        return Optional.empty();
+        return null;
     }
 }

@@ -11,13 +11,13 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    Optional<User> getUserById(Long id) throws UserRessourceException;
+    User getUserById(Long id) throws UserRessourceException;
 
-    Optional<User> findByPseudo(String pseudo) throws UserRessourceException;
+    User findByPseudo(String pseudo) throws UserRessourceException;
 
     User saveOrUpdateUser(User user) throws UserRessourceException;
 
     void deleteUser(User user) throws UserRessourceException;
 
-    Optional<User> findByPseudoAndPassword(String pseudo, String password) throws UserRessourceException;
+    User findByPseudoAndPassword(String pseudo, String password) throws UserRessourceException;
 }
