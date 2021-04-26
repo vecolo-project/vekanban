@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User getUserById(Long id) throws UserRessourceException {
+    public User getUserById(Long id) {
         Optional<User> userFound = userRepository.findById(id);
 
         if (userFound.isEmpty()) {
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User findByPseudo(String pseudo) throws UserRessourceException {
+    public User findByPseudo(String pseudo) {
         Optional<User> userFound = userRepository.findByPseudo(pseudo);
 
         if (userFound.isEmpty()) {
@@ -62,7 +62,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User saveOrUpdateUser(User user) throws UserRessourceException {
-        //TODO make validation fields
         try {
             if (user.getId() == 0) { //pas d'Id --> création d'un user
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -71,7 +70,7 @@ public class UserServiceImpl implements UserService {
                 User userFromDB = getUserById(user.getId());
                 if (userFromDB == null) {
                     logger.error("Modification d'un utilisateur non présent en base !");
-                    return null;
+                    throw new UserRessourceException("Modification d'un utilisateur non présent en base !");
                 }
 
                 if (!bCryptPasswordEncoder.matches(user.getPassword(), userFromDB.getPassword())) {
@@ -83,15 +82,15 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
             logger.error("Utilisateur non existant", ex);
-//            throw new UserRessourceException("DuplicateValueError. Un utilisateur existe déjà avec le compte : " + user.getPseudo());
+            throw new UserRessourceException("DuplicateValueError. Un utilisateur existe déjà avec le compte : " + user.getPseudo());
         } /*catch (UserRessourceException e) {
             logger.error("Utilisateur non existant", e);
             throw new UserRessourceException("UserNotFound. Aucun utilisateur avec l'identifiant: " + user.getId());
         }*/ catch (Exception ex) {
+            logger.error(ex.getMessage());
             logger.error("Erreur technique de création ou de mise à jour de l'utilisateur");
-//            throw new UserRessourceException("SaveOrUpdateUserError. Erreur technique de création ou de mise à jour de l'utilisateur: " + user.getPseudo());
+            throw new UserRessourceException("SaveOrUpdateUserError. Erreur technique de création ou de mise à jour de l'utilisateur: " + user.getPseudo());
         }
-        return null;
     }
 
     @Override
@@ -106,12 +105,13 @@ public class UserServiceImpl implements UserService {
 //            throw new UserRessourceException("DeleteUserError: Erreur de suppression de l'utilisateur avec l'identifiant: " + user.getId());
         } catch (Exception ex) {
             logger.error("DeleteUserError: Erreur de suppression de l'utilisateur avec l'identifiant: " + user.getId());
+            throw new UserRessourceException("Erreur lors de la suppression d'un utilisateur");
         }
     }
 
     @Override
     @Transactional
-    public User findByPseudoAndPassword(String pseudo, String password) throws UserRessourceException {
+    public User findByPseudoAndPassword(String pseudo, String password) {
         try {
             User userFound = this.findByPseudo(pseudo);
             if (userFound == null) {
@@ -123,9 +123,6 @@ public class UserServiceImpl implements UserService {
             }/* else {
                 throw new UserRessourceException("UserNotFound: Mot de passe incorrect");
             }*/
-        } catch (UserRessourceException ex) {
-            logger.error("Login ou mot de passe incorrect");
-//            throw new UserRessourceException(ex.getMessage());
         } catch (Exception ex) {
             logger.error("Une erreur technique est survenue");
 //            throw new UserRessourceException("TechnicalError: Une erreur technique est survenue");

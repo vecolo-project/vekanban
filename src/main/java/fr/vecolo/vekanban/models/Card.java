@@ -1,6 +1,8 @@
 package fr.vecolo.vekanban.models;
 
 import fr.vecolo.vekanban.utils.DateAudit;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,6 +30,7 @@ public class Card extends DateAudit {
     private CardStatus status;
 
     @ManyToOne(optional = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User assignedUser;
 
     @ManyToOne(optional = false)
