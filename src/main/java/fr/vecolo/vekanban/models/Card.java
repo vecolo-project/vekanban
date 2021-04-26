@@ -1,6 +1,7 @@
 package fr.vecolo.vekanban.models;
 
 import fr.vecolo.vekanban.utils.DateAudit;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -34,6 +35,7 @@ public class Card extends DateAudit {
     private User assignedUser;
 
     @ManyToOne(optional = false)
+    @OnDelete(action =OnDeleteAction.CASCADE)
     private Board assignedBoard;
 
     @ManyToMany()

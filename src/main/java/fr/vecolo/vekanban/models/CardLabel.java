@@ -1,8 +1,11 @@
 package fr.vecolo.vekanban.models;
 
 import fr.vecolo.vekanban.utils.DateAudit;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "CARD_LABEL")
@@ -17,7 +20,11 @@ public class CardLabel extends DateAudit {
     private String name;
 
     @ManyToOne(optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Board board;
+
+    @ManyToMany(mappedBy = "labels")
+    private List<Card> associatedCards;
 
     public CardLabel() {
     }
@@ -49,6 +56,21 @@ public class CardLabel extends DateAudit {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public List<Card> getAssociatedCards() {
+        return associatedCards;
+    }
+
+    public void setAssociatedCards(List<Card> associatedCards) {
+        this.associatedCards = associatedCards;
+    }
+
+    @PreRemove
+    private void nullAssociatedCards() {
+        for (Card card : associatedCards) {
+            //TODO remove associated card
+        }
     }
 
     @Override
