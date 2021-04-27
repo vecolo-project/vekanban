@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface CardLabelRepositories extends JpaRepository<CardLabel, Long> {
+public interface CardLabelRepository extends JpaRepository<CardLabel, Long> {
     List<CardLabel> findAllByBoard(Board board);
 }

@@ -78,7 +78,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional
     public void deleteBoard(Board board) throws BoardRessourceException {
-        //TODO delete associated, labels, members
+        //TODO delete, members
         try {
             boardRepository.delete(board);
         } catch (Exception ex) {

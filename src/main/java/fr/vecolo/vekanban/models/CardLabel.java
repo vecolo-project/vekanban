@@ -66,13 +66,6 @@ public class CardLabel extends DateAudit {
         this.associatedCards = associatedCards;
     }
 
-    @PreRemove
-    private void nullAssociatedCards() {
-        for (Card card : associatedCards) {
-            //TODO remove associated card
-        }
-    }
-
     @Override
     public String toString() {
         return "CardLabel{" +

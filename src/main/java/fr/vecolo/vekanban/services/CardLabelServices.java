@@ -1,5 +1,6 @@
 package fr.vecolo.vekanban.services;
 
+import fr.vecolo.vekanban.config.exceptions.CardLabelRessourceException;
 import fr.vecolo.vekanban.models.Board;
 import fr.vecolo.vekanban.models.CardLabel;
 
@@ -11,7 +12,7 @@ public interface CardLabelServices {
 
     List<CardLabel> getAllCardLabelFromBoard(Board board);
 
-    CardLabel saveOrUdateCardLabel(CardLabel cardLabel);
+    CardLabel saveOrUdateCardLabel(CardLabel cardLabel) throws CardLabelRessourceException;
 
-    void deleteCardLabel(CardLabel cardLabel);
+    void deleteCardLabel(CardLabel cardLabel) throws CardLabelRessourceException;
 }
