@@ -17,4 +17,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
 
     List<Card> findAllByAssignedBoard(Board assignedBoard);
 
+    List<Card> findAllByAssignedUser(User assignedUser);
+
 }
