@@ -1,17 +1,20 @@
 package fr.vecolo.vekanban.repositories;
 
-import fr.vecolo.vekanban.models.Board;
-import fr.vecolo.vekanban.models.Card;
-import fr.vecolo.vekanban.models.CardStatus;
-import fr.vecolo.vekanban.models.User;
+import fr.vecolo.vekanban.models.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface CardRepository extends JpaRepository<Card, Long> {
 
-    List<Card> findByAssignedBoardAndStatus(Board assignedBoard, CardStatus status);
+    List<Card> findAllByAssignedBoardAndStatus(Board assignedBoard, CardStatus status);
 
-    List<Card> findByAssignedUserAndAssignedBoard(User assignedUser, Board assignedBoard);
+    List<Card> findAllByAssignedBoardAndLabels(Board assignedBoard, List<CardLabel> labels);
+
+    List<Card> findAllByAssignedBoardAndLabels(Board assignedBoard, CardLabel labels);
+
+    List<Card> findAllByAssignedUserAndAssignedBoard(User assignedUser, Board assignedBoard);
+
+    List<Card> findAllByAssignedBoard(Board assignedBoard);
 
 }
