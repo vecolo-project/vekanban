@@ -83,10 +83,7 @@ public class UserServiceImpl implements UserService {
         } catch (DataIntegrityViolationException ex) {
             logger.error("Utilisateur non existant", ex);
             throw new UserRessourceException("DuplicateValueError. Un utilisateur existe déjà avec le compte : " + user.getPseudo());
-        } /*catch (UserRessourceException e) {
-            logger.error("Utilisateur non existant", e);
-            throw new UserRessourceException("UserNotFound. Aucun utilisateur avec l'identifiant: " + user.getId());
-        }*/ catch (Exception ex) {
+        } catch (Exception ex) {
             logger.error(ex.getMessage());
             logger.error("Erreur technique de création ou de mise à jour de l'utilisateur");
             throw new UserRessourceException("SaveOrUpdateUserError. Erreur technique de création ou de mise à jour de l'utilisateur: " + user.getPseudo());
@@ -97,12 +94,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(User user) throws UserRessourceException {
 
-        //TODO delete also all board owning, all assigned card, all board member
+        //TODO delete also all board members and null associated cards
         try {
             userRepository.delete(user);
         } catch (EmptyResultDataAccessException ex) {
             logger.error(String.format("Aucun utilisateur n'existe avec l'identifiant: " + user.getId(), ex));
-//            throw new UserRessourceException("DeleteUserError: Erreur de suppression de l'utilisateur avec l'identifiant: " + user.getId());
         } catch (Exception ex) {
             logger.error("DeleteUserError: Erreur de suppression de l'utilisateur avec l'identifiant: " + user.getId());
             throw new UserRessourceException("Erreur lors de la suppression d'un utilisateur");

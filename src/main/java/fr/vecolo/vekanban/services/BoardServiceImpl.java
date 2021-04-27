@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,21 +26,25 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public List<Board> getUserMemberBoards(User user) {
         return boardRepository.findByMembersContaining(user);
     }
 
     @Override
+    @Transactional
     public List<Board> getUserOwningBoards(User user) {
         return boardRepository.findByOwner(user);
     }
 
     @Override
+    @Transactional
     public List<Board> getUserAllBoards(User user) {
         return boardRepository.findByOwnerOrMembersContaining(user, user);
     }
 
     @Override
+    @Transactional
     public Board getBoardById(Long id) {
         Optional<Board> board = boardRepository.findById(id);
         if (board.isEmpty()) {
@@ -50,6 +55,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public Board saveOrUpdateBoard(Board board) throws BoardRessourceException {
         try {
             if (board.getId() != 0) {
@@ -70,7 +76,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    @Transactional
     public void deleteBoard(Board board) throws BoardRessourceException {
+        //TODO delete associated, labels, members
         try {
             boardRepository.delete(board);
         } catch (Exception ex) {
