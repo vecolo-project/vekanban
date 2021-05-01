@@ -1,8 +1,8 @@
 package fr.vecolo.vekanban.services;
 
-import fr.vecolo.vekanban.config.exceptions.BoardRessourceException;
 import fr.vecolo.vekanban.config.exceptions.CardLabelRessourceException;
 import fr.vecolo.vekanban.models.Board;
+import fr.vecolo.vekanban.models.Card;
 import fr.vecolo.vekanban.models.CardLabel;
 import fr.vecolo.vekanban.repositories.CardLabelRepository;
 import org.slf4j.Logger;
@@ -16,14 +16,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CardLabelServicesImpl implements CardLabelServices {
-    private final static Logger logger = LoggerFactory.getLogger(CardLabelServicesImpl.class);
+public class CardLabelServiceImpl implements CardLabelService {
+    private final static Logger logger = LoggerFactory.getLogger(CardLabelServiceImpl.class);
 
     private final CardLabelRepository cardLabelRepository;
+    private final CardServiceImpl cardService;
 
     @Autowired
-    public CardLabelServicesImpl(CardLabelRepository cardLabelRepository) {
+    public CardLabelServiceImpl(CardLabelRepository cardLabelRepository, CardServiceImpl cardService) {
         this.cardLabelRepository = cardLabelRepository;
+        this.cardService = cardService;
     }
 
     @Override
@@ -67,8 +69,12 @@ public class CardLabelServicesImpl implements CardLabelServices {
     @Override
     @Transactional
     public void deleteCardLabel(CardLabel cardLabel) throws CardLabelRessourceException {
-        //TODO remove car_labels associations
         try {
+            for (Card card : cardService.findAllByAssignedBoardAndLabelsContaining(cardLabel.getBoard(), cardLabel)) {
+                card.getLabels().remove(cardLabel);
+                cardService.saveOrUpdateCard(card);
+            }
+
             cardLabelRepository.delete(cardLabel);
         } catch (Exception ex) {
             logger.error(ex.getMessage());

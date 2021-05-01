@@ -1,6 +1,8 @@
 package fr.vecolo.vekanban.services;
 
 import fr.vecolo.vekanban.config.exceptions.UserRessourceException;
+import fr.vecolo.vekanban.models.Board;
+import fr.vecolo.vekanban.models.Card;
 import fr.vecolo.vekanban.models.User;
 import fr.vecolo.vekanban.repositories.UserRepository;
 import org.apache.commons.collections4.IteratorUtils;
@@ -13,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +22,15 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
+    private final BoardServiceImpl boardService;
+    private final CardServiceImpl cardService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, BoardServiceImpl boardService, CardServiceImpl cardService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.boardService = boardService;
+        this.cardService = cardService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -93,9 +98,21 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void deleteUser(User user) throws UserRessourceException {
-
-        //TODO delete also all board members and null associated cards
         try {
+            for (Board board : boardService.getUserMemberBoards(user)) {
+                board.getMembers().remove(user);
+                boardService.saveOrUpdateBoard(board);
+            }
+
+            for (Card card : cardService.findAllByAssignedUser(user)) {
+                card.setAssignedUser(null);
+                cardService.saveOrUpdateCard(card);
+            }
+
+            for (Board board : boardService.getUserOwningBoards(user)) {
+                boardService.deleteBoard(board);
+            }
+
             userRepository.delete(user);
         } catch (EmptyResultDataAccessException ex) {
             logger.error(String.format("Aucun utilisateur n'existe avec l'identifiant: " + user.getId(), ex));

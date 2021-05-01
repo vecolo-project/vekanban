@@ -6,7 +6,7 @@ import fr.vecolo.vekanban.models.CardLabel;
 
 import java.util.List;
 
-public interface CardLabelServices {
+public interface CardLabelService {
 
     CardLabel getCardLabelById(Long id);
 

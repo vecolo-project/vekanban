@@ -2,6 +2,8 @@ package fr.vecolo.vekanban.services;
 
 import fr.vecolo.vekanban.config.exceptions.BoardRessourceException;
 import fr.vecolo.vekanban.models.Board;
+import fr.vecolo.vekanban.models.Card;
+import fr.vecolo.vekanban.models.CardLabel;
 import fr.vecolo.vekanban.models.User;
 import fr.vecolo.vekanban.repositories.BoardRepository;
 import org.slf4j.Logger;
@@ -18,10 +20,14 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService {
     private final static Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
     private final BoardRepository boardRepository;
+    private final CardLabelServiceImpl cardLabelService;
+    private final CardServiceImpl cardService;
 
     @Autowired
-    public BoardServiceImpl(BoardRepository boardRepository) {
+    public BoardServiceImpl(BoardRepository boardRepository, CardLabelServiceImpl cardLabelService, CardServiceImpl cardService) {
         this.boardRepository = boardRepository;
+        this.cardLabelService = cardLabelService;
+        this.cardService = cardService;
     }
 
     @Override
@@ -77,8 +83,21 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional
     public void deleteBoard(Board board) throws BoardRessourceException {
-        //TODO delete, members
         try {
+            //Remove all associated members
+            board.getMembers().clear();
+            boardRepository.save(board);
+
+            // Remove all cards
+            for (Card card : cardService.findAllByAssignedBoard(board)) {
+                cardService.deleteCard(card);
+            }
+
+            // Remove all card labels
+            for (CardLabel cardLabel : cardLabelService.getAllCardLabelFromBoard(board)) {
+                cardLabelService.deleteCardLabel(cardLabel);
+            }
+
             boardRepository.delete(board);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
