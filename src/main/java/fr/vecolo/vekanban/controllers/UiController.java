@@ -1,6 +1,9 @@
 package fr.vecolo.vekanban.controllers;
 
 import fr.vecolo.vekanban.events.LogoutEvent;
+import fr.vecolo.vekanban.models.Board;
+import fr.vecolo.vekanban.models.User;
+import fr.vecolo.vekanban.services.BoardServiceImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -12,6 +15,8 @@ import org.controlsfx.control.CheckComboBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 @Controller
 public class UiController {
@@ -31,11 +36,14 @@ public class UiController {
     @FXML
     private CheckComboBox<CheckBox> checkComboBox;
 
+    private User user;
     private final ApplicationEventPublisher ac;
+    private final BoardServiceImpl boardService;
 
     @Autowired
-    public UiController(ApplicationEventPublisher ac) {
+    public UiController(ApplicationEventPublisher ac, BoardServiceImpl boardService) {
         this.ac = ac;
+        this.boardService = boardService;
     }
 
     @FXML
@@ -53,6 +61,10 @@ public class UiController {
             }
         });
         fillCheckComboBox();
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     private void buttonCLicked() {

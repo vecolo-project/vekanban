@@ -1,5 +1,7 @@
 package fr.vecolo.vekanban.config;
 
+import fr.vecolo.vekanban.controllers.UiController;
+import fr.vecolo.vekanban.models.User;
 import fr.vecolo.vekanban.utils.FXMLLoaderHelper;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -19,6 +21,7 @@ public class StageManager {
     private final Resource fxmlUi;
     private final Resource fxmlLogin;
     private final FXMLLoaderHelper fxmlLoader;
+    private final UiController uiController;
     private Stage primaryStage;
 
 
@@ -32,7 +35,7 @@ public class StageManager {
             @Value("${spring.application.login.height}") int loginHeight,
             @Value("classpath:/fxml/ui.fxml") Resource fxmlUi,
             @Value("classpath:/fxml/login.fxml") Resource fxmlLogin,
-            FXMLLoaderHelper fxmlLoader) {
+            FXMLLoaderHelper fxmlLoader, UiController uiController) {
         this.appTitle = appTitle;
         this.loginTitle = loginTitle;
         this.uiWidth = uiWidth;
@@ -42,6 +45,7 @@ public class StageManager {
         this.fxmlUi = fxmlUi;
         this.fxmlLogin = fxmlLogin;
         this.fxmlLoader = fxmlLoader;
+        this.uiController = uiController;
     }
 
     public void setPrimaryStage(Stage primaryStage) {
@@ -49,7 +53,8 @@ public class StageManager {
         primaryStage.setResizable(false);
     }
 
-    public void showUiStage() {
+    public void showUiStage(User user) {
+        uiController.setUser(user);
         primaryStage.close();
         primaryStage.setTitle(appTitle);
         primaryStage.setScene(new Scene(fxmlLoader.loadFXML(fxmlUi), uiWidth, uiHeight));

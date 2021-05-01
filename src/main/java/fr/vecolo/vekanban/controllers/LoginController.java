@@ -24,8 +24,7 @@ public class LoginController {
 
     @FXML
     void click(ActionEvent event) {
-        System.out.println("Click");
-        this.ae.publishEvent(new LoginEvent(event, "loginEmail", "loginPassword"));
+        this.ae.publishEvent(new LoginEvent(event, "nospy", "password"));
     }
 
 }

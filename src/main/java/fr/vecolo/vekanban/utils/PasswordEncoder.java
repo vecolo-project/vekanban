@@ -13,7 +13,7 @@ public class PasswordEncoder {
 
     public static void main(String[] args) {
         passwordEncoder = new BCryptPasswordEncoder();
-        String password = "password2";
+        String password = "password";
         String encodedPassword = passwordEncoder.encode(password);
         System.out.println("Mot de passe en clair : " + password);
         System.out.println("Mot de passe haché : " + encodedPassword);
