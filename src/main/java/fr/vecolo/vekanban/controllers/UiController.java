@@ -1,40 +1,49 @@
 package fr.vecolo.vekanban.controllers;
 
 import fr.vecolo.vekanban.events.LogoutEvent;
-import fr.vecolo.vekanban.models.Board;
 import fr.vecolo.vekanban.models.User;
 import fr.vecolo.vekanban.services.BoardServiceImpl;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
-import javafx.util.StringConverter;
-import org.controlsfx.control.CheckComboBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
+import org.springframework.util.StringUtils;
 
 @Controller
 public class UiController {
+    @FXML
+    private SplitPane root;
 
     @FXML
-    public Label label;
+    private Label helloLabel;
 
     @FXML
-    public Button button;
+    private ToggleButton projectButton;
 
     @FXML
-    public TextArea mdtext;
+    private ToggleButton newProjectButton;
 
     @FXML
-    public HBox mdHbox;
+    private ToggleButton profilButton;
 
     @FXML
-    private CheckComboBox<CheckBox> checkComboBox;
+    private StackPane rootStackPane;
+
+    @FXML
+    private VBox projectBox;
+
+    @FXML
+    private VBox newProjectBox;
+
+    @FXML
+    private VBox profilBox;
 
     private User user;
     private final ApplicationEventPublisher ac;
@@ -48,35 +57,43 @@ public class UiController {
 
     @FXML
     public void initialize() {
-        this.button.setOnAction(e -> buttonCLicked());
-        checkComboBox.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(CheckBox object) {
-                return object.getText();
-            }
+        freezeSplitPaneBar();
+        setVisibleBox(projectBox);
+        helloLabel.setText("Bonjour " + StringUtils.capitalize(user.getPseudo()));
+    }
 
-            @Override
-            public CheckBox fromString(String string) {
-                return new CheckBox(string);
-            }
-        });
-        fillCheckComboBox();
+    private void freezeSplitPaneBar() {
+        root.getDividers().get(0).positionProperty().addListener(o -> root.setDividerPosition(0, 0.2));
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    private void buttonCLicked() {
-        checkComboBox.getCheckModel().getCheckedItems().forEach(System.out::println);
+    @FXML
+    private void logout() {
         ac.publishEvent(new LogoutEvent(this));
     }
 
-    private void fillCheckComboBox() {
-        checkComboBox.getItems().clear();
-        for (int i = 0; i < 10; i++) {
-            checkComboBox.getItems()
-                    .add(new CheckBox("Button " + (i + 1)));
+    private void setVisibleBox(VBox box) {
+        projectButton.setSelected(box == projectBox);
+        newProjectButton.setSelected(box == newProjectBox);
+        profilButton.setSelected(box == profilBox);
+
+        projectBox.setVisible(box == projectBox);
+        newProjectBox.setVisible(box == newProjectBox);
+        profilBox.setVisible(box == profilBox);
+    }
+
+    @FXML
+    private void changeBox(ActionEvent event) {
+        ToggleButton buttonClicked = (ToggleButton) event.getSource();
+        if (buttonClicked == projectButton) {
+            setVisibleBox(projectBox);
+        } else if (buttonClicked == newProjectButton) {
+            setVisibleBox(newProjectBox);
+        } else if (buttonClicked == profilButton) {
+            setVisibleBox(profilBox);
         }
     }
 }

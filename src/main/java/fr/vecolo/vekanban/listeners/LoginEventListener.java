@@ -27,6 +27,8 @@ public class LoginEventListener implements ApplicationListener<LoginEvent> {
     @Override
     public void onApplicationEvent(LoginEvent source) {
         User user = userService.findByPseudoAndPassword(source.loginPseudo, source.loginPassword);
-        stageManager.showUiStage(user);
+        if (user != null) {
+            stageManager.showUiStage(user);
+        }
     }
 }
