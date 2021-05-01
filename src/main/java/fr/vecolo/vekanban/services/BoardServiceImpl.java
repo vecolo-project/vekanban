@@ -4,7 +4,6 @@ import fr.vecolo.vekanban.config.exceptions.BoardRessourceException;
 import fr.vecolo.vekanban.models.Board;
 import fr.vecolo.vekanban.models.User;
 import fr.vecolo.vekanban.repositories.BoardRepository;
-import org.apache.commons.collections4.IteratorUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
