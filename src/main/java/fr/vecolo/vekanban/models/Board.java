@@ -1,15 +1,15 @@
 package fr.vecolo.vekanban.models;
 
 import fr.vecolo.vekanban.utils.DateAudit;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "BOARD")
-public class Board extends DateAudit implements Serializable {
-    private static final long serialVersionUID = 2L;
+public class Board extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,7 @@ public class Board extends DateAudit implements Serializable {
     private String cardIdPrefix;
 
     @ManyToOne()
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User owner;
 
     @ManyToMany()
@@ -70,6 +71,38 @@ public class Board extends DateAudit implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public String getCardIdPrefix() {
+        return cardIdPrefix;
+    }
+
+    public void setCardIdPrefix(String cardIdPrefix) {
+        this.cardIdPrefix = cardIdPrefix;
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+
+    public List<CardLabel> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(List<CardLabel> labels) {
+        this.labels = labels;
     }
 
     @Override
