@@ -57,7 +57,7 @@ public class StageManager {
         uiController.setUser(user);
         primaryStage.close();
         primaryStage.setTitle(appTitle);
-        primaryStage.setScene(new Scene(fxmlLoader.loadFXML(fxmlUi), uiWidth, uiHeight));
+        primaryStage.setScene(new Scene(fxmlLoader.loadFXML(fxmlUi).getRoot(), uiWidth, uiHeight));
         primaryStage.centerOnScreen();
         primaryStage.show();
     }
@@ -65,7 +65,7 @@ public class StageManager {
     public void showLoginStage() {
         primaryStage.close();
         primaryStage.setTitle(loginTitle);
-        primaryStage.setScene(new Scene(fxmlLoader.loadFXML(fxmlLogin), loginWidth, loginHeight));
+        primaryStage.setScene(new Scene(fxmlLoader.loadFXML(fxmlLogin).getRoot(), loginWidth, loginHeight));
         primaryStage.centerOnScreen();
         primaryStage.show();
     }

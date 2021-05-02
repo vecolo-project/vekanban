@@ -98,4 +98,9 @@ public class CardServiceImpl implements CardService {
             throw new CardRessourceException("Une erreur est survenue lors de la suppression d'une carte");
         }
     }
+
+    @Override
+    public Long countCardByAssignedBoard(Board board) {
+        return cardRepository.countCardByAssignedBoard(board);
+    }
 }

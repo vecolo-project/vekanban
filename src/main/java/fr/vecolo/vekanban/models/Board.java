@@ -32,7 +32,7 @@ public class Board extends DateAudit {
     @OneToMany(mappedBy = "assignedBoard")
     private List<Card> cards;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "board")
     private List<CardLabel> labels;
 
     public Board() {

@@ -22,4 +22,6 @@ public interface CardService {
 
     void deleteCard(Card card) throws CardRessourceException;
 
+    Long countCardByAssignedBoard(Board board);
+
 }

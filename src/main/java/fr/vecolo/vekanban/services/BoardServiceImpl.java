@@ -83,6 +83,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     @Transactional
     public void deleteBoard(Board board) throws BoardRessourceException {
+        board = getBoardById(board.getId());
         try {
             //Remove all associated members
             board.getMembers().clear();
