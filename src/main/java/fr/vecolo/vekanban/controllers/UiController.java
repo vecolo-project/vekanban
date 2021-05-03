@@ -1,70 +1,152 @@
 package fr.vecolo.vekanban.controllers;
 
 import fr.vecolo.vekanban.events.LogoutEvent;
+import fr.vecolo.vekanban.models.Board;
+import fr.vecolo.vekanban.models.User;
+import fr.vecolo.vekanban.services.BoardServiceImpl;
+import fr.vecolo.vekanban.utils.FXMLLoaderHelper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.util.StringConverter;
-import org.controlsfx.control.CheckComboBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Controller
 public class UiController {
+    // Sidebar
+    @FXML
+    private SplitPane root;
 
     @FXML
-    public Label label;
+    private Label helloLabel;
 
     @FXML
-    public Button button;
+    private ToggleButton projectButton;
 
     @FXML
-    public TextArea mdtext;
+    private ToggleButton newProjectButton;
 
     @FXML
-    public HBox mdHbox;
+    private ToggleButton profilButton;
 
     @FXML
-    private CheckComboBox<CheckBox> checkComboBox;
+    private StackPane rootStackPane;
 
+    // Project box
+
+    @FXML
+    private VBox projectBox;
+
+    @FXML
+    private HBox projectOwningListBox;
+
+    @FXML
+    private HBox projectMemberListBox;
+
+    // New Project Box
+    @FXML
+    private VBox newProjectBox;
+
+    // Profil Box
+    @FXML
+    private VBox profilBox;
+
+    private User user;
     private final ApplicationEventPublisher ac;
+    private final BoardServiceImpl boardService;
+    private final FXMLLoaderHelper fxmlLoaderHelper;
+
+    private final Resource projectCardResource;
 
     @Autowired
-    public UiController(ApplicationEventPublisher ac) {
+    public UiController(ApplicationEventPublisher ac,
+                        BoardServiceImpl boardService,
+                        FXMLLoaderHelper fxmlLoaderHelper,
+                        @Value("classpath:/fxml/projectCard.fxml") Resource projectCardResource) {
         this.ac = ac;
+        this.boardService = boardService;
+        this.fxmlLoaderHelper = fxmlLoaderHelper;
+        this.projectCardResource = projectCardResource;
     }
 
     @FXML
     public void initialize() {
-        this.button.setOnAction(e -> buttonCLicked());
-        checkComboBox.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(CheckBox object) {
-                return object.getText();
-            }
-
-            @Override
-            public CheckBox fromString(String string) {
-                return new CheckBox(string);
-            }
-        });
-        fillCheckComboBox();
+        freezeSplitPaneBar();
+        setVisibleBox(projectBox);
+        helloLabel.setText("Bonjour " + StringUtils.capitalize(user.getPseudo()));
     }
 
-    private void buttonCLicked() {
-        checkComboBox.getCheckModel().getCheckedItems().forEach(System.out::println);
+    private void freezeSplitPaneBar() {
+        root.getDividers().get(0).positionProperty().addListener(o -> root.setDividerPosition(0, 0.2));
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @FXML
+    private void logout() {
         ac.publishEvent(new LogoutEvent(this));
     }
 
-    private void fillCheckComboBox() {
-        checkComboBox.getItems().clear();
-        for (int i = 0; i < 10; i++) {
-            checkComboBox.getItems()
-                    .add(new CheckBox("Button " + (i + 1)));
+    private void setVisibleBox(VBox box) {
+        projectButton.setSelected(box == projectBox);
+        newProjectButton.setSelected(box == newProjectBox);
+        profilButton.setSelected(box == profilBox);
+
+        projectBox.setVisible(box == projectBox);
+        newProjectBox.setVisible(box == newProjectBox);
+        profilBox.setVisible(box == profilBox);
+
+        if (box == projectBox) {
+            fillProjectCards();
+
+        }
+    }
+
+    public void deleteBoardCB() {
+        setVisibleBox(projectBox);
+    }
+
+    private void fillProjectCards() {
+        projectOwningListBox.getChildren().clear();
+        List<Board> owningProjects = boardService.getUserOwningBoards(user);
+        for (Board board : owningProjects) {
+            FXMLLoader fxmlLoader = fxmlLoaderHelper.loadFXML(projectCardResource);
+            ProjectCardController controller = fxmlLoader.getController();
+            controller.setProject(board, user);
+            projectOwningListBox.getChildren().add(fxmlLoader.getRoot());
+        }
+
+        projectMemberListBox.getChildren().clear();
+        List<Board> memebrProjects = boardService.getUserMemberBoards(user);
+        for (Board board : memebrProjects) {
+            FXMLLoader fxmlLoader = fxmlLoaderHelper.loadFXML(projectCardResource);
+            ProjectCardController controller = fxmlLoader.getController();
+            controller.setProject(board, user);
+            projectMemberListBox.getChildren().add(fxmlLoader.getRoot());
+        }
+    }
+
+    @FXML
+    private void changeBox(ActionEvent event) {
+        ToggleButton buttonClicked = (ToggleButton) event.getSource();
+        if (buttonClicked == projectButton) {
+            setVisibleBox(projectBox);
+        } else if (buttonClicked == newProjectButton) {
+            setVisibleBox(newProjectBox);
+        } else if (buttonClicked == profilButton) {
+            setVisibleBox(profilBox);
         }
     }
 }

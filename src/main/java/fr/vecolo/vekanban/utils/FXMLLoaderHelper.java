@@ -1,5 +1,6 @@
 package fr.vecolo.vekanban.utils;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +21,7 @@ public class FXMLLoaderHelper {
     }
 
 
-    public Parent loadFXML(Resource resource) {
+    public FXMLLoader loadFXML(Resource resource) {
         try {
             URL url = resource.getURL();
             return loadFXML(url);
@@ -29,7 +30,7 @@ public class FXMLLoaderHelper {
         }
     }
 
-    public Parent loadFXML(String ressourcePath) {
+    public FXMLLoader loadFXML(String ressourcePath) {
         URL url = getClass().getResource("/" + ressourcePath);
         if (url == null) {
             throw new RuntimeException("Can't find FXML file");
@@ -37,11 +38,12 @@ public class FXMLLoaderHelper {
         return loadFXML(url);
     }
 
-    public Parent loadFXML(URL url) {
+    public FXMLLoader loadFXML(URL url) {
         javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(url);
         loader.setControllerFactory(applicationContext::getBean);
         try {
-            return loader.load();
+            loader.load();
+            return loader;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

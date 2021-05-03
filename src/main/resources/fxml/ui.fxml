@@ -2,122 +2,80 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ColorPicker?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import org.controlsfx.control.CheckComboBox?>
 
-<VBox prefHeight="800.0" prefWidth="1600.0" spacing="10.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiController">
-
-    <Button fx:id="button" styleClass="h3" text="Logout" />
-    <Label fx:id="label" text="Label" />
-   <CheckComboBox fx:id="checkComboBox" prefHeight="26.0" prefWidth="150.0" showCheckedCount="true" title="" />
-   <ColorPicker editable="true" />
-   <ToggleButton mnemonicParsing="false" text="ToggleButton" />
-   <ProgressBar prefWidth="200.0" />
-   <DatePicker editable="false" promptText="ftt" showWeekNumbers="true" />
-   <Slider showTickLabels="true" showTickMarks="true" value="10.0" />
-   <ComboBox prefWidth="150.0" />
-   <TabPane prefHeight="281.0" prefWidth="779.0" tabClosingPolicy="UNAVAILABLE">
-     <tabs>
-       <Tab text="Untitled Tab 1">
-         <content>
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <MenuBar layoutY="2.0">
-                       <menus>
-                         <Menu mnemonicParsing="false" text="File">
-                           <items>
-                             <MenuItem mnemonicParsing="false" text="Close" />
-                           </items>
-                         </Menu>
-                         <Menu mnemonicParsing="false" text="Edit">
-                           <items>
-                             <MenuItem mnemonicParsing="false" text="Delete" />
-                           </items>
-                         </Menu>
-                         <Menu mnemonicParsing="false" text="Help">
-                           <items>
-                             <MenuItem mnemonicParsing="false" text="About" />
-                           </items>
-                         </Menu>
-                       </menus>
-                     </MenuBar>
-                     <TitledPane layoutY="37.0" prefHeight="204.0" prefWidth="368.0" text="untitled">
-                       <content>
-                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                       </content>
-                     </TitledPane>
-                     <TableView layoutX="381.0" layoutY="37.0" prefHeight="200.0" prefWidth="384.0">
-                       <columns>
-                         <TableColumn prefWidth="75.0" text="C1" />
-                         <TableColumn prefWidth="75.0" text="C2" />
-                       </columns>
-                     </TableView>
-                  </children>
-               </AnchorPane>
-         </content>
-       </Tab>
-       <Tab text="Untitled Tab 2">
-         <content>
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <CheckBox layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="129.0" selected="true" text="CheckBox" />
-                     <RadioButton layoutX="14.0" layoutY="75.0" mnemonicParsing="false" text="RadioButton" />
-                     <Spinner layoutX="176.0" layoutY="14.0" prefHeight="38.0" prefWidth="149.0" />
-                  </children></AnchorPane>
-         </content>
-       </Tab>
-         <Tab text="Untitled Tab 3">
-           <content>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <HBox fx:id="mdHbox" alignment="CENTER_LEFT" layoutX="20.0" layoutY="14.0" prefHeight="220.0" prefWidth="928.0">
-                        <children>
-                           <TextArea fx:id="mdtext" prefHeight="220.0" prefWidth="409.0" text="dddd" />
-                        </children>
-                     </HBox>
-                  </children>
-               </AnchorPane>
-           </content>
-         </Tab>
-         <Tab text="Untitled Tab 4">
-           <content>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                     <ScrollPane layoutX="64.0" layoutY="23.0" prefHeight="201.0" prefWidth="652.0">
-                       <content>
-                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                       </content>
-                     </ScrollPane>
-                  </children>
-               </AnchorPane>
-           </content>
-         </Tab>
-     </tabs>
-   </TabPane>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-
-</VBox>
+<SplitPane fx:id="root" dividerPositions="0.2" prefHeight="800.0" prefWidth="1600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiController">
+   <items>
+      <VBox spacing="10.0">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <Label fx:id="helloLabel" alignment="CENTER" prefWidth="600.0" styleClass="h4" text="Label" />
+                  <ToggleButton fx:id="projectButton" mnemonicParsing="false" onAction="#changeBox" prefHeight="50.0" prefWidth="600.0" text="MES PROJETS">
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                  </ToggleButton>
+                  <ToggleButton fx:id="newProjectButton" layoutX="20.0" layoutY="154.0" mnemonicParsing="false" onAction="#changeBox" prefHeight="50.0" prefWidth="600.0" text="NOUVEAU PROJET" />
+                  <ToggleButton fx:id="profilButton" layoutX="20.0" layoutY="215.0" mnemonicParsing="false" onAction="#changeBox" prefHeight="50.0" prefWidth="600.0" text="MON PROFIL" />
+               </children>
+            </VBox>
+            <Button fx:id="logoutButton" onAction="#logout" prefHeight="33.0" prefWidth="500.0" snapToPixel="false" text="Logout">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <StackPane fx:id="rootStackPane">
+         <children>
+            <VBox fx:id="projectBox" spacing="20.0">
+               <children>
+                  <Label styleClass="h1" text="Mes projets" />
+                  <ScrollPane prefHeight="300.0" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="projectOwningListBox" spacing="10.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+                  <Label layoutX="10.0" layoutY="10.0" styleClass="h1" text="Partagé avec moi" />
+                  <ScrollPane layoutX="10.0" layoutY="78.0" prefHeight="300.0" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="projectMemberListBox" spacing="10.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </StackPane.margin>
+            </VBox>
+            <VBox fx:id="newProjectBox" visible="false">
+               <children>
+                  <Label styleClass="h1" text="New Project Box" />
+               </children>
+            </VBox>
+            <VBox fx:id="profilBox" layoutX="10.0" layoutY="10.0" visible="false">
+               <children>
+                  <Label styleClass="h1" text="Profil Box" />
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </items>
+</SplitPane>
