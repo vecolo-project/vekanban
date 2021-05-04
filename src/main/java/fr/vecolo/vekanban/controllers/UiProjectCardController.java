@@ -22,7 +22,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @Scope("prototype")
-public class ProjectCardController {
+public class UiProjectCardController {
     @FXML
     private Label projectTitle;
 
@@ -55,8 +55,8 @@ public class ProjectCardController {
     PopUpYNController popUpYNController;
 
     @Autowired
-    public ProjectCardController(CardServiceImpl cardService, BoardService boardService, UiController uiController,
-                                 FXMLLoaderHelper fxmlLoaderHelper, @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN) {
+    public UiProjectCardController(CardServiceImpl cardService, BoardService boardService, UiController uiController,
+                                   FXMLLoaderHelper fxmlLoaderHelper, @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN) {
         this.cardService = cardService;
         this.boardService = boardService;
         this.uiController = uiController;
@@ -71,6 +71,13 @@ public class ProjectCardController {
 
     public void setProject(Board board, User user) {
         this.board = board;
+
+        setupBoardInfo(board, user);
+
+        setupDeletePopUp(board, user);
+    }
+
+    private void setupBoardInfo(Board board, User user) {
         this.projectTitle.setText(board.getName());
         this.boardPrefix.setText(board.getCardIdPrefix());
         this.boardCreatedDate.setText(board.getCreatedAt().toLocalDate().toString());
@@ -80,27 +87,28 @@ public class ProjectCardController {
         } else {
             boardOwnerHbox.setVisible(false);
         }
+    }
 
-        this.deleteButton.setDisable(this.board.getOwner().getId() != user.getId());
+    private void setupDeletePopUp(Board board, User user) {
+        this.deleteButton.setVisible(this.board.getOwner().getId() == user.getId());
         FXMLLoader loader = fxmlLoaderHelper.loadFXML(popupYN);
         popUpYNController = loader.getController();
         popUpYNController.setPopupLabel("Voulez vous vraiment supprimer\nle projet " + board.getName() + " ?");
         popupYNStage.setScene(new Scene(loader.getRoot()));
         popupYNStage.setResizable(false);
         popupYNStage.initModality(Modality.APPLICATION_MODAL);
-
     }
 
     @FXML
     private void deleteBoard() {
         if (popupLaunch()) {
-        try {
-            boardService.deleteBoard(board);
-        } catch (Exception e) {
-            System.out.println("Error");
-            System.out.println(e);
-        }
-        uiController.deleteBoardCB();
+            try {
+                boardService.deleteBoard(board);
+            } catch (Exception e) {
+                System.out.println("Error");
+                System.out.println(e);
+            }
+            uiController.deleteBoardCB();
         }
     }
 

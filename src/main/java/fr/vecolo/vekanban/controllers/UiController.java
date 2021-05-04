@@ -123,7 +123,7 @@ public class UiController {
         List<Board> owningProjects = boardService.getUserOwningBoards(user);
         for (Board board : owningProjects) {
             FXMLLoader fxmlLoader = fxmlLoaderHelper.loadFXML(projectCardResource);
-            ProjectCardController controller = fxmlLoader.getController();
+            UiProjectCardController controller = fxmlLoader.getController();
             controller.setProject(board, user);
             projectOwningListBox.getChildren().add(fxmlLoader.getRoot());
         }
@@ -132,7 +132,7 @@ public class UiController {
         List<Board> memebrProjects = boardService.getUserMemberBoards(user);
         for (Board board : memebrProjects) {
             FXMLLoader fxmlLoader = fxmlLoaderHelper.loadFXML(projectCardResource);
-            ProjectCardController controller = fxmlLoader.getController();
+            UiProjectCardController controller = fxmlLoader.getController();
             controller.setProject(board, user);
             projectMemberListBox.getChildren().add(fxmlLoader.getRoot());
         }
