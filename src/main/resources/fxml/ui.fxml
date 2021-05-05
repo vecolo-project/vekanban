@@ -76,7 +76,13 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField promptText="Entrez le nom du projet" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" styleClass="h3">
+                  <TextField fx:id="newProjectName" promptText="Entrez le nom du projet" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" styleClass="h3">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </TextField>
+                  <Label layoutX="10.0" layoutY="98.0" styleClass="h2" text="Préfix des cartes (optionel) :" />
+                  <TextField fx:id="newProjectPrefix" layoutX="10.0" layoutY="157.0" promptText="Entrez un prefix" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" styleClass="h3">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
@@ -88,8 +94,8 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefWidth="350.0" spacing="10.0">
                      <children>
-                        <TextField prefHeight="40.0" prefWidth="290.0" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" />
-                        <Button mnemonicParsing="false">
+                        <TextField fx:id="newProjectMemberEmail" prefHeight="40.0" prefWidth="290.0" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" />
+                        <Button mnemonicParsing="false" onAction="#addNewProjectMember">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -100,12 +106,12 @@
                         </Button>
                      </children>
                   </HBox>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="300.0" prefWidth="350.0">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="222.0" prefWidth="350.0">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="284.0" />
+                        <VBox fx:id="newProjectMembersBox" spacing="10.0" />
                      </content>
                   </ScrollPane>
-                  <Button mnemonicParsing="false" styleClass="h3" text="Créer le projet" />
+                  <Button mnemonicParsing="false" onAction="#createProject" styleClass="h3" text="Créer le projet" />
                </children>
                <StackPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

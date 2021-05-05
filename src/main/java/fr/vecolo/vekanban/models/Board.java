@@ -19,7 +19,7 @@ public class Board extends DateAudit {
     @Column(name = "PROJECT_NAME", updatable = true, nullable = false)
     private String name;
 
-    @Column(name = "CARD_ID_PREFIX", updatable = false, nullable = false)
+    @Column(name = "CARD_ID_PREFIX", updatable = false, nullable = true)
     private String cardIdPrefix;
 
     @ManyToOne()

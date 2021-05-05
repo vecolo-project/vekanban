@@ -1,13 +1,17 @@
 package fr.vecolo.vekanban.controllers;
 
+import fr.vecolo.vekanban.config.exceptions.BoardRessourceException;
 import fr.vecolo.vekanban.events.LogoutEvent;
 import fr.vecolo.vekanban.models.Board;
 import fr.vecolo.vekanban.models.User;
 import fr.vecolo.vekanban.services.BoardServiceImpl;
+import fr.vecolo.vekanban.services.UserServiceImpl;
 import fr.vecolo.vekanban.utils.FXMLLoaderHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -19,6 +23,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
+import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -57,6 +63,20 @@ public class UiController {
     @FXML
     private VBox newProjectBox;
 
+    @FXML
+    private TextField newProjectName;
+
+    @FXML
+    private TextField newProjectPrefix;
+
+    @FXML
+    private TextField newProjectMemberEmail;
+
+    @FXML
+    private VBox newProjectMembersBox;
+
+    private final List<String> newProjectMembersEmailList;
+
     // Profil Box
     @FXML
     private VBox profilBox;
@@ -64,6 +84,7 @@ public class UiController {
     private User user;
     private final ApplicationEventPublisher ac;
     private final BoardServiceImpl boardService;
+    private final UserServiceImpl userService;
     private final FXMLLoaderHelper fxmlLoaderHelper;
 
     private final Resource projectCardResource;
@@ -71,12 +92,14 @@ public class UiController {
     @Autowired
     public UiController(ApplicationEventPublisher ac,
                         BoardServiceImpl boardService,
-                        FXMLLoaderHelper fxmlLoaderHelper,
+                        UserServiceImpl userService, FXMLLoaderHelper fxmlLoaderHelper,
                         @Value("classpath:/fxml/projectCard.fxml") Resource projectCardResource) {
         this.ac = ac;
         this.boardService = boardService;
+        this.userService = userService;
         this.fxmlLoaderHelper = fxmlLoaderHelper;
         this.projectCardResource = projectCardResource;
+        newProjectMembersEmailList = new ArrayList<>();
     }
 
     @FXML
@@ -147,6 +170,65 @@ public class UiController {
             setVisibleBox(newProjectBox);
         } else if (buttonClicked == profilButton) {
             setVisibleBox(profilBox);
+        }
+    }
+
+    @FXML
+    private void addNewProjectMember() {
+        String memberEmail = newProjectMemberEmail.getText();
+        if (isValidEmail(memberEmail)) {
+            newProjectMembersEmailList.add(newProjectMemberEmail.getText());
+            refreshMemberList();
+        }
+    }
+
+    private void refreshMemberList() {
+        newProjectMembersBox.getChildren().clear();
+        for (String memberEmail : newProjectMembersEmailList) {
+            HBox hbox = new HBox();
+            hbox.setSpacing(10);
+            hbox.setPadding(new Insets(10, 10, 0, 10));
+            hbox.setAlignment(Pos.CENTER_LEFT);
+            Label label = new Label();
+            label.setPrefWidth(250);
+            label.setText(memberEmail);
+            hbox.getChildren().add(label);
+            Button button = new Button();
+            button.setText("Retirer");
+            button.setOnAction(ae -> removeProjectMember(memberEmail));
+            hbox.getChildren().add(button);
+            newProjectMembersBox.getChildren().add(hbox);
+        }
+    }
+
+    private void removeProjectMember(String email) {
+        newProjectMembersEmailList.remove(email);
+        refreshMemberList();
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^(.+)@(.+)$");
+    }
+
+    @FXML
+    private void createProject() {
+        if (StringUtils.hasLength(newProjectName.getText())) {
+            Board board = new Board(newProjectName.getText(), user);
+            board.setCardIdPrefix(newProjectPrefix.getText());
+            List<User> members = new ArrayList<>();
+            for (String memberEmail : newProjectMembersEmailList) {
+                User member = userService.findByEmail(memberEmail);
+                if (member != null) {
+                    members.add(member);
+                }
+            }
+            board.setMembers(members);
+            try {
+                boardService.saveOrUpdateBoard(board);
+                setVisibleBox(projectBox);
+            } catch (BoardRessourceException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
