@@ -143,20 +143,19 @@ public class UiController {
 
     private void fillProjectCards() {
         projectOwningListBox.getChildren().clear();
-        List<Board> owningProjects = boardService.getUserOwningBoards(user);
-        for (Board board : owningProjects) {
-            FXMLLoader fxmlLoader = fxmlLoaderHelper.loadFXML(projectCardResource);
-            UiProjectCardController controller = fxmlLoader.getController();
-            controller.setProject(board, user);
-            projectOwningListBox.getChildren().add(fxmlLoader.getRoot());
-        }
+        fillBoardList(boardService.getUserOwningBoards(user), projectOwningListBox);
 
         projectMemberListBox.getChildren().clear();
-        List<Board> memebrProjects = boardService.getUserMemberBoards(user);
-        for (Board board : memebrProjects) {
+        fillBoardList(boardService.getUserMemberBoards(user), projectMemberListBox);
+    }
+
+    private void fillBoardList(List<Board> boardList, HBox projectMemberListBox) {
+        for (Board board : boardList) {
             FXMLLoader fxmlLoader = fxmlLoaderHelper.loadFXML(projectCardResource);
             UiProjectCardController controller = fxmlLoader.getController();
             controller.setProject(board, user);
+            VBox card = fxmlLoader.getRoot();
+            card.setOnMouseClicked(e -> showBoard(board.getId()));
             projectMemberListBox.getChildren().add(fxmlLoader.getRoot());
         }
     }
@@ -180,6 +179,32 @@ public class UiController {
             newProjectMembersEmailList.add(newProjectMemberEmail.getText());
             refreshMemberList();
         }
+    }
+
+    @FXML
+    private void createProject() {
+        if (StringUtils.hasLength(newProjectName.getText())) {
+            Board board = new Board(newProjectName.getText(), user);
+            board.setCardIdPrefix(newProjectPrefix.getText());
+            List<User> members = new ArrayList<>();
+            for (String memberEmail : newProjectMembersEmailList) {
+                User member = userService.findByEmail(memberEmail);
+                if (member != null) {
+                    members.add(member);
+                }
+            }
+            board.setMembers(members);
+            try {
+                boardService.saveOrUpdateBoard(board);
+                setVisibleBox(projectBox);
+            } catch (BoardRessourceException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void showBoard(long boardId) {
+        System.out.println("Showing "+boardId);
     }
 
     private void refreshMemberList() {
@@ -208,27 +233,5 @@ public class UiController {
 
     private boolean isValidEmail(String email) {
         return email.matches("^(.+)@(.+)$");
-    }
-
-    @FXML
-    private void createProject() {
-        if (StringUtils.hasLength(newProjectName.getText())) {
-            Board board = new Board(newProjectName.getText(), user);
-            board.setCardIdPrefix(newProjectPrefix.getText());
-            List<User> members = new ArrayList<>();
-            for (String memberEmail : newProjectMembersEmailList) {
-                User member = userService.findByEmail(memberEmail);
-                if (member != null) {
-                    members.add(member);
-                }
-            }
-            board.setMembers(members);
-            try {
-                boardService.saveOrUpdateBoard(board);
-                setVisibleBox(projectBox);
-            } catch (BoardRessourceException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
