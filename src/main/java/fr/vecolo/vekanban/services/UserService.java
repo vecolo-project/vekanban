@@ -15,6 +15,8 @@ public interface UserService {
 
     User findByPseudo(String pseudo);
 
+    User findByEmail(String email);
+
     User saveOrUpdateUser(User user) throws UserRessourceException;
 
     void deleteUser(User user) throws UserRessourceException;

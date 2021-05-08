@@ -66,6 +66,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public User findByEmail(String email) {
+        Optional<User> userFound = userRepository.findByEmail(email);
+
+        if (userFound.isEmpty()) {
+            logger.error("User Not Found on email : " + email);
+            return null;
+        }
+        return userFound.get();
+    }
+
+    @Override
+    @Transactional
     public User saveOrUpdateUser(User user) throws UserRessourceException {
         try {
             if (user.getId() == 0) { //pas d'Id --> création d'un user
