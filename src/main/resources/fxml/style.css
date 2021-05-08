@@ -241,6 +241,13 @@
     -fx-background-color: -white;
 }
 
+.choice-box {
+    -fx-background-color: -darkGray;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: -darkGray;
+}
 
 /*
  * **********

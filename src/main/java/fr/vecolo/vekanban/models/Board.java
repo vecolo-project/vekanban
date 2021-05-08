@@ -22,7 +22,7 @@ public class Board extends DateAudit {
     @Column(name = "PROJECT_DESCRIPTION", updatable = true, nullable = true, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "CARD_ID_PREFIX", updatable = false, nullable = true)
+    @Column(name = "CARD_ID_PREFIX", updatable = true, nullable = true)
     private String cardIdPrefix;
 
     @ManyToOne()

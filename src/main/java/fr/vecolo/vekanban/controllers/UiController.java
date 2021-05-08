@@ -3,8 +3,11 @@ package fr.vecolo.vekanban.controllers;
 import fr.vecolo.vekanban.config.exceptions.BoardRessourceException;
 import fr.vecolo.vekanban.events.LogoutEvent;
 import fr.vecolo.vekanban.models.Board;
+import fr.vecolo.vekanban.models.Card;
+import fr.vecolo.vekanban.models.CardStatus;
 import fr.vecolo.vekanban.models.User;
 import fr.vecolo.vekanban.services.BoardServiceImpl;
+import fr.vecolo.vekanban.services.CardServiceImpl;
 import fr.vecolo.vekanban.services.UserServiceImpl;
 import fr.vecolo.vekanban.utils.FXMLLoaderHelper;
 import fr.vecolo.vekanban.utils.mdfx.MDFXUtil;
@@ -69,6 +72,9 @@ public class UiController {
     private VBox viewProjectBox;
 
     @FXML
+    private Button viewProjectEditButton;
+
+    @FXML
     private Label viewProjectTitle;
     @FXML
     private Label viewProjectCreationDate;
@@ -81,8 +87,24 @@ public class UiController {
     @FXML
     private HBox viewProjectAddMemberBox;
 
+    @FXML
+    private VBox todoBox;
+
+    @FXML
+    private VBox doingBox;
+
+    @FXML
+    private VBox doneBox;
+
     private Stage removeUserPopUpStage;
     private PopUpYNController removeUserPopUpController;
+
+    private Stage editProjectPopUpStage;
+    private final EditProjectController editProjectController;
+
+    private Stage editCardPopUpStage;
+    private final EditCardController editCardController;
+
     private Board currentBoard;
 
     // New Project Box
@@ -116,23 +138,37 @@ public class UiController {
     private User user;
     private final ApplicationEventPublisher ac;
     private final BoardServiceImpl boardService;
+    private final CardServiceImpl cardService;
     private final UserServiceImpl userService;
     private final FXMLLoaderHelper fxmlLoaderHelper;
     private final Resource popupYN;
+    private final Resource editProjectRessource;
+    private final Resource editCardRessource;
     private final Resource projectCardResource;
+    private final Resource cardResource;
 
     @Autowired
-    public UiController(ApplicationEventPublisher ac,
+    public UiController(EditCardController editCardController, ApplicationEventPublisher ac,
                         BoardServiceImpl boardService,
                         UserServiceImpl userService, FXMLLoaderHelper fxmlLoaderHelper,
-                        @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN,
-                        @Value("classpath:/fxml/projectCard.fxml") Resource projectCardResource) {
+                        EditProjectController editProjectController,
+                        CardServiceImpl cardService, @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN,
+                        @Value("classpath:/fxml/editProject.fxml") Resource editProject,
+                        @Value("classpath:/fxml/editCard.fxml") Resource editCardRessource,
+                        @Value("classpath:/fxml/projectCard.fxml") Resource projectCardResource,
+                        @Value("classpath:/fxml/card.fxml") Resource cardResource) {
+        this.editCardController = editCardController;
         this.ac = ac;
         this.boardService = boardService;
         this.userService = userService;
         this.fxmlLoaderHelper = fxmlLoaderHelper;
+        this.editProjectController = editProjectController;
+        this.cardService = cardService;
         this.popupYN = popupYN;
+        this.editProjectRessource = editProject;
+        this.editCardRessource = editCardRessource;
         this.projectCardResource = projectCardResource;
+        this.cardResource = cardResource;
         newProjectMembersEmailList = new ArrayList<>();
     }
 
@@ -149,6 +185,18 @@ public class UiController {
         removeUserPopUpStage.setScene(new Scene(loader.getRoot()));
         removeUserPopUpStage.setResizable(false);
         removeUserPopUpStage.initModality(Modality.APPLICATION_MODAL);
+
+        editProjectPopUpStage = new Stage();
+        loader = fxmlLoaderHelper.loadFXML(editProjectRessource);
+        editProjectPopUpStage.setScene(new Scene(loader.getRoot()));
+        editProjectPopUpStage.setResizable(false);
+        editProjectPopUpStage.initModality(Modality.APPLICATION_MODAL);
+
+        editCardPopUpStage = new Stage();
+        loader = fxmlLoaderHelper.loadFXML(editCardRessource);
+        editCardPopUpStage.setScene(new Scene(loader.getRoot()));
+        editCardPopUpStage.setResizable(false);
+        editCardPopUpStage.initModality(Modality.APPLICATION_MODAL);
     }
 
     private void freezeSplitPaneBar() {
@@ -263,6 +311,13 @@ public class UiController {
         }
     }
 
+    @FXML
+    private void editProjectClick() {
+        editProjectController.setProject(currentBoard);
+        editProjectPopUpStage.showAndWait();
+        showBoard(currentBoard.getId());
+    }
+
     private void showBoard(long boardId) {
         setVisibleBox(viewProjectBox);
         currentBoard = boardService.getBoardById(boardId);
@@ -272,7 +327,9 @@ public class UiController {
         viewProjectDescriptionPane.getChildren().clear();
         viewProjectDescriptionPane.getChildren().add(MDFXUtil.createMDFXStaticView(currentBoard.getDescription()));
         viewProjectAddMemberBox.setVisible(currentBoard.getOwner().getId() == user.getId());
+        viewProjectEditButton.setVisible(currentBoard.getOwner().getId() == user.getId());
         refreshBoardMembers();
+        refreshBoardCards();
     }
 
     private void refreshBoardMembers() {
@@ -311,6 +368,31 @@ public class UiController {
 
             viewProjectMembersBox.getChildren().add(hbox);
         }
+    }
+
+    private void refreshBoardCards() {
+        todoBox.getChildren().clear();
+        fillCardList(todoBox, cardService.findAllByAssignedBoardAndStatus(currentBoard, CardStatus.TODO));
+        doingBox.getChildren().clear();
+        fillCardList(doingBox, cardService.findAllByAssignedBoardAndStatus(currentBoard, CardStatus.IN_PROGRESS));
+        doneBox.getChildren().clear();
+        fillCardList(doneBox, cardService.findAllByAssignedBoardAndStatus(currentBoard, CardStatus.DONE));
+    }
+
+    private void fillCardList(VBox list, List<Card> cards) {
+        for (Card card : cards) {
+            FXMLLoader fxmlLoader = fxmlLoaderHelper.loadFXML(cardResource);
+            CardController cardController = fxmlLoader.getController();
+            cardController.setCard(card);
+            ((VBox) fxmlLoader.getRoot()).setOnMouseClicked(e -> editCardClick(card));
+            list.getChildren().add(fxmlLoader.getRoot());
+        }
+    }
+
+    private void editCardClick(Card card) {
+        editCardController.setCard(card);
+        editCardPopUpStage.showAndWait();
+        refreshBoardCards();
     }
 
     private void removeProjectMember(User member) {

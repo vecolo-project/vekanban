@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class Card extends DateAudit {
     private String content;
 
     @Column(name = "DUE_DATE", updatable = true, nullable = true)
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
     @ManyToOne(optional = false)
     private CardStatus status;
@@ -43,7 +44,7 @@ public class Card extends DateAudit {
     public Card() {
     }
 
-    public Card(String title, String content, CardStatus status, LocalDateTime dueDate) {
+    public Card(String title, String content, CardStatus status, LocalDate dueDate) {
         this.title = title;
         this.content = content;
         this.status = status;
@@ -74,11 +75,11 @@ public class Card extends DateAudit {
         this.content = content;
     }
 
-    public LocalDateTime getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 

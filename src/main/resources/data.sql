@@ -24,14 +24,20 @@ INSERT INTO card_status(card_status_id, status)
 VALUES (3, 'DONE');
 
 INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at,
-                  assigned_user_user_id)
-VALUES (1, 1, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null, 1);
+                  assigned_user_user_id,due_date)
+VALUES (1, 1, 'Card à faire', 'content zdza', 1, '2021-03-14 16:39:43.000000', null, 1,'2021-12-12');
 
 INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at)
-VALUES (2, 2, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+VALUES (2, 2, 'Card en cours', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
 
 INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at)
-VALUES (3, 3, 'title', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+VALUES (3, 2, 'Card en cours 2', 'content zdza', 1, '2021-03-14 16:39:43.000000', null);
+
+INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at, assigned_user_user_id)
+VALUES (4, 3, 'Card terminée', 'content zdza', 1, '2021-03-14 16:39:43.000000', null,2);
+
+INSERT INTO card (card_id, status_card_status_id, title, content, assigned_board_board_id, created_at, updated_at, assigned_user_user_id)
+VALUES (5, 3, 'Card terminée 2', 'content zdza', 1, '2021-03-14 16:39:43.000000', null,3);
 
 INSERT INTO board_members(boards_member_board_id, members_user_id)
 VALUES (3, 1);

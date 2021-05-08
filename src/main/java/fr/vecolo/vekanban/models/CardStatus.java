@@ -8,9 +8,9 @@ import java.util.List;
 @Table(name = "CARD_STATUS")
 public class CardStatus {
 
-    private static final CardStatus TODO = new CardStatus(1, "TODO");
-    private static final CardStatus IN_PROGRESS = new CardStatus(2, "IN PROGRESS");
-    private static final CardStatus DONE = new CardStatus(3, "DONE");
+    public static final CardStatus TODO = new CardStatus(1, "TODO");
+    public static final CardStatus IN_PROGRESS = new CardStatus(2, "IN PROGRESS");
+    public static final CardStatus DONE = new CardStatus(3, "DONE");
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -24,7 +24,8 @@ public class MDFXUtil {
         content.setFitToWidth(true);
         content.setFitToHeight(true);
         if (width > 0) {
-            content.setMinWidth(width);
+            content.setPrefWidth(width);
+            content.setMaxWidth(width);
         }
         return content;
     }

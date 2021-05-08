@@ -140,10 +140,19 @@
             </VBox>
             <VBox fx:id="viewProjectBox" layoutX="30.0" layoutY="30.0" spacing="20.0">
                <children>
-                  <HBox alignment="BASELINE_LEFT" spacing="20.0">
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
                         <Label fx:id="viewProjectTitle" styleClass="h1" text="Project title" />
                         <Label fx:id="viewProjectCreationDate" layoutX="10.0" layoutY="10.0" styleClass="h4" text="creation date" />
+                        <Button fx:id="viewProjectEditButton" minWidth="15.0" mnemonicParsing="false" onAction="#editProjectClick" prefHeight="34.0" prefWidth="35.0">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/edit_24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
                   <HBox prefHeight="200.0" spacing="20.0">
@@ -166,6 +175,49 @@
                                  </children>
                               </HBox>
                               <VBox fx:id="viewProjectMembersBox" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #fefefe;" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefWidth="400.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="h3" text="A faire" />
+                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <VBox fx:id="todoBox" alignment="TOP_CENTER" spacing="10.0">
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding></VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefWidth="400.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="h3" text="En cours" />
+                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <VBox fx:id="doingBox" alignment="TOP_CENTER" spacing="10.0">
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding></VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" layoutX="420.0" layoutY="10.0" prefWidth="400.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="h3" text="Terminé" />
+                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <VBox fx:id="doneBox" alignment="TOP_CENTER" spacing="10.0">
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding></VBox>
+                                 </content>
+                              </ScrollPane>
                            </children>
                         </VBox>
                      </children>
