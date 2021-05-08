@@ -15,7 +15,6 @@ public class MDFXNode extends VBox {
         mdStringProperty.set(mdString);
 
         mdStringProperty.addListener((p, o, n) -> updateContent());
-        getStylesheets().add("/com/sandec/mdfx/mdfx.css");
         updateContent();
     }
 

@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public List<User> getMembersFromBoard(Board board) {
+        return userRepository.findAllByBoardsMemberIs(board);
+    }
+
+    @Override
+    @Transactional
     public User getUserById(Long id) {
         Optional<User> userFound = userRepository.findById(id);
 

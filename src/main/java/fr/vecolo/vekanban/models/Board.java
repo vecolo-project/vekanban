@@ -19,6 +19,9 @@ public class Board extends DateAudit {
     @Column(name = "PROJECT_NAME", updatable = true, nullable = false)
     private String name;
 
+    @Column(name = "PROJECT_DESCRIPTION", updatable = true, nullable = true, columnDefinition = "TEXT")
+    private String description;
+
     @Column(name = "CARD_ID_PREFIX", updatable = false, nullable = true)
     private String cardIdPrefix;
 
@@ -103,6 +106,14 @@ public class Board extends DateAudit {
 
     public void setLabels(List<CardLabel> labels) {
         this.labels = labels;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

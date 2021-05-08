@@ -5,10 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -68,7 +70,7 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </StackPane.margin>
             </VBox>
-            <VBox fx:id="newProjectBox" fillWidth="false" spacing="20.0">
+            <VBox fx:id="newProjectBox" fillWidth="false" spacing="20.0" visible="false">
                <children>
                   <Label styleClass="h1" text="Nouveau projet" />
                   <Label styleClass="h2" text="Nom du projet :">
@@ -87,31 +89,45 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </TextField>
-                  <Label layoutX="10.0" layoutY="98.0" styleClass="h2" text="Inviter des membres">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefWidth="350.0" spacing="10.0">
+                  <HBox spacing="50.0">
                      <children>
-                        <TextField fx:id="newProjectMemberEmail" prefHeight="40.0" prefWidth="290.0" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" />
-                        <Button mnemonicParsing="false" onAction="#addNewProjectMember">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/plus_24px.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <VBox spacing="20.0">
+                           <children>
+                              <Label styleClass="h2" text="Inviter des membres" />
+                              <HBox alignment="CENTER_LEFT" prefWidth="350.0" spacing="10.0">
+                                 <children>
+                                    <TextField fx:id="newProjectMemberEmail" prefHeight="40.0" prefWidth="290.0" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" />
+                                    <Button mnemonicParsing="false" onAction="#addNewProjectMember">
+                                       <graphic>
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/plus_24px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="222.0" prefWidth="350.0">
+                                 <content>
+                                    <VBox fx:id="newProjectMembersBox" spacing="10.0" />
+                                 </content>
+                              </ScrollPane>
+                              <Button mnemonicParsing="false" onAction="#createProject" styleClass="h3" text="Créer le projet" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="10.0" spacing="20.0">
+                           <children>
+                              <Label styleClass="h2" text="Description" />
+                              <HBox fx:id="newProjectDescriptionMarkdownHbox" spacing="20.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TextArea fx:id="newProjectDescription" prefWidth="350.0" promptText="Entrez la description de votre projet (markdown supporté)" wrapText="true" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="222.0" prefWidth="350.0">
-                     <content>
-                        <VBox fx:id="newProjectMembersBox" spacing="10.0" />
-                     </content>
-                  </ScrollPane>
-                  <Button mnemonicParsing="false" onAction="#createProject" styleClass="h3" text="Créer le projet" />
                </children>
                <StackPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -121,6 +137,43 @@
                <children>
                   <Label styleClass="h1" text="Profil Box" />
                </children>
+            </VBox>
+            <VBox fx:id="viewProjectBox" layoutX="30.0" layoutY="30.0" spacing="20.0">
+               <children>
+                  <HBox alignment="BASELINE_LEFT" spacing="20.0">
+                     <children>
+                        <Label fx:id="viewProjectTitle" styleClass="h1" text="Project title" />
+                        <Label fx:id="viewProjectCreationDate" layoutX="10.0" layoutY="10.0" styleClass="h4" text="creation date" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="200.0" spacing="20.0">
+                     <children>
+                        <AnchorPane fx:id="viewProjectDescriptionPane" prefWidth="700.0" style="-fx-border-color: #fefefe;" />
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox fx:id="viewProjectAddMemberBox" alignment="CENTER_LEFT" prefWidth="350.0" spacing="10.0">
+                                 <children>
+                                    <TextField fx:id="viewProjectMemberEmail" prefHeight="40.0" prefWidth="290.0" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" />
+                                    <Button mnemonicParsing="false" onAction="#addProjectMember">
+                                       <graphic>
+                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/plus_24px.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <VBox fx:id="viewProjectMembersBox" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #fefefe;" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <StackPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </StackPane.margin>
             </VBox>
          </children>
       </StackPane>

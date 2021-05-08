@@ -1,6 +1,7 @@
 package fr.vecolo.vekanban.services;
 
 import fr.vecolo.vekanban.config.exceptions.UserRessourceException;
+import fr.vecolo.vekanban.models.Board;
 import fr.vecolo.vekanban.models.User;
 
 import java.util.Collection;
@@ -10,6 +11,8 @@ import java.util.Optional;
 public interface UserService {
 
     List<User> getAllUsers();
+
+    List<User> getMembersFromBoard(Board board);
 
     User getUserById(Long id);
 

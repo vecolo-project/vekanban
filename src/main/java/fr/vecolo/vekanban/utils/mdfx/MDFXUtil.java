@@ -22,9 +22,18 @@ public class MDFXUtil {
         MDFXUtil.connectMDFXToInput(node, stringProperty);
         ScrollPane content = new ScrollPane(node);
         content.setFitToWidth(true);
+        content.setFitToHeight(true);
         if (width > 0) {
             content.setMinWidth(width);
         }
+        return content;
+    }
+
+    public static ScrollPane createMDFXStaticView(String string) {
+        MDFXNode node = MDFXUtil.getMDFXNode(string);
+        ScrollPane content = new ScrollPane(node);
+        content.setFitToWidth(true);
+        content.setFitToHeight(true);
         return content;
     }
 }

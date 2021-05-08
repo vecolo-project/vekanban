@@ -1,12 +1,11 @@
 * {
     -md-font-color: #eeeeee;
     -blue: #00adb5;
-    -font-size: 12px;
 }
 
 .markdown-text {
     -fx-font-family: 'Segoe UI';
-    -fx-font-size: -font-size;
+    -fx-font-size: 12;
     -fx-fill: -md-font-color;
 }
 
@@ -80,7 +79,7 @@
 }
 
 .markdown-listitem-dot {
-    -fx-font-size: -font-size;
+    -fx-font-size: 12;
     -fx-text-fill: -md-font-color;
 }
 
@@ -96,7 +95,7 @@
 .markdown-code,
 .markdown-codeblock {
     -fx-wrap-text: true;
-    -fx-font-size: -font-size;
+    -fx-font-size: 12;
 }
 
 .markdown-codeblock-box,
