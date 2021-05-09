@@ -42,7 +42,7 @@ public class CardController {
         if (card.getAssignedUser() != null) {
             this.cardAssignee.setText(card.getAssignedUser().getPseudo());
         } else {
-            cardAssignee.setText("personne");
+            cardAssignee.setText("");
         }
     }
 }

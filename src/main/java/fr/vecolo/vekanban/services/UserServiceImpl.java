@@ -117,14 +117,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUser(User user) throws UserRessourceException {
         try {
-            for (Board board : boardService.getUserMemberBoards(user)) {
-                board.getMembers().remove(user);
-                boardService.saveOrUpdateBoard(board);
-            }
-
             for (Card card : cardService.findAllByAssignedUser(user)) {
                 card.setAssignedUser(null);
                 cardService.saveOrUpdateCard(card);
+            }
+
+            for (Board board : boardService.getUserMemberBoards(user)) {
+                board.getMembers().remove(user);
+                boardService.saveOrUpdateBoard(board);
             }
 
             for (Board board : boardService.getUserOwningBoards(user)) {

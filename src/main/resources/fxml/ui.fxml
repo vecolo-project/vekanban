@@ -153,6 +153,15 @@
                               </ImageView>
                            </graphic>
                         </Button>
+                        <Button fx:id="viewProjectNewCardButton" layoutX="375.0" layoutY="17.0" minWidth="15.0" mnemonicParsing="false" onAction="#newCardClick" prefHeight="34.0" prefWidth="35.0">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/plus_24px.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children>
                   </HBox>
                   <HBox prefHeight="200.0" spacing="20.0">

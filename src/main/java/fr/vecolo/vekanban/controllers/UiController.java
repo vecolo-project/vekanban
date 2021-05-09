@@ -102,6 +102,9 @@ public class UiController {
     private Stage editProjectPopUpStage;
     private final EditProjectController editProjectController;
 
+    private Stage createCardPopUpStage;
+    private final CreateCardController createCardController;
+
     private Stage editCardPopUpStage;
     private final EditCardController editCardController;
 
@@ -144,19 +147,22 @@ public class UiController {
     private final Resource popupYN;
     private final Resource editProjectRessource;
     private final Resource editCardRessource;
+    private final Resource createCardRessource;
     private final Resource projectCardResource;
     private final Resource cardResource;
 
     @Autowired
-    public UiController(EditCardController editCardController, ApplicationEventPublisher ac,
+    public UiController(CreateCardController createCardController, EditCardController editCardController, ApplicationEventPublisher ac,
                         BoardServiceImpl boardService,
                         UserServiceImpl userService, FXMLLoaderHelper fxmlLoaderHelper,
                         EditProjectController editProjectController,
                         CardServiceImpl cardService, @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN,
                         @Value("classpath:/fxml/editProject.fxml") Resource editProject,
                         @Value("classpath:/fxml/editCard.fxml") Resource editCardRessource,
+                        @Value("classpath:/fxml/newCard.fxml") Resource newCardRessource,
                         @Value("classpath:/fxml/projectCard.fxml") Resource projectCardResource,
                         @Value("classpath:/fxml/card.fxml") Resource cardResource) {
+        this.createCardController = createCardController;
         this.editCardController = editCardController;
         this.ac = ac;
         this.boardService = boardService;
@@ -167,6 +173,7 @@ public class UiController {
         this.popupYN = popupYN;
         this.editProjectRessource = editProject;
         this.editCardRessource = editCardRessource;
+        this.createCardRessource = newCardRessource;
         this.projectCardResource = projectCardResource;
         this.cardResource = cardResource;
         newProjectMembersEmailList = new ArrayList<>();
@@ -197,6 +204,12 @@ public class UiController {
         editCardPopUpStage.setScene(new Scene(loader.getRoot()));
         editCardPopUpStage.setResizable(false);
         editCardPopUpStage.initModality(Modality.APPLICATION_MODAL);
+
+        createCardPopUpStage = new Stage();
+        loader = fxmlLoaderHelper.loadFXML(createCardRessource);
+        createCardPopUpStage.setScene(new Scene(loader.getRoot()));
+        createCardPopUpStage.setResizable(false);
+        createCardPopUpStage.initModality(Modality.APPLICATION_MODAL);
     }
 
     private void freezeSplitPaneBar() {
@@ -316,6 +329,13 @@ public class UiController {
         editProjectController.setProject(currentBoard);
         editProjectPopUpStage.showAndWait();
         showBoard(currentBoard.getId());
+    }
+
+    @FXML
+    private void newCardClick() {
+        createCardController.clearField(currentBoard);
+        createCardPopUpStage.showAndWait();
+        refreshBoardCards();
     }
 
     private void showBoard(long boardId) {

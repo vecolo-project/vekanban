@@ -15,13 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class EditCardController {
+public class CreateCardController {
     @FXML
     private TextField cardName;
 
@@ -46,14 +44,14 @@ public class EditCardController {
     @FXML
     private Button saveButton;
 
-    private Card editCard;
+    private Card newCard;
     private final List<User> members = new ArrayList<>();
     private final CardServiceImpl cardService;
     private final UserServiceImpl userService;
     private final CardLabelServiceImpl cardLabelService;
 
     @Autowired
-    public EditCardController(CardServiceImpl cardService, UserServiceImpl userService, CardLabelServiceImpl cardLabelService) {
+    public CreateCardController(CardServiceImpl cardService, UserServiceImpl userService, CardLabelServiceImpl cardLabelService) {
         this.cardService = cardService;
         this.userService = userService;
         this.cardLabelService = cardLabelService;
@@ -99,42 +97,39 @@ public class EditCardController {
         cardStatusChoiceBox.getItems().addAll(CardStatus.TODO, CardStatus.IN_PROGRESS, CardStatus.DONE);
 
         saveButton.setOnAction(e -> {
-            saveUpdatedCard();
+            createNewCard();
             saveButton.getScene().getWindow().hide();
         });
     }
 
-    private void saveUpdatedCard() {
+    private void createNewCard() {
         if (StringUtils.hasLength(cardName.getText())) {
-            this.editCard.setTitle(cardName.getText());
-            this.editCard.setAssignedUser(cardAssignedUserChoiceBox.getValue());
-            this.editCard.setStatus(cardStatusChoiceBox.getValue());
-            this.editCard.setDueDate(cardDueDate.getValue());
-            this.editCard.setContent(cardDescription.getText());
+            this.newCard.setTitle(cardName.getText());
+            this.newCard.setAssignedUser(cardAssignedUserChoiceBox.getValue());
+            this.newCard.setStatus(cardStatusChoiceBox.getValue());
+            this.newCard.setDueDate(cardDueDate.getValue());
+            this.newCard.setContent(cardDescription.getText());
             try {
-                cardService.saveOrUpdateCard(editCard);
+                cardService.saveOrUpdateCard(newCard);
             } catch (CardRessourceException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void setCard(Card card) {
-        this.editCard = card;
+    public void clearField(Board board) {
+        this.newCard = new Card();
+        newCard.setAssignedBoard(board);
         this.members.clear();
-        this.members.addAll(userService.getMembersFromBoard(card.getAssignedBoard()));
-        this.members.add(card.getAssignedBoard().getOwner());
+        this.members.addAll(userService.getMembersFromBoard(board));
+        this.members.add(board.getOwner());
         this.members.add(null);
-        refreshData();
-    }
-
-    private void refreshData() {
-        cardName.setText(editCard.getTitle());
-        cardDueDate.setValue(editCard.getDueDate());
-        cardDescription.setText(editCard.getContent());
-        cardStatusChoiceBox.setValue(editCard.getStatus());
         cardAssignedUserChoiceBox.getItems().clear();
         cardAssignedUserChoiceBox.getItems().addAll(members);
-        cardAssignedUserChoiceBox.setValue(editCard.getAssignedUser());
+        cardAssignedUserChoiceBox.setValue(null);
+        cardStatusChoiceBox.setValue(CardStatus.TODO);
+        cardName.setText("");
+        cardDueDate.setValue(null);
+        cardDescription.setText("");
     }
 }
