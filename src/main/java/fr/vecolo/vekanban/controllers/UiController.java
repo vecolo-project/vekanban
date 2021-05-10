@@ -1,6 +1,7 @@
 package fr.vecolo.vekanban.controllers;
 
 import fr.vecolo.vekanban.config.exceptions.BoardRessourceException;
+import fr.vecolo.vekanban.config.exceptions.UserRessourceException;
 import fr.vecolo.vekanban.events.LogoutEvent;
 import fr.vecolo.vekanban.models.Board;
 import fr.vecolo.vekanban.models.Card;
@@ -138,6 +139,18 @@ public class UiController {
     @FXML
     private VBox profilBox;
 
+    @FXML
+    private TextField profilUserEmail;
+
+    @FXML
+    private TextField profilUserPseudo;
+
+    @FXML
+    private PasswordField profilUserPassword;
+
+    @FXML
+    private PasswordField profilUserConfirmPassword;
+
     private User user;
     private final ApplicationEventPublisher ac;
     private final BoardServiceImpl boardService;
@@ -238,6 +251,16 @@ public class UiController {
         if (box == projectBox) {
             fillProjectListCards();
         }
+        if (box == profilBox) {
+            fillUserInfo();
+        }
+    }
+
+    private void fillUserInfo() {
+        profilUserEmail.setText(user.getEmail());
+        profilUserPseudo.setText(user.getPseudo());
+        profilUserPassword.clear();
+        profilUserConfirmPassword.clear();
     }
 
     public void deleteBoardCB() {
@@ -336,6 +359,25 @@ public class UiController {
         createCardController.clearField(currentBoard);
         createCardPopUpStage.showAndWait();
         refreshBoardCards();
+    }
+
+    @FXML
+    private void saveUser() {
+        if (isValidEmail(profilUserEmail.getText()) &&
+                StringUtils.hasLength(profilUserPseudo.getText())) {
+            user.setEmail(profilUserEmail.getText());
+            user.setPseudo(profilUserPseudo.getText());
+            if (StringUtils.hasLength(profilUserPassword.getText()) &&
+                    profilUserPassword.getText().equals(profilUserConfirmPassword.getText())) {
+                user.setPassword(profilUserPassword.getText());
+            }
+            try {
+                userService.saveOrUpdateUser(user);
+            } catch (UserRessourceException e) {
+                e.printStackTrace();
+            }
+            setVisibleBox(projectBox);
+        }
     }
 
     private void showBoard(long boardId) {

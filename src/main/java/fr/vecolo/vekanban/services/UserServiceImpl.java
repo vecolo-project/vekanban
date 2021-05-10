@@ -96,10 +96,8 @@ public class UserServiceImpl implements UserService {
                     throw new UserRessourceException("Modification d'un utilisateur non présent en base !");
                 }
 
-                if (!bCryptPasswordEncoder.matches(user.getPassword(), userFromDB.getPassword())) {
+                if (!user.getPassword().equals(userFromDB.getPassword())) {
                     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));//MAJ du mot de passe s'il a été modifié
-                } else {
-                    user.setPassword(userFromDB.getPassword());//Sinon, on remet le password déjà haché
                 }
             }
             return userRepository.save(user);
