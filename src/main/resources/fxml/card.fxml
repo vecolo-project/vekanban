@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="390.0" spacing="15.0" style="-fx-border-radius: 5; -fx-background-color: -gray; -fx-border-color: -gray;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.CardController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="390.0" spacing="15.0" style="-fx-border-radius: 5; -fx-background-color: -gray; -fx-border-color: -gray;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.CardController">
    <children>
       <HBox alignment="BASELINE_LEFT" spacing="10.0">
          <children>

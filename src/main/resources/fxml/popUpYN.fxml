@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.PopUpYNController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.PopUpYNController">
    <children>
       <Label fx:id="popupLabel" alignment="CENTER" layoutY="14.0" prefHeight="146.0" prefWidth="400.0" styleClass="h4" text="Label" textAlignment="CENTER" />
       <HBox alignment="CENTER" layoutY="183.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="400.0" spacing="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

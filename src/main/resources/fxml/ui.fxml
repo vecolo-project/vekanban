@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane fx:id="root" dividerPositions="0.2" prefHeight="800.0" prefWidth="1600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiController">
+<SplitPane fx:id="root" dividerPositions="0.2" prefHeight="800.0" prefWidth="1600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiController">
    <items>
       <VBox spacing="10.0">
          <children>

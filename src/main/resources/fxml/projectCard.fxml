@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" spacing="15.0" style="-fx-border-color: #fefefe; -fx-border-radius: 10;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiProjectCardController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" spacing="15.0" style="-fx-border-color: #fefefe; -fx-border-radius: 10;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.UiProjectCardController">
    <children>
       <Label fx:id="projectTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="250.0" styleClass="h3" text="{ProjectName}" />
       <HBox spacing="20.0">
