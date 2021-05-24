@@ -1,0 +1,16 @@
+2021-05-24 11:30:52,536 INFO org.springframework.boot.StartupInfoLogger [JavaFX-Launcher] Starting application using Java 11.0.10 on DESKTOP-5VJEB6G with PID 17480 (started by Unknow in D:\Projets\VECOLO\vekanban)
+2021-05-24 11:30:52,538 INFO org.springframework.boot.SpringApplication [JavaFX-Launcher] No active profile set, falling back to default profiles: default
+2021-05-24 11:30:52,803 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [JavaFX-Launcher] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-24 11:30:52,840 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [JavaFX-Launcher] Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2021-05-24 11:30:53,043 INFO org.hibernate.jpa.internal.util.LogHelper [JavaFX-Launcher] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-24 11:30:53,065 INFO org.hibernate.Version [JavaFX-Launcher] HHH000412: Hibernate ORM core version 5.4.28.Final
+2021-05-24 11:30:53,124 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [JavaFX-Launcher] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-24 11:30:53,187 INFO com.zaxxer.hikari.HikariDataSource [JavaFX-Launcher] HikariPool-1 - Starting...
+2021-05-24 11:30:53,247 INFO com.zaxxer.hikari.HikariDataSource [JavaFX-Launcher] HikariPool-1 - Start completed.
+2021-05-24 11:30:53,258 INFO org.hibernate.dialect.Dialect [JavaFX-Launcher] HHH000400: Using dialect: org.hibernate.dialect.MariaDB103Dialect
+2021-05-24 11:30:56,320 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [JavaFX-Launcher] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-24 11:30:56,325 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [JavaFX-Launcher] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-24 11:30:56,966 INFO org.springframework.boot.StartupInfoLogger [JavaFX-Launcher] Started application in 4.684 seconds (JVM running for 5.495)
+2021-05-24 11:30:59,991 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [JavaFX Application Thread] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-05-24 11:30:59,994 INFO com.zaxxer.hikari.HikariDataSource [JavaFX Application Thread] HikariPool-1 - Shutdown initiated...
+2021-05-24 11:31:00,030 INFO com.zaxxer.hikari.HikariDataSource [JavaFX Application Thread] HikariPool-1 - Shutdown completed.
