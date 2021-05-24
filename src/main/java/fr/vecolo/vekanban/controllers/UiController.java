@@ -434,7 +434,7 @@ public class UiController {
         }
     }
 
-    private void refreshBoardCards() {
+    public void refreshBoardCards() {
         todoBox.getChildren().clear();
         fillCardList(todoBox, cardService.findAllByAssignedBoardAndStatus(currentBoard, CardStatus.TODO));
         doingBox.getChildren().clear();

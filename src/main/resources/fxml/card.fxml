@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -25,13 +26,22 @@
          <children>
             <Label alignment="BASELINE_LEFT" styleClass="h5" text="Assignée :" />
             <Label fx:id="cardAssignee" layoutX="10.0" layoutY="10.0" styleClass="h5" text="assignee" />
-            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fx:id="cardNotes" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/clipboard_24px.png" />
                      </image>
                   </ImageView>
+                  <Button mnemonicParsing="false" onAction="#deleteCard" style="-fx-background-color: #CC2B2B;">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/trash_24px.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </HBox>
          </children>
