@@ -56,7 +56,8 @@ public class UiProjectCardController {
 
     @Autowired
     public UiProjectCardController(CardServiceImpl cardService, BoardService boardService, UiController uiController,
-                                   FXMLLoaderHelper fxmlLoaderHelper, @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN) {
+                                   FXMLLoaderHelper fxmlLoaderHelper,
+                                   @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN) {
         this.cardService = cardService;
         this.boardService = boardService;
         this.uiController = uiController;
