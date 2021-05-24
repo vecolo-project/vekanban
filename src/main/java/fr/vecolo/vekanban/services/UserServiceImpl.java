@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -121,7 +122,7 @@ public class UserServiceImpl implements UserService {
             }
 
             for (Board board : boardService.getUserMemberBoards(user)) {
-                board.getMembers().remove(user);
+                board.setMembers(board.getMembers().stream().filter(e -> e.getId() != user.getId()).collect(Collectors.toList()));
                 boardService.saveOrUpdateBoard(board);
             }
 

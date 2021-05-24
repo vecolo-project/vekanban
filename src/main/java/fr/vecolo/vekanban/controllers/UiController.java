@@ -240,6 +240,25 @@ public class UiController {
         ac.publishEvent(new LogoutEvent(this));
     }
 
+    @FXML
+    private void deleteAccount() {
+        if (this.popupLaunch()) {
+            try {
+                userService.deleteUser(user);
+            } catch (UserRessourceException e) {
+                e.printStackTrace();
+            }
+            ac.publishEvent(new LogoutEvent(this));
+        }
+    }
+
+    private boolean popupLaunch() {
+        removeUserPopUpController.setPopupLabel("Voulez vous vraiment supprimer votre compte ?\nTout les projets dont vous êtes propriétaire\nseront également supprimés");
+        removeUserPopUpStage.showAndWait();
+        return removeUserPopUpController.getResponse();
+
+    }
+
     private void setVisibleBox(VBox box) {
         projectButton.setSelected(box == projectBox || box == viewProjectBox);
         newProjectButton.setSelected(box == newProjectBox);
