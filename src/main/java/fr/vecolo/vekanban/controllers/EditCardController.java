@@ -1,11 +1,15 @@
 package fr.vecolo.vekanban.controllers;
 
 import fr.vecolo.vekanban.config.exceptions.CardRessourceException;
-import fr.vecolo.vekanban.models.*;
+import fr.vecolo.vekanban.models.Card;
+import fr.vecolo.vekanban.models.CardLabel;
+import fr.vecolo.vekanban.models.CardStatus;
+import fr.vecolo.vekanban.models.User;
 import fr.vecolo.vekanban.services.CardLabelServiceImpl;
 import fr.vecolo.vekanban.services.CardServiceImpl;
 import fr.vecolo.vekanban.services.UserServiceImpl;
 import fr.vecolo.vekanban.utils.mdfx.MDFXUtil;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -15,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,8 @@ public class EditCardController {
 
     private Card editCard;
     private final List<User> members = new ArrayList<>();
+    private final List<CardLabel> boardLabels = new ArrayList<>();
+    private final List<CardLabel> cardLabels = new ArrayList<>();
     private final CardServiceImpl cardService;
     private final UserServiceImpl userService;
     private final CardLabelServiceImpl cardLabelService;
@@ -96,6 +100,19 @@ public class EditCardController {
                 return members.stream().filter(object -> (object.getPseudo() + " (" + object.getEmail() + ")").equals(string)).findFirst().orElse(null);
             }
         });
+
+        cardLabelsCheckComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(CardLabel object) {
+                return object.getName();
+            }
+
+            @Override
+            public CardLabel fromString(String string) {
+                return boardLabels.stream().filter(object -> object.getName().equals(string)).findFirst().orElse(null);
+            }
+        });
+
         cardStatusChoiceBox.getItems().addAll(CardStatus.TODO, CardStatus.IN_PROGRESS, CardStatus.DONE);
 
         saveButton.setOnAction(e -> {
@@ -111,6 +128,7 @@ public class EditCardController {
             this.editCard.setStatus(cardStatusChoiceBox.getValue());
             this.editCard.setDueDate(cardDueDate.getValue());
             this.editCard.setContent(cardDescription.getText());
+            this.editCard.setLabels(getSelectedCardLabel());
             try {
                 cardService.saveOrUpdateCard(editCard);
             } catch (CardRessourceException e) {
@@ -119,12 +137,27 @@ public class EditCardController {
         }
     }
 
+    private List<CardLabel> getSelectedCardLabel() {
+        List<CardLabel> newCardLabelList = new ArrayList<>();
+        for (int i = 0; i < boardLabels.size(); i++) {
+            BooleanProperty bp = cardLabelsCheckComboBox.getItemBooleanProperty(i);
+            if (bp.get()) {
+                newCardLabelList.add(boardLabels.get(i));
+            }
+        }
+        return newCardLabelList;
+    }
+
     public void setCard(Card card) {
         this.editCard = card;
         this.members.clear();
         this.members.addAll(userService.getMembersFromBoard(card.getAssignedBoard()));
         this.members.add(card.getAssignedBoard().getOwner());
         this.members.add(null);
+        this.boardLabels.clear();
+        this.boardLabels.addAll(cardLabelService.getAllCardLabelFromBoard(card.getAssignedBoard()));
+        this.cardLabels.clear();
+        this.cardLabels.addAll(cardLabelService.getAllCardLabelFromCard(card));
         refreshData();
     }
 
@@ -136,5 +169,12 @@ public class EditCardController {
         cardAssignedUserChoiceBox.getItems().clear();
         cardAssignedUserChoiceBox.getItems().addAll(members);
         cardAssignedUserChoiceBox.setValue(editCard.getAssignedUser());
+        cardLabelsCheckComboBox.getItems().clear();
+        cardLabelsCheckComboBox.getItems().addAll(boardLabels);
+        for (int i = 0; i < boardLabels.size(); i++) {
+            int finalI = i;
+            BooleanProperty bp = cardLabelsCheckComboBox.getItemBooleanProperty(finalI);
+            bp.setValue(cardLabels.stream().anyMatch(o -> o.getName().equals(boardLabels.get(finalI).getName())));
+        }
     }
 }

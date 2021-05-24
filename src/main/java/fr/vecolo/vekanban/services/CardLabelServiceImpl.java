@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CardLabelServiceImpl implements CardLabelService {
@@ -47,6 +48,12 @@ public class CardLabelServiceImpl implements CardLabelService {
 
     @Override
     @Transactional
+    public List<CardLabel> getAllCardLabelFromCard(Card card) {
+        return cardLabelRepository.findAllByAssociatedCardsContains(card);
+    }
+
+    @Override
+    @Transactional
     public CardLabel saveOrUdateCardLabel(CardLabel cardLabel) throws CardLabelRessourceException {
         try {
             if (cardLabel.getId() != 0) {
@@ -71,7 +78,7 @@ public class CardLabelServiceImpl implements CardLabelService {
     public void deleteCardLabel(CardLabel cardLabel) throws CardLabelRessourceException {
         try {
             for (Card card : cardService.findAllByAssignedBoardAndLabelsContaining(cardLabel.getBoard(), cardLabel)) {
-                card.getLabels().remove(cardLabel);
+                card.setLabels(card.getLabels().stream().filter(o -> !(o.getId() == cardLabel.getId())).collect(Collectors.toList()));
                 cardService.saveOrUpdateCard(card);
             }
 

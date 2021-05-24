@@ -2,6 +2,7 @@ package fr.vecolo.vekanban.services;
 
 import fr.vecolo.vekanban.config.exceptions.CardLabelRessourceException;
 import fr.vecolo.vekanban.models.Board;
+import fr.vecolo.vekanban.models.Card;
 import fr.vecolo.vekanban.models.CardLabel;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface CardLabelService {
     CardLabel saveOrUdateCardLabel(CardLabel cardLabel) throws CardLabelRessourceException;
 
     void deleteCardLabel(CardLabel cardLabel) throws CardLabelRessourceException;
+
+    public List<CardLabel> getAllCardLabelFromCard(Card card);
 }
