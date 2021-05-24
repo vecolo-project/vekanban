@@ -6,6 +6,7 @@ import fr.vecolo.vekanban.services.CardLabelServiceImpl;
 import fr.vecolo.vekanban.services.CardServiceImpl;
 import fr.vecolo.vekanban.services.UserServiceImpl;
 import fr.vecolo.vekanban.utils.mdfx.MDFXUtil;
+import javafx.beans.property.BooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -46,6 +47,7 @@ public class CreateCardController {
 
     private Card newCard;
     private final List<User> members = new ArrayList<>();
+    private final List<CardLabel> boardLabels = new ArrayList<>();
     private final CardServiceImpl cardService;
     private final UserServiceImpl userService;
     private final CardLabelServiceImpl cardLabelService;
@@ -80,6 +82,18 @@ public class CreateCardController {
             }
         });
 
+        cardLabelsCheckComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(CardLabel object) {
+                return object.getName();
+            }
+
+            @Override
+            public CardLabel fromString(String string) {
+                return boardLabels.stream().filter(object -> object.getName().equals(string)).findFirst().orElse(null);
+            }
+        });
+
         cardAssignedUserChoiceBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(User object) {
@@ -109,12 +123,24 @@ public class CreateCardController {
             this.newCard.setStatus(cardStatusChoiceBox.getValue());
             this.newCard.setDueDate(cardDueDate.getValue());
             this.newCard.setContent(cardDescription.getText());
+            this.newCard.setLabels(getSelectedCardLabel());
             try {
                 cardService.saveOrUpdateCard(newCard);
             } catch (CardRessourceException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private List<CardLabel> getSelectedCardLabel() {
+        List<CardLabel> newCardLabelList = new ArrayList<>();
+        for (int i = 0; i < boardLabels.size(); i++) {
+            BooleanProperty bp = cardLabelsCheckComboBox.getItemBooleanProperty(i);
+            if (bp.get()) {
+                newCardLabelList.add(boardLabels.get(i));
+            }
+        }
+        return newCardLabelList;
     }
 
     public void clearField(Board board) {
@@ -124,10 +150,14 @@ public class CreateCardController {
         this.members.addAll(userService.getMembersFromBoard(board));
         this.members.add(board.getOwner());
         this.members.add(null);
+        this.boardLabels.clear();
+        this.boardLabels.addAll(cardLabelService.getAllCardLabelFromBoard(board));
         cardAssignedUserChoiceBox.getItems().clear();
         cardAssignedUserChoiceBox.getItems().addAll(members);
         cardAssignedUserChoiceBox.setValue(null);
         cardStatusChoiceBox.setValue(CardStatus.TODO);
+        cardLabelsCheckComboBox.getItems().clear();
+        cardLabelsCheckComboBox.getItems().addAll(boardLabels);
         cardName.setText("");
         cardDueDate.setValue(null);
         cardDescription.setText("");

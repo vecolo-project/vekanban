@@ -19,6 +19,9 @@ public class CardLabel extends DateAudit {
     @Column(name = "NAME", updatable = true, nullable = false)
     private String name;
 
+    @Column(name = "COLOR", updatable = true)
+    private String color;
+
     @ManyToOne(optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Board board;
@@ -31,6 +34,12 @@ public class CardLabel extends DateAudit {
 
     public CardLabel(String name, Board board) {
         this.name = name;
+        this.board = board;
+    }
+
+    public CardLabel(String name, String color, Board board) {
+        this.name = name;
+        this.color = color;
         this.board = board;
     }
 
@@ -56,6 +65,14 @@ public class CardLabel extends DateAudit {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public List<Card> getAssociatedCards() {

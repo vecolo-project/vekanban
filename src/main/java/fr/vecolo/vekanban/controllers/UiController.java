@@ -169,7 +169,8 @@ public class UiController {
                         BoardServiceImpl boardService,
                         UserServiceImpl userService, FXMLLoaderHelper fxmlLoaderHelper,
                         EditProjectController editProjectController,
-                        CardServiceImpl cardService, @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN,
+                        CardServiceImpl cardService,
+                        @Value("classpath:/fxml/popUpYN.fxml") Resource popupYN,
                         @Value("classpath:/fxml/editProject.fxml") Resource editProject,
                         @Value("classpath:/fxml/editCard.fxml") Resource editCardRessource,
                         @Value("classpath:/fxml/newCard.fxml") Resource newCardRessource,
@@ -199,6 +200,7 @@ public class UiController {
         helloLabel.setText("Bonjour " + StringUtils.capitalize(user.getPseudo()));
 
         newProjectDescriptionMarkdownHbox.getChildren().add(MDFXUtil.connectMDFXToInput(newProjectDescription.textProperty(), 350));
+
         removeUserPopUpStage = new Stage();
         FXMLLoader loader = fxmlLoaderHelper.loadFXML(popupYN);
         removeUserPopUpController = loader.getController();

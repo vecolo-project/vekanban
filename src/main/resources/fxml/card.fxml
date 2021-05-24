@@ -2,16 +2,38 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="390.0" spacing="15.0" style="-fx-border-color: #fefefe; -fx-border-radius: 5;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.CardController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="390.0" spacing="15.0" style="-fx-border-radius: 5; -fx-background-color: -gray; -fx-border-color: -gray;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vecolo.vekanban.controllers.CardController">
    <children>
-      <Label fx:id="cardTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="250.0" styleClass="h3" text="cardName" />
-      <HBox spacing="20.0">
+      <HBox alignment="BASELINE_LEFT" spacing="10.0">
          <children>
-            <Label styleClass="h4" text="Assignée :" />
-            <Label fx:id="cardAssignee" layoutX="10.0" layoutY="10.0" styleClass="h4" text="assignee" />
+            <Label fx:id="cardTitle" alignment="BASELINE_LEFT" styleClass="h4" text="cardName" />
+            <HBox alignment="BASELINE_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="cardDueDate" styleClass="h5" text="dueDate" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <FlowPane fx:id="cardLabelsPane" hgap="10.0" rowValignment="TOP" vgap="10.0" />
+      <HBox alignment="CENTER_LEFT" spacing="20.0">
+         <children>
+            <Label alignment="BASELINE_LEFT" styleClass="h5" text="Assignée :" />
+            <Label fx:id="cardAssignee" layoutX="10.0" layoutY="10.0" styleClass="h5" text="assignee" />
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fx:id="cardNotes" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/clipboard_24px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
       </HBox>
    </children>
