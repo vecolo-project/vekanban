@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<SplitPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" dividerPositions="0.2" prefHeight="800.0" prefWidth="1600.0"
+           stylesheets="@style.css" xmlns="http://javafx.com/javafx/16"
+           fx:controller="fr.vecolo.vekanban.app.controllers.UiController">
+    <items>
+        <VBox spacing="10.0">
+            <children>
+                <VBox alignment="TOP_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                    <children>
+                        <Label fx:id="helloLabel" alignment="CENTER" prefWidth="600.0" styleClass="h4" text="Label"/>
+                        <ToggleButton fx:id="projectButton" mnemonicParsing="false" onAction="#changeBox"
+                                      prefHeight="50.0" prefWidth="600.0" text="MES PROJETS">
+                            <VBox.margin>
+                                <Insets top="100.0"/>
+                            </VBox.margin>
+                        </ToggleButton>
+                        <ToggleButton fx:id="newProjectButton" layoutX="20.0" layoutY="154.0" mnemonicParsing="false"
+                                      onAction="#changeBox" prefHeight="50.0" prefWidth="600.0" text="NOUVEAU PROJET"/>
+                        <ToggleButton fx:id="profilButton" layoutX="20.0" layoutY="215.0" mnemonicParsing="false"
+                                      onAction="#changeBox" prefHeight="50.0" prefWidth="600.0" text="MON PROFIL"/>
+                    </children>
+                </VBox>
+                <Button fx:id="logoutButton" onAction="#logout" prefHeight="33.0" prefWidth="500.0" snapToPixel="false"
+                        text="Logout">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+        <StackPane fx:id="rootStackPane">
+            <children>
+                <VBox fx:id="projectBox" spacing="20.0" visible="false">
+                    <children>
+                        <Label styleClass="h1" text="Mes projets"/>
+                        <ScrollPane prefHeight="300.0" vbarPolicy="NEVER">
+                            <content>
+                                <HBox fx:id="projectOwningListBox" spacing="10.0">
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </padding>
+                                </HBox>
+                            </content>
+                        </ScrollPane>
+                        <Label layoutX="10.0" layoutY="10.0" styleClass="h1" text="Partagé avec moi"/>
+                        <ScrollPane layoutX="10.0" layoutY="78.0" prefHeight="300.0" vbarPolicy="NEVER">
+                            <content>
+                                <HBox fx:id="projectMemberListBox" spacing="10.0">
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </padding>
+                                </HBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                    <StackPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </StackPane.margin>
+                </VBox>
+                <VBox fx:id="newProjectBox" fillWidth="false" spacing="20.0" visible="false">
+                    <children>
+                        <Label styleClass="h1" text="Nouveau projet"/>
+                        <Label styleClass="h2" text="Nom du projet :">
+                            <VBox.margin>
+                                <Insets top="20.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <TextField fx:id="newProjectName" promptText="Entrez le nom du projet"
+                                   style="-fx-border-color: #fefefe; -fx-border-radius: 5;" styleClass="h3">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </padding>
+                        </TextField>
+                        <Label layoutX="10.0" layoutY="98.0" styleClass="h2" text="Préfix des cartes (optionel) :"/>
+                        <TextField fx:id="newProjectPrefix" layoutX="10.0" layoutY="157.0" promptText="Entrez un prefix"
+                                   style="-fx-border-color: #fefefe; -fx-border-radius: 5;" styleClass="h3">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </padding>
+                        </TextField>
+                        <HBox spacing="50.0">
+                            <children>
+                                <VBox spacing="20.0">
+                                    <children>
+                                        <Label styleClass="h2" text="Inviter des membres"/>
+                                        <HBox alignment="CENTER_LEFT" prefWidth="350.0" spacing="10.0">
+                                            <children>
+                                                <TextField fx:id="newProjectMemberEmail" prefHeight="40.0"
+                                                           prefWidth="290.0"
+                                                           style="-fx-border-color: #fefefe; -fx-border-radius: 5;"/>
+                                                <Button mnemonicParsing="false" onAction="#addNewProjectMember">
+                                                    <graphic>
+                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../icons/plus_24px.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
+                                                    prefHeight="222.0" prefWidth="350.0">
+                                            <content>
+                                                <VBox fx:id="newProjectMembersBox" spacing="10.0"/>
+                                            </content>
+                                        </ScrollPane>
+                                        <Button mnemonicParsing="false" onAction="#createProject" styleClass="h3"
+                                                text="Créer le projet"/>
+                                    </children>
+                                </VBox>
+                                <VBox layoutX="10.0" layoutY="10.0" spacing="20.0">
+                                    <children>
+                                        <Label styleClass="h2" text="Description"/>
+                                        <HBox fx:id="newProjectDescriptionMarkdownHbox" spacing="20.0"
+                                              VBox.vgrow="ALWAYS">
+                                            <children>
+                                                <TextArea fx:id="newProjectDescription" prefWidth="350.0"
+                                                          promptText="Entrez la description de votre projet (markdown supporté)"
+                                                          wrapText="true"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                    <StackPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </StackPane.margin>
+                </VBox>
+                <VBox fx:id="profilBox" layoutX="10.0" layoutY="10.0" spacing="20.0">
+                    <children>
+                        <Label styleClass="h1" text="Modifier mes infos"/>
+                        <Label styleClass="h2" text="Email"/>
+                        <HBox>
+                            <children>
+                                <TextField fx:id="profilUserEmail" prefWidth="500.0"
+                                           promptText="Entrez votre adresse email"
+                                           style="-fx-border-color: #fefefe; -fx-border-radius: 5;" styleClass="h3">
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </padding>
+                                </TextField>
+                            </children>
+                        </HBox>
+                        <Label layoutX="10.0" layoutY="78.0" styleClass="h2" text="Pseudo"/>
+                        <HBox layoutX="10.0" layoutY="137.0">
+                            <children>
+                                <TextField fx:id="profilUserPseudo" prefWidth="500.0" promptText="Entrez votre pseudo"
+                                           style="-fx-border-color: #fefefe; -fx-border-radius: 5;" styleClass="h3">
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    </padding>
+                                </TextField>
+                            </children>
+                        </HBox>
+                        <Label layoutX="10.0" layoutY="196.0" styleClass="h2" text="Nom du projet :"/>
+                        <HBox layoutX="10.0" layoutY="256.0" spacing="20.0">
+                            <children>
+                                <PasswordField fx:id="profilUserPassword" prefWidth="500.0"
+                                               promptText="Entrez votre nouveau mot de passe"
+                                               style="-fx-border-color: #fefefe;" styleClass="h3"/>
+                                <PasswordField fx:id="profilUserConfirmPassword" layoutX="10.0" layoutY="10.0"
+                                               prefWidth="500.0" promptText="Confirmez votre nouveau mot de passe"
+                                               style="-fx-border-color: #fefefe;" styleClass="h3"/>
+                            </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" onAction="#saveUser" styleClass="h3" text="Sauvegarder"/>
+                        <Button layoutX="10.0" layoutY="433.0" mnemonicParsing="false" onAction="#deleteAccount"
+                                style="-fx-background-color: #CC2B2B;" styleClass="h3" text="Supprimer mon compte"/>
+                    </children>
+                    <StackPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </StackPane.margin>
+                </VBox>
+                <VBox fx:id="viewProjectBox" layoutX="30.0" layoutY="30.0" spacing="20.0" visible="false">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                            <children>
+                                <Label fx:id="viewProjectTitle" styleClass="h1" text="Project title"/>
+                                <Label fx:id="viewProjectCreationDate" layoutX="10.0" layoutY="10.0" styleClass="h4"
+                                       text="creation date"/>
+                                <Button fx:id="viewProjectEditButton" minWidth="15.0" mnemonicParsing="false"
+                                        onAction="#editProjectClick" prefHeight="34.0" prefWidth="35.0">
+                                    <graphic>
+                                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../icons/edit_24px.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="viewProjectNewCardButton" layoutX="375.0" layoutY="17.0" minWidth="15.0"
+                                        mnemonicParsing="false" onAction="#newCardClick" prefHeight="34.0"
+                                        prefWidth="35.0">
+                                    <graphic>
+                                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <image>
+                                                <Image url="@../icons/plus_24px.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="200.0" spacing="20.0">
+                            <children>
+                                <AnchorPane fx:id="viewProjectDescriptionPane" prefWidth="700.0"
+                                            style="-fx-border-color: #fefefe;"/>
+                                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <HBox fx:id="viewProjectAddMemberBox" alignment="CENTER_LEFT" prefWidth="350.0"
+                                              spacing="10.0">
+                                            <children>
+                                                <TextField fx:id="viewProjectMemberEmail" prefHeight="40.0"
+                                                           prefWidth="290.0"
+                                                           style="-fx-border-color: #fefefe; -fx-border-radius: 5;"/>
+                                                <Button mnemonicParsing="false" onAction="#addProjectMember">
+                                                    <graphic>
+                                                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../icons/plus_24px.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                    </graphic>
+                                                </Button>
+                                            </children>
+                                        </HBox>
+                                        <VBox fx:id="viewProjectMembersBox" prefHeight="200.0" prefWidth="100.0"
+                                              style="-fx-border-color: #fefefe;"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <VBox alignment="TOP_CENTER" prefWidth="400.0" spacing="10.0">
+                                    <children>
+                                        <Label styleClass="h3" text="A faire"/>
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
+                                                    VBox.vgrow="ALWAYS">
+                                            <content>
+                                                <VBox fx:id="todoBox" alignment="TOP_CENTER" spacing="10.0"
+                                                      style="-fx-background-color: -darkGray; -fx-border-color: -darkGray;">
+                                                    <padding>
+                                                        <Insets top="10.0"/>
+                                                    </padding>
+                                                </VBox>
+                                            </content>
+                                        </ScrollPane>
+                                    </children>
+                                </VBox>
+                                <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefWidth="400.0"
+                                      spacing="10.0">
+                                    <children>
+                                        <Label styleClass="h3" text="En cours"/>
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
+                                                    VBox.vgrow="ALWAYS">
+                                            <content>
+                                                <VBox fx:id="doingBox" alignment="TOP_CENTER" spacing="10.0"
+                                                      style="-fx-background-color: -darkGray; -fx-border-color: -darkGray;">
+                                                    <padding>
+                                                        <Insets top="10.0"/>
+                                                    </padding>
+                                                </VBox>
+                                            </content>
+                                        </ScrollPane>
+                                    </children>
+                                </VBox>
+                                <VBox alignment="TOP_CENTER" layoutX="420.0" layoutY="10.0" prefWidth="400.0"
+                                      spacing="10.0">
+                                    <children>
+                                        <Label styleClass="h3" text="Terminé"/>
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
+                                                    VBox.vgrow="ALWAYS">
+                                            <content>
+                                                <VBox fx:id="doneBox" alignment="TOP_CENTER" spacing="10.0"
+                                                      style="-fx-background-color: -darkGray; -fx-border-color: -darkGray;">
+                                                    <padding>
+                                                        <Insets top="10.0"/>
+                                                    </padding>
+                                                </VBox>
+                                            </content>
+                                        </ScrollPane>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                    <StackPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </StackPane.margin>
+                </VBox>
+            </children>
+        </StackPane>
+    </items>
+</SplitPane>
