@@ -2,8 +2,8 @@ package fr.vecolo.vekanban.app.config;
 
 import fr.vecolo.vekanban.app.FxBootApplication;
 import fr.vecolo.vekanban.app.events.PrimaryStageReadyEvent;
-import fr.vecolo.vekanban.app.plugins.Greetings;
 import fr.vecolo.vekanban.app.plugins.PluginConfiguration;
+import fr.vecolo.vekanban.app.plugins.Plugins;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
@@ -31,18 +31,24 @@ public class VekanbanApplication extends Application {
                     ac.registerBean(HostServices.class, this::getHostServices);
                 };
 
-        loadPlugins();
 
+        loadPlugins();
         this.context = new SpringApplicationBuilder()
                 .sources(FxBootApplication.class)
                 .initializers(initializers)
                 .run(getParameters().getRaw().toArray(new String[0]));
+
     }
 
     private void loadPlugins() {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(PluginConfiguration.class);
-        Greetings greetings = applicationContext.getBean(Greetings.class);
-        greetings.printGreetings();
+        Plugins plugins = applicationContext.getBean(Plugins.class);
+        try {
+//            plugins.runAll();
+            plugins.printGreetings();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         SpringPluginManager pluginManager = applicationContext.getBean(SpringPluginManager.class);
         pluginManager.stopPlugins();

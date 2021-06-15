@@ -14,7 +14,7 @@ public class PluginConfiguration {
 
     @Bean
     @DependsOn("pluginManager")
-    public Greetings greetings() {
-        return new Greetings();
+    public Plugins plugins() {
+        return new Plugins();
     }
 }

@@ -4,6 +4,7 @@ import fr.vecolo.vekanban.app.events.LoginEvent;
 import fr.vecolo.vekanban.app.services.UserServiceImpl;
 import fr.vecolo.vekanban.plugin_api.exceptions.UserRessourceException;
 import fr.vecolo.vekanban.plugin_api.models.User;
+import fr.vecolo.vekanban.plugin_api.services.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,7 +20,7 @@ import org.springframework.util.StringUtils;
 public class LoginController {
 
     private final ApplicationEventPublisher ae;
-    private final UserServiceImpl userService;
+    private final UserService userService;
     @FXML
     private BorderPane loginStack;
     @FXML
@@ -38,7 +39,7 @@ public class LoginController {
     private PasswordField profilUserConfirmPassword;
 
     @Autowired
-    public LoginController(ApplicationEventPublisher ac, UserServiceImpl userService) {
+    public LoginController(ApplicationEventPublisher ac, UserService userService) {
         this.ae = ac;
         this.userService = userService;
     }
