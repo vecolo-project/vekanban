@@ -1,6 +1,7 @@
 package fr.vecolo.vekanban.plugin_1;
 
 import fr.vecolo.vekanban.plugin_api.PluginInterface;
+import fr.vecolo.vekanban.plugin_api.models.Board;
 import org.pf4j.Extension;
 import org.pf4j.PluginWrapper;
 import org.pf4j.spring.SpringPlugin;
@@ -26,6 +27,7 @@ public class GithubPlugin extends SpringPlugin {
         applicationContext.register(SpringConfiguration.class);
         applicationContext.refresh();
 
+
         return applicationContext;
     }
 
@@ -33,22 +35,114 @@ public class GithubPlugin extends SpringPlugin {
     @Service
     public static class SpringPlugin implements PluginInterface {
 
-        GithubPluginProvider pluginProvider;
         GithubPluginService pluginService;
 
+        private String textField;
+        private Board board;
+
         @Autowired
-        public SpringPlugin(GithubPluginProvider pluginProvider) {
-            this.pluginProvider = pluginProvider;
+        public SpringPlugin(GithubPluginService pluginService) {
+            this.pluginService = pluginService;
         }
 
         @Override
         public String getName() {
-            return pluginProvider.getName();
+            return "Github issue scrapper";
+        }
+
+        @Override
+        public String getVersion() {
+            return "0.0.1";
+        }
+
+        @Override
+        public String getDescription() {
+            return "Plugin permettant de récupérer les tickets d'un dépôt Github publique et de les rajouter à un des vos projets existants";
+        }
+
+        @Override
+        public boolean textFieldNeeded() {
+            return true;
+        }
+
+        @Override
+        public void setTextField(String string) {
+            this.textField = string;
+        }
+
+        @Override
+        public String getTextField() {
+            return this.textField;
+        }
+
+        @Override
+        public String getTextFieldPrompt() {
+            return "Entrez le lien du dépot publique Github";
+        }
+
+        @Override
+        public void setExistingBoard(Board board) {
+            this.board = board;
+        }
+
+        @Override
+        public Board getExistingBoard() {
+            return board;
+        }
+
+        @Override
+        public String getExistingBoardPrompt() {
+            return "Sélectionner le projet auquel rajouter les tickets du dépot Github";
+        }
+
+        @Override
+        public boolean textAreaFieldNeeded() {
+            return false;
+        }
+
+        @Override
+        public void setTextAreaField(String string) {
+
+        }
+
+        @Override
+        public String getTextAreaField() {
+            return null;
+        }
+
+        @Override
+        public String getTextAreaFieldPrompt() {
+            return null;
+        }
+
+        @Override
+        public boolean existingBoardNeeded() {
+            return true;
+        }
+
+        @Override
+        public boolean filePathNeeded() {
+            return false;
+        }
+
+        @Override
+        public void setFilePath(String path) {
+
+        }
+
+        @Override
+        public String getFilePath() {
+            return null;
+        }
+
+        @Override
+        public String getFilePathPrompt() {
+            return null;
         }
 
         @Override
         public void run() throws Exception {
-            pluginService.retrieveUsers();
+            pluginService.run(board, textField);
         }
     }
 }

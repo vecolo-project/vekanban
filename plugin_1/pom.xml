@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>plugin_1</artifactId>
+    <artifactId>github_plugin</artifactId>
+    <name>Github Plugin</name>
 
     <dependencies>
         <dependency>
@@ -38,7 +39,7 @@
                         </manifest>
                         <manifestEntries>
                             <Plugin-Class>fr.vecolo.vekanban.plugin_1.GithubPlugin</Plugin-Class>
-                            <Plugin-Id>welcome-plugin</Plugin-Id>
+                            <Plugin-Id>github-plugin</Plugin-Id>
                             <Plugin-Version>0.0.1</Plugin-Version>
                             <Plugin-Requires>0.0.1</Plugin-Requires>
                             <Plugin-Dependencies/>

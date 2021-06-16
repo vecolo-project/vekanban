@@ -13,7 +13,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <name>vekanban</name>
+    <name>Vekanban</name>
     <description>Vecolo project managment app</description>
 
     <properties>

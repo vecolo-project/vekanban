@@ -12,6 +12,7 @@
     <artifactId>plugin_api</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1</version>
+    <name>Plugin API</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

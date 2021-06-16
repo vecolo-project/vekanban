@@ -7,7 +7,7 @@
     <artifactId>module-parent</artifactId>
     <version>0.0.1</version>
 
-    <name>module-parent</name>
+    <name>Root module</name>
     <description>Vecolo project managment app</description>
 
     <parent>
