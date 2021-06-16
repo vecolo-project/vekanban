@@ -1,11 +1,13 @@
 package fr.vecolo.vekanban.app.controllers;
 
 import fr.vecolo.vekanban.app.events.LogoutEvent;
+import fr.vecolo.vekanban.app.plugins.Plugins;
 import fr.vecolo.vekanban.app.services.BoardServiceImpl;
 import fr.vecolo.vekanban.app.services.CardServiceImpl;
 import fr.vecolo.vekanban.app.services.UserServiceImpl;
 import fr.vecolo.vekanban.app.utils.FXMLLoaderHelper;
 import fr.vecolo.vekanban.app.utils.mdfx.MDFXUtil;
+import fr.vecolo.vekanban.plugin_api.PluginInterface;
 import fr.vecolo.vekanban.plugin_api.exceptions.BoardRessourceException;
 import fr.vecolo.vekanban.plugin_api.exceptions.UserRessourceException;
 import fr.vecolo.vekanban.plugin_api.models.Board;
@@ -19,10 +21,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +54,7 @@ public class UiController {
     private final Resource editCardRessource;
     private final Resource createCardRessource;
     private final Resource projectCardResource;
+    private final Resource pluginCardResource;
     private final Resource cardResource;
     // Sidebar
     @FXML
@@ -131,6 +131,18 @@ public class UiController {
     private PasswordField profilUserConfirmPassword;
     private User user;
 
+    @FXML
+    private ToggleButton pluginButton;
+
+    @FXML
+    private VBox pluginsBox;
+
+    @FXML
+    private FlowPane pluginListFlowPane;
+
+    private final Plugins plugins;
+
+
     @Autowired
     public UiController(CreateCardController createCardController, EditCardController editCardController, ApplicationEventPublisher ac,
                         BoardServiceImpl boardService,
@@ -142,7 +154,8 @@ public class UiController {
                         @Value("classpath:/fxml/editCard.fxml") Resource editCardRessource,
                         @Value("classpath:/fxml/newCard.fxml") Resource newCardRessource,
                         @Value("classpath:/fxml/projectCard.fxml") Resource projectCardResource,
-                        @Value("classpath:/fxml/card.fxml") Resource cardResource) {
+                        @Value("classpath:/fxml/pluginCard.fxml") Resource pluginCardResource,
+                        @Value("classpath:/fxml/card.fxml") Resource cardResource, Plugins plugins) {
         this.createCardController = createCardController;
         this.editCardController = editCardController;
         this.ac = ac;
@@ -156,7 +169,9 @@ public class UiController {
         this.editCardRessource = editCardRessource;
         this.createCardRessource = newCardRessource;
         this.projectCardResource = projectCardResource;
+        this.pluginCardResource = pluginCardResource;
         this.cardResource = cardResource;
+        this.plugins = plugins;
         newProjectMembersEmailList = new ArrayList<>();
     }
 
@@ -230,17 +245,22 @@ public class UiController {
         projectButton.setSelected(box == projectBox || box == viewProjectBox);
         newProjectButton.setSelected(box == newProjectBox);
         profilButton.setSelected(box == profilBox);
+        pluginButton.setSelected(box == pluginsBox);
 
         projectBox.setVisible(box == projectBox);
         newProjectBox.setVisible(box == newProjectBox);
         profilBox.setVisible(box == profilBox);
         viewProjectBox.setVisible(box == viewProjectBox);
+        pluginsBox.setVisible(box == pluginsBox);
 
         if (box == projectBox) {
             fillProjectListCards();
         }
         if (box == profilBox) {
             fillUserInfo();
+        }
+        if (box == pluginsBox) {
+            fillPluginList();
         }
     }
 
@@ -270,7 +290,19 @@ public class UiController {
             controller.setProject(board, user);
             VBox card = fxmlLoader.getRoot();
             card.setOnMouseClicked(e -> showBoard(board.getId()));
-            projectMemberListBox.getChildren().add(fxmlLoader.getRoot());
+            projectMemberListBox.getChildren().add(card);
+        }
+    }
+
+    private void fillPluginList() {
+        pluginListFlowPane.getChildren().clear();
+        for (PluginInterface plugin : plugins.getPlugins()) {
+            FXMLLoader fxmlLoader = fxmlLoaderHelper.loadFXML(pluginCardResource);
+            PluginCardController controller = fxmlLoader.getController();
+            controller.setPlugin(plugin);
+            VBox card = fxmlLoader.getRoot();
+            card.setOnMouseClicked(e -> System.out.println("Click on " + plugin.getName()));
+            pluginListFlowPane.getChildren().add(card);
         }
     }
 
@@ -283,6 +315,8 @@ public class UiController {
             setVisibleBox(newProjectBox);
         } else if (buttonClicked == profilButton) {
             setVisibleBox(profilBox);
+        } else if (buttonClicked == pluginButton) {
+            setVisibleBox(pluginsBox);
         }
     }
 
