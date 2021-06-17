@@ -9,14 +9,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@Scope("prototype")
 public class PluginCardController {
 
     @FXML
     private Label pluginName;
 
     @FXML
-    private TextArea pluginDescription;
+    private Label pluginDescription;
 
     private PluginInterface plugin;
 
