@@ -78,7 +78,7 @@ public class GithubPlugin extends SpringPlugin {
 
         @Override
         public String getTextFieldPrompt() {
-            return "Entrez le lien du dépot publique Github";
+            return "Entrez le lien (ou 'Utilisateur/Depot') du dépot publique Github";
         }
 
         @Override
@@ -93,7 +93,7 @@ public class GithubPlugin extends SpringPlugin {
 
         @Override
         public String getExistingBoardPrompt() {
-            return "Sélectionner le projet auquel rajouter les tickets du dépot Github";
+            return "Sélectionnez le projet auquel rajouter les tickets du dépot Github";
         }
 
         @Override

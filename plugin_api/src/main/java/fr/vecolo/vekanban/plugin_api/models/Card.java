@@ -18,7 +18,7 @@ public class Card extends DateAudit {
     @Column(name = "TITLE", updatable = true, nullable = false)
     private String title;
 
-    @Column(name = "CONTENT", updatable = true, nullable = true)
+    @Column(name = "CONTENT", length = 2000, updatable = true, nullable = true)
     private String content;
 
     @Column(name = "DUE_DATE", updatable = true, nullable = true)

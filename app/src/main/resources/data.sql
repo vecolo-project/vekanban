@@ -1,6 +1,6 @@
 INSERT INTO user (user_id, created_at, updated_at, user_email, user_password, user_pseudo)
 VALUES (1, '2021-03-14 16:33:13.000000', null, 'noe@yahoo.fr',
-        '$2a$10$L3g//frHMeJ.k7BJ2RhvROkwkoVwksxwwU3L5.mRgnuYjwR6ZmDZm', 'nospy');
+        '$2a$10$L3g//frHMeJ.k7BJ2RhvROkwkoVwksxwwU3L5.mRgnuYjwR6ZmDZm', 'Nouuu');
 
 INSERT INTO user (user_id, created_at, updated_at, user_email, user_password, user_pseudo)
 VALUES (2, '2020-02-14 05:15:15.000000', null, 'swann@mail.fr', 'swann', 'gerard mentor');

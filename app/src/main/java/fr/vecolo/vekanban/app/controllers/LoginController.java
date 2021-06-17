@@ -56,7 +56,7 @@ public class LoginController {
             this.ae.publishEvent(new LoginEvent(event, loginField.getText(), passwordField.getText()));
         }
 */
-        this.ae.publishEvent(new LoginEvent(this, "nospy", "password"));
+        this.ae.publishEvent(new LoginEvent(this, "Nouuu", "password"));
 
     }
 

@@ -11,6 +11,7 @@
 
     <artifactId>github_plugin</artifactId>
     <name>Github Plugin</name>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -31,11 +32,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
                             <Plugin-Class>fr.vecolo.vekanban.plugin_1.GithubPlugin</Plugin-Class>
