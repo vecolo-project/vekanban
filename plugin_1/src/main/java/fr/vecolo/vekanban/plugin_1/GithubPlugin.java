@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 public class GithubPlugin extends SpringPlugin {
 
@@ -67,7 +68,7 @@ public class GithubPlugin extends SpringPlugin {
 
         @Override
         public void setTextField(String string) {
-            this.textField = string;
+            this.textField = wrap(string);
         }
 
         @Override
@@ -102,7 +103,6 @@ public class GithubPlugin extends SpringPlugin {
 
         @Override
         public void setTextAreaField(String string) {
-
         }
 
         @Override
@@ -143,6 +143,13 @@ public class GithubPlugin extends SpringPlugin {
         @Override
         public void run() throws Exception {
             pluginService.run(board, textField);
+        }
+
+        private String wrap(String string) {
+            if (string == null) {
+                return "";
+            }
+            return StringUtils.trimWhitespace(string);
         }
     }
 }
