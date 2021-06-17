@@ -56,6 +56,7 @@ public class UiController {
     private final Resource projectCardResource;
     private final Resource pluginCardResource;
     private final Resource cardResource;
+    private final Resource pluginRessource;
     // Sidebar
     @FXML
     private SplitPane root;
@@ -142,6 +143,8 @@ public class UiController {
 
     private final Plugins plugins;
 
+    private Stage pluginStage;
+    private PluginController pluginController;
 
     @Autowired
     public UiController(CreateCardController createCardController, EditCardController editCardController, ApplicationEventPublisher ac,
@@ -155,7 +158,8 @@ public class UiController {
                         @Value("classpath:/fxml/newCard.fxml") Resource newCardRessource,
                         @Value("classpath:/fxml/projectCard.fxml") Resource projectCardResource,
                         @Value("classpath:/fxml/pluginCard.fxml") Resource pluginCardResource,
-                        @Value("classpath:/fxml/card.fxml") Resource cardResource, Plugins plugins) {
+                        @Value("classpath:/fxml/card.fxml") Resource cardResource,
+                        @Value("classpath:/fxml/plugin.fxml") Resource pluginRessource, Plugins plugins, PluginController pluginController) {
         this.createCardController = createCardController;
         this.editCardController = editCardController;
         this.ac = ac;
@@ -171,7 +175,9 @@ public class UiController {
         this.projectCardResource = projectCardResource;
         this.pluginCardResource = pluginCardResource;
         this.cardResource = cardResource;
+        this.pluginRessource = pluginRessource;
         this.plugins = plugins;
+        this.pluginController = pluginController;
         newProjectMembersEmailList = new ArrayList<>();
     }
 
@@ -207,6 +213,12 @@ public class UiController {
         createCardPopUpStage.setScene(new Scene(loader.getRoot()));
         createCardPopUpStage.setResizable(false);
         createCardPopUpStage.initModality(Modality.APPLICATION_MODAL);
+
+        pluginStage = new Stage();
+        loader = fxmlLoaderHelper.loadFXML(pluginRessource);
+        pluginStage.setScene(new Scene(loader.getRoot()));
+        pluginStage.setResizable(false);
+        pluginStage.initModality(Modality.APPLICATION_MODAL);
     }
 
     private void freezeSplitPaneBar() {
@@ -301,9 +313,14 @@ public class UiController {
             PluginCardController controller = fxmlLoader.getController();
             controller.setPlugin(plugin);
             VBox card = fxmlLoader.getRoot();
-            card.setOnMouseClicked(e -> System.out.println("Click on " + plugin.getName()));
+            card.setOnMouseClicked(e -> showPlugin(plugin));
             pluginListFlowPane.getChildren().add(card);
         }
+    }
+
+    private void showPlugin(PluginInterface plugin) {
+        pluginController.setPlugin(plugin, user);
+        pluginStage.showAndWait();
     }
 
     @FXML
