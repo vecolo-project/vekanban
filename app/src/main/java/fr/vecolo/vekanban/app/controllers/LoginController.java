@@ -1,10 +1,10 @@
 package fr.vecolo.vekanban.app.controllers;
 
 import fr.vecolo.vekanban.app.events.LoginEvent;
-import fr.vecolo.vekanban.app.services.UserServiceImpl;
 import fr.vecolo.vekanban.plugin_api.exceptions.UserRessourceException;
 import fr.vecolo.vekanban.plugin_api.models.User;
 import fr.vecolo.vekanban.plugin_api.services.UserService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -50,14 +50,10 @@ public class LoginController {
     }
 
     @FXML
-    void login() {
-/*
+    void login(ActionEvent event) {
         if (StringUtils.hasText(loginField.getText()) && StringUtils.hasText(passwordField.getText())) {
             this.ae.publishEvent(new LoginEvent(event, loginField.getText(), passwordField.getText()));
         }
-*/
-        this.ae.publishEvent(new LoginEvent(this, "Nouuu", "password"));
-
     }
 
     @FXML
