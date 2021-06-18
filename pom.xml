@@ -1,93 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>fr.vecolo</groupId>
-	<artifactId>vekanban</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <groupId>fr.vecolo.vekanban</groupId>
+    <artifactId>module-parent</artifactId>
+    <version>1.0.0</version>
 
-	<name>vekanban</name>
-	<description>Vecolo project managment app</description>
+    <name>Root module</name>
+    <description>Vecolo project managment app</description>
 
-	<properties>
-		<java.version>11</java.version>
-		<javafx.version>15.0.1</javafx.version>
-		<controlfx.version>11.1.0</controlfx.version>
-	</properties>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
+    <packaging>pom</packaging>
+    <modules>
+        <module>app</module>
+        <module>plugin_api</module>
+        <module>plugin_1</module>
+    </modules>
 
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.pf4j</groupId>
+            <artifactId>pf4j-spring</artifactId>
+            <version>0.7.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-base</artifactId>
-			<version>${javafx.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.controlsfx</groupId>
-			<artifactId>controlsfx</artifactId>
-			<version>${controlfx.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<executable>
-						true
-					</executable>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
+        <dependency>
+            <groupId>org.kohsuke</groupId>
+            <artifactId>github-api</artifactId>
+            <version>1.131</version>
+        </dependency>
+    </dependencies>
 </project>
