@@ -112,7 +112,6 @@ public class CardController {
                 cardService.deleteCard(card);
             } catch (Exception ignored) {
             }
-            uiController.deleteBoardCB();
         }
 
         this.uiController.refreshBoardCards();

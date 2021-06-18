@@ -5,13 +5,13 @@
     <parent>
         <groupId>fr.vecolo.vekanban</groupId>
         <artifactId>module-parent</artifactId>
-        <version>0.0.1</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>plugin_api</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <name>Plugin API</name>
 
     <properties>

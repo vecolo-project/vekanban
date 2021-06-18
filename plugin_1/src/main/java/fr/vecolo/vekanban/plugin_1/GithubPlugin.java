@@ -53,7 +53,7 @@ public class GithubPlugin extends SpringPlugin {
 
         @Override
         public String getVersion() {
-            return "0.0.1";
+            return "1.0.0";
         }
 
         @Override
