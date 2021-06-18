@@ -2,6 +2,21 @@
 
 <!-- toc -->
 
+- [Installation](#installation)
+  * [Build from maven](#build-from-maven)
+  * [From release](#from-release)
+  * [Fill application.properties config file](#fill-applicationproperties-config-file)
+  * [Plugins](#plugins)
+- [Screenshots](#screenshots)
+  * [Login / Signup](#login--signup)
+  * [Project list view](#project-list-view)
+  * [Project view / edit](#project-view--edit)
+  * [New project](#new-project)
+  * [Update user profil](#update-user-profil)
+  * [Plugin view](#plugin-view)
+
+<!-- tocstop -->
+
 # Installation
 
 ## Build from maven
