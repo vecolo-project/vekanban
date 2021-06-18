@@ -102,6 +102,7 @@ public class PluginController {
         this.currentUser = user;
         fillBoardList();
         fillPluginStage();
+        onChange();
     }
 
     private void fillBoardList() {
@@ -148,33 +149,45 @@ public class PluginController {
     }
 
     @FXML
-    void onRun() throws Exception {
+    private void onRun() throws Exception {
+        if (!checkValidFields()) {
+            return;
+        }
+
+        plugin.run();
+        runButton.getScene().getWindow().hide();
+    }
+
+    @FXML
+    private void onChange() {
+        this.runButton.setDisable(!checkValidFields());
+    }
+
+    private boolean checkValidFields() {
         if (plugin.textFieldNeeded()) {
             if (!StringUtils.hasLength(textField.getText())) {
-                return;
+                return false;
             }
             plugin.setTextField(textField.getText());
         }
         if (plugin.textAreaFieldNeeded()) {
             if (!StringUtils.hasLength(textArea.getText())) {
-                return;
+                return false;
             }
             plugin.setTextAreaField(textArea.getText());
         }
         if (plugin.existingBoardNeeded()) {
             if (existingBoardComboBox.getValue() == null) {
-                return;
+                return false;
             }
             plugin.setExistingBoard(existingBoardComboBox.getValue());
         }
         if (plugin.filePathNeeded()) {
             if (!StringUtils.hasLength(filenameField.getText())) {
-                return;
+                return false;
             }
             plugin.setFilePath(filenameField.getText());
         }
-
-        plugin.run();
-        runButton.getScene().getWindow().hide();
+        return true;
     }
 }

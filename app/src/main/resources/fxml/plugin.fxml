@@ -25,25 +25,25 @@
       <VBox fx:id="textFieldBox" spacing="10.0">
          <children>
             <Label fx:id="textFieldPrompt" styleClass="h4" text="TextField prompt :" wrapText="true" />
-            <TextField fx:id="textField" style="-fx-background-color: -darkGray;" styleClass="h5" />
+            <TextField fx:id="textField" onAction="#onChange" onKeyTyped="#onChange" style="-fx-background-color: -darkGray;" styleClass="h5" />
          </children>
       </VBox>
       <VBox fx:id="textAreaBox" layoutX="20.0" layoutY="136.0" spacing="10.0">
          <children>
             <Label fx:id="textAreaPrompt" styleClass="h4" text="TextArea prompt :" wrapText="true" />
-            <TextArea fx:id="textArea" prefHeight="130.0" prefWidth="580.0" style="-fx-border-color: #fefefe;" styleClass="h5" wrapText="true" />
+            <TextArea fx:id="textArea" onKeyTyped="#onChange" prefHeight="130.0" prefWidth="580.0" style="-fx-border-color: #fefefe;" styleClass="h5" wrapText="true" />
          </children>
       </VBox>
       <VBox fx:id="existingBoardBox" spacing="10.0">
          <children>
             <Label fx:id="existingBoardPrompt" styleClass="h4" text="Existing board prompt :" wrapText="true" />
-            <ComboBox fx:id="existingBoardComboBox" prefHeight="23.0" prefWidth="180.0" styleClass="h5" />
+            <ComboBox fx:id="existingBoardComboBox" onAction="#onChange" prefHeight="23.0" prefWidth="180.0" styleClass="h5" />
          </children>
       </VBox>
       <VBox fx:id="fileNameBox" spacing="10.0">
          <children>
             <Label fx:id="filenamePrompt" styleClass="h4" text="Filename prompt :" wrapText="true" />
-            <TextField fx:id="filenameField" style="-fx-background-color: -darkGray;" styleClass="h5" />
+            <TextField fx:id="filenameField" onAction="#onChange" onKeyTyped="#onChange" style="-fx-background-color: -darkGray;" styleClass="h5" />
          </children>
       </VBox>
       <Button fx:id="runButton" mnemonicParsing="false" onAction="#onRun" style="-fx-background-color: #36A024;" styleClass="h4" text="Lancer" />
