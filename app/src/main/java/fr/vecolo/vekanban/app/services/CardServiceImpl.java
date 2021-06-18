@@ -88,6 +88,7 @@ public class CardServiceImpl implements CardService {
     @Override
     @Transactional
     public void deleteCard(Card card) throws CardRessourceException {
+        card = getCardById(card.getId());
         try {
             // Remove associated card labels
             card.getLabels().clear();
