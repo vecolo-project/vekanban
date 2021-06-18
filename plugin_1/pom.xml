@@ -5,7 +5,7 @@
     <parent>
         <artifactId>module-parent</artifactId>
         <groupId>fr.vecolo.vekanban</groupId>
-        <version>0.0.1</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>fr.vecolo.vekanban</groupId>
             <artifactId>plugin_api</artifactId>
-            <version>0.0.1</version>
+            <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -41,8 +41,8 @@
                         <manifestEntries>
                             <Plugin-Class>fr.vecolo.vekanban.plugin_1.GithubPlugin</Plugin-Class>
                             <Plugin-Id>github-plugin</Plugin-Id>
-                            <Plugin-Version>0.0.1</Plugin-Version>
-                            <Plugin-Requires>0.0.1</Plugin-Requires>
+                            <Plugin-Version>1.0.0</Plugin-Version>
+                            <Plugin-Requires>1.0.0</Plugin-Requires>
                             <Plugin-Dependencies/>
                             <Plugin-Description>First impl of jar plugin</Plugin-Description>
                             <Plugin-Provider>Noé Larrieu-Lacoste</Plugin-Provider>
