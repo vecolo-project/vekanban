@@ -98,7 +98,6 @@ class MDFXNodeHelper extends VBox {
         for (ConsumerHelper<Pair<Node, String>> f : elemFunctions) {
             f.accept(new Pair(toAdd, wholeText));
         }
-        ;
         if (!styles.isEmpty()) {
             String tmp = "";
             for (String style : styles) {
