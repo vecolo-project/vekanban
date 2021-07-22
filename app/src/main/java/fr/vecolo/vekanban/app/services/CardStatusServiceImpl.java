@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class CardStatusServiceImpl implements CardStatusService {
-    final static Logger logger = LoggerFactory.getLogger(CardStatusServiceImpl.class);
+    protected final static Logger logger = LoggerFactory.getLogger(CardStatusServiceImpl.class);
     private final CardStatusRepository cardStatusRepository;
 
     @Autowired
