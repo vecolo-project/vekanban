@@ -13,7 +13,7 @@ public class AppExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(AppExceptionHandler.class);
 
     @ExceptionHandler(Exception.class)
-    public void GlobalExceptionHandler(Exception ex) {
+    public void globalExceptionHandler(Exception ex) {
         logger.error(ex.getMessage());
         String stackTrace = Arrays.stream(ex.getStackTrace()).limit(5).map(StackTraceElement::toString).collect(Collectors.joining("\n"));
         logger.error(stackTrace);

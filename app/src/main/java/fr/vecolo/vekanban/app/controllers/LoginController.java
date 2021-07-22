@@ -50,19 +50,19 @@ public class LoginController {
     }
 
     @FXML
-    void login(ActionEvent event) {
+    protected void login(ActionEvent event) {
         if (StringUtils.hasText(loginField.getText()) && StringUtils.hasText(passwordField.getText())) {
             this.ae.publishEvent(new LoginEvent(event, loginField.getText(), passwordField.getText()));
         }
     }
 
     @FXML
-    void signupForm() {
+    protected void signupForm() {
         setVisiblePane(signupStack);
     }
 
     @FXML
-    void loginForm() {
+    protected void loginForm() {
         setVisiblePane(loginStack);
     }
 

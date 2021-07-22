@@ -22,10 +22,6 @@ public class PopUpYNController {
 
     private boolean response = false;
 
-    @Autowired
-    public PopUpYNController() {
-    }
-
     @FXML
     public void initialize() {
         yesButton.setOnAction(e -> {

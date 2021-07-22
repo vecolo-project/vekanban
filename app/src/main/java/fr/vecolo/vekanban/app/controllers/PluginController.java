@@ -149,7 +149,7 @@ public class PluginController {
     }
 
     @FXML
-    private void onRun() throws Exception {
+    protected void onRun() throws Exception {
         if (!checkValidFields()) {
             return;
         }
@@ -159,7 +159,7 @@ public class PluginController {
     }
 
     @FXML
-    private void onChange() {
+    protected void onChange() {
         this.runButton.setDisable(!checkValidFields());
     }
 

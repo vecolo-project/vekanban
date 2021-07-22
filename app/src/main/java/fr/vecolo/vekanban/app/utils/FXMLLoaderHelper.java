@@ -38,7 +38,7 @@ public class FXMLLoaderHelper {
     }
 
     public FXMLLoader loadFXML(URL url) {
-        javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(url);
+        FXMLLoader loader = new FXMLLoader(url);
         loader.setControllerFactory(applicationContext::getBean);
         try {
             loader.load();

@@ -135,7 +135,7 @@ public class EditProjectController {
     }
 
     @FXML
-    void addNewLabel() {
+    protected void addNewLabel() {
         if (StringUtils.hasLength(projectNewLabelName.getText()) && boardLabels.stream().noneMatch(o -> o.getName().equals(projectNewLabelName.getText()))) {
             CardLabel newLabel = new CardLabel(projectNewLabelName.getText(),
                     toRGBCode(newLabelColorPicker.getValue()),
