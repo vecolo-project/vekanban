@@ -29,24 +29,24 @@ import java.util.List;
 class MDFXNodeHelper extends VBox {
     final static String ITALICE_CLASS_NAME = "markdown-italic";
     final static String BOLD_CLASS_NAME = "markdown-bold";
-    String mdString;
-    MDFXNode parent;
-    List<String> elemStyleClass = new LinkedList<String>();
+    //    private String mdString;
+    private final MDFXNode parent;
+    private final List<String> elemStyleClass = new LinkedList<>();
 
-    List<ConsumerHelper<Pair<Node, String>>> elemFunctions = new LinkedList<ConsumerHelper<Pair<Node, String>>>();
+    private final List<ConsumerHelper<Pair<Node, String>>> elemFunctions = new LinkedList<>();
 
-    Boolean nodePerWord = false;
+    private Boolean nodePerWord = false;
 
-    List<String> styles = new LinkedList<String>();
+    private final List<String> styles = new LinkedList<>();
 
-    VBox root = new VBox();
+    private VBox root = new VBox();
 
-    GridPane grid = null;
-    int gridx = 0;
-    int gridy = 0;
-    TextFlow flow = null;
+    private GridPane grid = null;
+    private int gridx = 0;
+    private int gridy = 0;
+    private TextFlow flow = null;
 
-    int[] currentChapter = new int[6];
+    private final int[] currentChapter = new int[6];
 
     public MDFXNodeHelper(MDFXNode parent, String mdstring) {
         this.parent = parent;
@@ -54,7 +54,7 @@ class MDFXNodeHelper extends VBox {
         root.getStyleClass().add("markdown-paragraph-list");
         root.setFillWidth(true);
 
-        LinkedList<Extension> extensions = new LinkedList();
+        LinkedList<Extension> extensions = new LinkedList<>();
         extensions.add(TablesExtension.create());
         extensions.add(AttributesExtension.create());
         extensions.add(TaskListExtension.create());
@@ -95,7 +95,6 @@ class MDFXNodeHelper extends VBox {
         for (String elemStyleClass : elemStyleClass) {
             toAdd.getStyleClass().add(elemStyleClass);
         }
-        ;
         for (ConsumerHelper<Pair<Node, String>> f : elemFunctions) {
             f.accept(new Pair(toAdd, wholeText));
         }
@@ -307,7 +306,7 @@ class MDFXNodeHelper extends VBox {
             setAttrs(atts, false);
         }
 
-        public void visit(com.vladsch.flexmark.ast.Image image) {
+        public void visit(Image image) {
             String url = image.getUrl().toString();
             //System.out.println("imgUrl: " + image.getUrl());
             //System.out.println("img.getUrlContent: " + image.getUrlContent());
@@ -476,7 +475,7 @@ class MDFXNodeHelper extends VBox {
             List<AttributeNode> atts3 = (List<AttributeNode>) (Object) atts2;
 
             atts3.forEach(att -> {
-                if (att.getName().toLowerCase().equals("style")) {
+                if (att.getName().equalsIgnoreCase("style")) {
                     if (add) styles.add(att.getValue().toString());
                     else styles.remove(att.getValue().toString());
                 }

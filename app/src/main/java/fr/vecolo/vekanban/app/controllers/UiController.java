@@ -235,7 +235,7 @@ public class UiController {
     }
 
     @FXML
-    private void deleteAccount() {
+    protected void deleteAccount() {
         if (this.popupLaunch()) {
             try {
                 userService.deleteUser(user);
@@ -338,7 +338,7 @@ public class UiController {
     }
 
     @FXML
-    private void addNewProjectMember() {
+    protected void addNewProjectMember() {
         String memberEmail = newProjectMemberEmail.getText();
         if (isValidEmail(memberEmail)) {
             newProjectMembersEmailList.add(newProjectMemberEmail.getText());
@@ -364,7 +364,7 @@ public class UiController {
     }
 
     @FXML
-    private void createProject() {
+    protected void createProject() {
         if (StringUtils.hasLength(newProjectName.getText())) {
             Board board = new Board(newProjectName.getText(), user);
             board.setCardIdPrefix(newProjectPrefix.getText());

@@ -29,7 +29,7 @@ public class UiProjectCardController {
     private final FXMLLoaderHelper fxmlLoaderHelper;
     private final Resource popupYN;
     private final Stage popupYNStage = new Stage();
-    PopUpYNController popUpYNController;
+    private PopUpYNController popUpYNController;
     @FXML
     private Label projectTitle;
     @FXML

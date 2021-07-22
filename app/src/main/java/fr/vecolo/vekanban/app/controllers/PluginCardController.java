@@ -3,9 +3,7 @@ package fr.vecolo.vekanban.app.controllers;
 import fr.vecolo.vekanban.plugin_api.PluginInterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 @Controller

@@ -79,7 +79,7 @@ public class CardLabelServiceImpl implements CardLabelService {
     public void deleteCardLabel(CardLabel cardLabel) throws CardLabelRessourceException {
         try {
             for (Card card : cardService.findAllByAssignedBoardAndLabelsContaining(cardLabel.getBoard(), cardLabel)) {
-                card.setLabels(card.getLabels().stream().filter(o -> !(o.getId() == cardLabel.getId())).collect(Collectors.toList()));
+                card.setLabels(card.getLabels().stream().filter(o -> o.getId() != cardLabel.getId()).collect(Collectors.toList()));
                 cardService.saveOrUpdateCard(card);
             }
 

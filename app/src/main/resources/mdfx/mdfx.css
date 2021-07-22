@@ -105,12 +105,12 @@
     -fx-border-color: -mdfx-border-color-1;
     -fx-border-width: 0.5;
     -fx-background-radius: 8;
-    -fx-background-color: #00000009; /*  -mdfx-bg-color-3*/
+    -fx-background-color: #010131; /*  -mdfx-bg-color-3*/
 }
 
 .markdown-code-background {
     -fx-border-width: 0;
-    -fx-background-color: #0000AA10; /*  -mdfx-bg-color-3*/
+    -fx-background-color: #010131; /*  -mdfx-bg-color-3*/
 }
 
 .markdown-code-anti-padding {

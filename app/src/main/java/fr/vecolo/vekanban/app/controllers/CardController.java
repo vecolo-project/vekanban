@@ -106,7 +106,7 @@ public class CardController {
     }
 
     @FXML
-    private void deleteCard() {
+    protected void deleteCard() {
         if (popupLaunch()) {
             try {
                 cardService.deleteCard(card);

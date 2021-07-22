@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import org.pf4j.spring.SpringPluginManager;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -47,7 +46,7 @@ public class VekanbanApplication extends Application {
             e.printStackTrace();
         }
 
-        SpringPluginManager pluginManager = context.getBean(SpringPluginManager.class);
+//        SpringPluginManager pluginManager = context.getBean(SpringPluginManager.class);
 //        pluginManager.stopPlugins();
     }
 

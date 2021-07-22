@@ -127,7 +127,6 @@ public class GithubPlugin extends SpringPlugin {
 
         @Override
         public void setFilePath(String path) {
-
         }
 
         @Override
