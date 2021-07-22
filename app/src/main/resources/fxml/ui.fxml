@@ -159,7 +159,7 @@
                                 </TextField>
                             </children>
                         </HBox>
-                        <Label layoutX="10.0" layoutY="196.0" styleClass="h2" text="Nom du projet :" />
+                        <Label layoutX="10.0" layoutY="196.0" styleClass="h2" text="Nouveau mot de passe :" />
                         <HBox layoutX="10.0" layoutY="256.0" spacing="20.0">
                             <children>
                                 <PasswordField fx:id="profilUserPassword" prefWidth="500.0" promptText="Entrez votre nouveau mot de passe" style="-fx-border-color: #fefefe;" styleClass="h3" />

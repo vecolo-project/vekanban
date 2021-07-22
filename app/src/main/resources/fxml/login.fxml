@@ -96,7 +96,7 @@
                         </TextField>
                     </children>
                 </HBox>
-                <Label styleClass="h2" text="Nom du projet :"/>
+                <Label styleClass="h2" text="Mot de passe :"/>
                 <HBox spacing="20.0">
                     <children>
                         <PasswordField fx:id="profilUserPassword" prefWidth="500.0"

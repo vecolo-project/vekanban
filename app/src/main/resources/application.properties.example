@@ -8,7 +8,7 @@ spring.datasource.username={fillcredentials)
 spring.datasource.password={fillcredentials)
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 # Some custom config
-spring.application.ui.title=JavaFX Kanban App
+spring.application.ui.title=Vekanban
 spring.application.ui.width=1600
 spring.application.ui.height=800
 spring.application.login.title=Login Page
