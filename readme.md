@@ -2,6 +2,8 @@
 
 <!-- toc -->
 
+* [Syllabus](#syllabus)
+
 - [Installation](#installation)
   * [Build from maven](#build-from-maven)
   * [From release](#from-release)
@@ -16,6 +18,10 @@
   * [Plugin view](#plugin-view)
 
 <!-- tocstop -->
+
+# Syllabus
+
+ [Vekanban.pdf](./Vekanban.pdf) 
 
 # Installation
 
