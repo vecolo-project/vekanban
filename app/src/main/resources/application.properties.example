@@ -1,0 +1,16 @@
+# Disable server listening
+spring.main.web-application-type=none
+# Database config
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.initialization-mode=always
+spring.datasource.url=jdbc:mariadb://{host}:{port}/{database}
+spring.datasource.username={fillcredentials)
+spring.datasource.password={fillcredentials)
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+# Some custom config
+spring.application.ui.title=Vekanban
+spring.application.ui.width=1600
+spring.application.ui.height=800
+spring.application.login.title=Login Page
+spring.application.login.width=600
+spring.application.login.height=600

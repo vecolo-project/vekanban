@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>module-parent</artifactId>
+        <groupId>fr.vecolo.vekanban</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>github_plugin</artifactId>
+    <name>Github Plugin</name>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>fr.vecolo.vekanban</groupId>
+            <artifactId>plugin_api</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Plugin-Class>fr.vecolo.vekanban.plugin_1.GithubPlugin</Plugin-Class>
+                            <Plugin-Id>github-plugin</Plugin-Id>
+                            <Plugin-Version>1.0.0</Plugin-Version>
+                            <Plugin-Requires>1.0.0</Plugin-Requires>
+                            <Plugin-Dependencies/>
+                            <Plugin-Description>First impl of jar plugin</Plugin-Description>
+                            <Plugin-Provider>Noé Larrieu-Lacoste</Plugin-Provider>
+                            <Plugin-License/>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
